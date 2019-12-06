@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+ cezerin2:
+   image: docker.pkg.github.com/albis-group/leasekitsdk/albis-cezerin2:1.0
+   ports:
+     - 3001:80
+   environment:
+     - DB_HOST=db
+     - DB_PORT=27017
+     - DB_NAME=shop
+     - DB_USER=
+     - DB_PASS=
+     - API_BASE_URL=http://localhost:3001/api/v1
+     - STORE_BASE_URL=http://localhost:3000
+     - ADMIN_BASE_URL=http://localhost:3002
+     - ASSETS_BASE_URL=http://localhost:3001
+   volumes:
+     - ./content-on-host:/var/www/cezerin2/public/content
+   depends_on:
+     - db
+   restart: always
+
+ cezerin2-store:
+   image: docker.pkg.github.com/albis-group/leasekitsdk/albis-cezerin2-store:1.0
+   environment:
+     - API_BASE_URL=http://cezerin2/api/v1
+     - AJAX_BASE_URL=http://cezerin2/ajax
+     - ASSETS_BASE_URL=http://localhost:3001
+     - ALBIS_AUTH0ENDPOINT=
+     - ALBIS_API_ID=
+     - ALBIS_API_SECRET=
+     - ALBIS_SHOP_USERNAME=
+     - ALBIS_SHOP_PASSWORD=
+     - ALBIS_SHOP_REALM=
+     - ALBIS_AUDIENCE=
+     - ALBIS_GRANT_TYPE=
+     - NODE_ENV=development
+     - SDK_ENDPOINT=
+     - API_STAGE=staging
+   ports:
+     - 3000:80
+   depends_on:
+     - cezerin2
+   restart: always
+
+ admin:
+   image: docker.pkg.github.com/albis-group/leasekitsdk/albis-cezerin2-admin:1.0
+   ports:
+     - 3002:80
+   environment:
+   - API_BASE_URL=http://localhost:3001/api/v1
+   - API_WEB_SOCKET_URL=ws://localhost:3001
+   depends_on:
+     - cezerin2
+   restart: always
+
+ db:
+   image: mongo:3.6
+   ports:
+     - 27017:27017
+   volumes:
+     - ./db-on-host:/data/db
+   restart: always
