@@ -11,11 +11,11 @@ export async function getToken(
   audience,
   grant_type,
 ) {
-  let albisToken =
-    //commented only for tests, should be removed later
-    // (localStorage.getItem('albisToken') &&
-    //   JSON.parse(localStorage.getItem('albisToken'))) ||
-    {};
+  let LocalStorageToken = "{}"
+  if (!(typeof window === 'undefined')) {
+    LocalStorageToken = localStorage.getItem('albisToken')
+  }
+  let albisToken = JSON.parse(LocalStorageToken)
   const date = new Date();
   if (
     (_.isEmpty(albisToken) || albisToken.expires < new Date()) &&
@@ -66,13 +66,13 @@ export async function login(
     return Promise.resolve({ data: { access_token: 'testAlbisToken12345' } });
   return axios.post(auth0Endpoint, {
     headers: { 'content-type': 'application/json' },
-    username,
-    password,
-    realm,
+    // username,
+    // password,
+    // realm,
     client_id: APIid,
     client_secret: APIsecret,
-    audience: 'https://dev-r5lmoyyy.eu.auth0.com/api/v2/',
-    grant_type: 'http://auth0.com/oauth/grant-type/password-realm',
+    audience: audience,
+    grant_type: 'client_credentials',
   });
 }
 

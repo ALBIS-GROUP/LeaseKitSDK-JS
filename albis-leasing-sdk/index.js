@@ -29,16 +29,16 @@ class Albis {
    * @example
    *
    * new Albis(
-   *  { 
-   *    APIid: 'abcde', 
-   *    APIsecret: 'asdf', 
-   *    username: 'username', 
-   *    password: 'password', 
-   *    realm: 'shop', 
-   *    provision: 3, 
-   *    auth0Endpoint: 'https://urlToTokenProvider/token', 
-   *    audience:'https://urlToTokenProvider/v2', 
-   *    grant_type: 'https://urlToTokenProvider/password-realm', 
+   *  {
+   *    APIid: 'abcde',
+   *    APIsecret: 'asdf',
+   *    username: 'username',
+   *    password: 'password',
+   *    realm: 'shop',
+   *    provision: 3,
+   *    auth0Endpoint: 'https://urlToTokenProvider/token',
+   *    audience:'https://urlToTokenProvider/v2',
+   *    grant_type: 'https://urlToTokenProvider/password-realm',
    *    devMode: false
    *  })
    */
@@ -59,8 +59,8 @@ class Albis {
   /**
    * getAlbisToken() returns albisToken needed to call other Albis functions
    * 
-   * @returns {Object} Albis token
-   * 
+   * @returns {Object} albisToken
+   *
    * @example
    * getAlbisToken()
    */
@@ -80,26 +80,31 @@ class Albis {
    }
 
   /**
-   * ping() checks the connection with Albis API and shop credentials
-   *
-   * @param {Object} albisToken - token used to communication with Albis API
+   * ping(albisToken) checks the connection with Albis API and shop credentials
    * 
-   * @returns {string} "Successfully connected"
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {string} "{result: "pong"}"
    *
    * @example
-   * ping()
+   * ping({token: '1234'})
    */
 
   async ping(albisToken) {
     const endpoint = getEndpointPath('ping', this.devMode);
     return axios.get(endpoint, {
-      headers: { 'content-type': 'application/json' },
-      params: { APIid: this.APIid, token: 'abcdef' || albisToken },
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+      params: {
+        // APIid: this.APIid,
+      },
     });
   }
 
   /**
-   * getRates(values) retrieves proposed rates. Returned object is needed for proceed getApplication()
+   * getRates(values, albisToken) retrieves proposed rates. Returned object is needed for proceed getApplication(albisToken)
    *
    * @param {Object} values - An object with data for providing rate offers
    * @param {number} values.purchasePrice - Total net value of the cart [EUR]
@@ -107,8 +112,8 @@ class Albis {
    * @param {number=} values.downPayment - Net value of down payment [EUR]. Default 0
    * @param {number} values.contractType - Contract type FOR NOW contant 1                        ~~~~~
    * @param {string} values.paymentMethod - Payment options - possible values: 'quarterly' or 'monthly'
-   * @param {Object} albisToken - token used to communication with Albis API
-   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
    * @returns {Object} An Object with attributes passed to the function and additional attributes:
    * leaseTerm,
    * value,
@@ -117,26 +122,23 @@ class Albis {
    *
    * @example
    *
-   * getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 'quarterly'}, , {token: '12345'})
+   * getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 'quarterly'}, , { token: '12345' })
    */
 
   async getRates(values, albisToken) {
     let rates = {};
     const endpoint = getEndpointPath('rate', this.devMode);
 
-    //front validation
-    //const isValidate = await testGetRates(values);
-    //if (isValidate !== true) return testGetRates(values);
-
-    //mapping payment options
     values = {...values, paymentMethod: mapPaymentOption(values.paymentMethod)}
-    
-    rates = await axios.get(endpoint, {
-      headers: { 'content-type': 'application/json' },
+    rates = axios.get(endpoint, {
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
       params: {
-        APIid: this.APIid,
-        token: albisToken.token,
-        values: JSON.stringify({ ...values, provision: this.provision }),
+        ...values,
+        provision: this.provision,
+        // APIid: this.APIid,
       },
     });
 
@@ -144,7 +146,7 @@ class Albis {
   }
 
   /**
-   * saveApplication(values) saves an application
+   * saveApplication(values, albisToken) saves an application
    *
    * @param {Object} values - An object with values data
    * @param {string} values.object - Name of the object (80 char max)
@@ -170,7 +172,7 @@ class Albis {
    * @param {boolean} values.ssv
    * @param {number} values.serviceFee
    * @param {boolean} values.contractByEmail
-   * @param {Object} albisToken - token used to communication with Albis API
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
    * @returns "Application has been successufully sent"
    *
@@ -203,7 +205,7 @@ class Albis {
    *    ssv: true,
    *    serviceFee: 300,
    *    contractByEmail: true
-   * }, 
+   * },
    * {token: '12345'})
    */
 
@@ -225,21 +227,25 @@ class Albis {
     if (values.object.length > 80) {
       values = {...values, object: values.object.substring(0,77) + "..." }
     }
-
-    return axios.post(endpoint, {
-      headers: { 'content-type': 'application/json' },
-      params: {
-        APIid: this.APIid,
-        token: albisToken.token,
+    return axios.post(endpoint,
+      {
+        params: {
+        //APIid: this.APIid,
         application: JSON.stringify({...values, provision: this.provision}),
-      },
-    });
+      }
+    }, 
+      {
+        headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+       }
+    })
   }
 
   /**
-   * findApplication(id) finds application by its id
+   * findApplication(id, albisToken) finds application by its id
    * @param {number} id
-   * @param {Object} albisToken - token used to communication with Albis API
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
    * @returns {Object} An object with application data (see saveApplication function parameter)
    *
@@ -251,18 +257,22 @@ class Albis {
     const endpoint = getEndpointPath('application', this.devMode);
 
     return axios.get(endpoint, {
-      headers: { 'content-type': 'application/json' },
-      APIid: this.APIid,
-      token: albisToken.token,
-      applicationId: id,
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+      params: {
+        //APIid: this.APIid,
+        applicationId: id,
+      },
     });
   }
 
   /**
-   * updateApplication(id, leaseTerm) - lets to update a particular application - changes lease term and accordingly its value, etc.
+   * updateApplication(id, leaseTerm, albisToken) - lets to update a particular application - changes lease term and accordingly its value, etc.
    * @param {number} id
    * @param {number} leaseTerm
-   * @param {Object} albisToken - token used to communication with Albis API
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
    * @returns "Application has been successufully sent"
    *
@@ -288,12 +298,19 @@ class Albis {
     );
     const rate = rates.filter((rate) => rate.leaseTerm === leaseTerm);
     if (rate) {
-      return axios.put(endpoint, {
-        headers: { 'content-type': 'application/json' },
-        APIid: this.APIid,
-        token: albisToken.token,
-        applicationId: id,
-        leaseTerm: leaseTerm,
+      return axios.put(endpoint, 
+      {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      },
+      {
+        params: {
+          // APIid: this.APIid,
+          applicationId: id,
+          leaseTerm: leaseTerm,
+        },
       });
     } else {
       return new Promise.reject('There is no rate for chosen leaseTerm');
@@ -302,9 +319,9 @@ class Albis {
 
     /**
    * getLegalForms() get a map of all legal forms (needed for lessee data)
-   *
-   * @param {Object} albisToken - token used to communication with Albis API
    * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
    * @returns {Object} An object with legal forms and their respective IDs
    *
    * @example
@@ -315,9 +332,10 @@ class Albis {
     const endpoint = getEndpointPath('legalForms', this.devMode);
 
     const legalForms = await axios.get(endpoint, {
-      headers: { 'content-type': 'application/json' },
-      APIid: this.APIid,
-      token: albisToken.token,
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
     });
 
     return Object.values(legalForms)[0];
@@ -325,7 +343,7 @@ class Albis {
 
   async mapLegalForm(name, albisToken) {
     const list = await(this.getLegalForms(albisToken));
-    let result = list.find(lf => lf.text === name); 
+    let result = list.find(lf => lf.text === name);
     return result.id || 99;
   }
 }
