@@ -4,7 +4,7 @@ import Lscache from 'lscache';
 import { themeSettings, text } from '../../lib/settings';
 import { formatCurrency } from '../../lib/helper';
 import InputField from './inputField';
-import Albis from '@albisgroup/albis-leasing-sdk';
+import Albis from '@albis-group/albis-leasing-sdk';
 import BarLoader from 'react-spinners/BarLoader';
 
 const validateRequired = value =>

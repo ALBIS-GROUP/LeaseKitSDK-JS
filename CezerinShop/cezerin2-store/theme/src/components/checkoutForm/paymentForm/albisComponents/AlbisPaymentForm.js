@@ -3,7 +3,7 @@ import { Col, Button, Label } from 'reactstrap';
 import _ from 'lodash';
 import RatesForm from './RatesForm';
 import RatesResult from './RatesResult';
-import Albis from '@albisgroup/albis-leasing-sdk';
+import Albis from '@albis-group/albis-leasing-sdk';
 import BarLoader from 'react-spinners/BarLoader';
 
 class AlbisPaymentForm extends Component {

@@ -13,7 +13,7 @@ import {
 	RESERVED,
 	SEARCH
 } from '../shared/pageTypes';
-import Albis from '@albisgroup/albis-leasing-sdk';
+import Albis from '@albis-group/albis-leasing-sdk';
 import settings from './settings';
 
 const PRODUCT_FIELDS =
