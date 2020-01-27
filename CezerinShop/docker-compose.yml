@@ -15,6 +15,15 @@ services:
      - STORE_BASE_URL=http://localhost:3000
      - ADMIN_BASE_URL=http://localhost:3002
      - ASSETS_BASE_URL=http://localhost:3001
+     - ALBIS_AUTH0ENDPOINT=
+     - ALBIS_API_ID=
+     - ALBIS_API_SECRET=
+     - ALBIS_SHOP_USERNAME=
+     - ALBIS_SHOP_PASSWORD=
+     - ALBIS_SHOP_REALM=
+     - ALBIS_AUDIENCE=
+     - ALBIS_GRANT_TYPE=
+     - NODE_ENV=development
    volumes:
      - ./content-on-host:/var/www/cezerin2/public/content
    depends_on:
@@ -27,6 +36,15 @@ services:
      - API_BASE_URL=http://cezerin2/api/v1
      - AJAX_BASE_URL=http://cezerin2/ajax
      - ASSETS_BASE_URL=http://localhost:3001
+     - ALBIS_AUTH0ENDPOINT=
+     - ALBIS_API_ID=
+     - ALBIS_API_SECRET=
+     - ALBIS_SHOP_USERNAME=
+     - ALBIS_SHOP_PASSWORD=
+     - ALBIS_SHOP_REALM=
+     - ALBIS_AUDIENCE=
+     - ALBIS_GRANT_TYPE=
+     - NODE_ENV=development
    ports:
      - 3000:80
    depends_on:
