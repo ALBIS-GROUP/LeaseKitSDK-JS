@@ -25,5 +25,7 @@ module.exports = {
 	albisShopRealm: process.env.ALBIS_SHOP_REALM,
 	albisAudience: process.env.ALBIS_AUDIENCE,
 	albisGrantType: process.env.ALBIS_GRANT_TYPE,
+	SDKendpoint: process.env.SDK_ENDPOINT,
+	apiStage: process.env.API_STAGE,
 	nodeEnv: process.env.NODE_ENV
 };

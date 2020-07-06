@@ -48,7 +48,8 @@ class AlbisPaymentForm extends Component {
 	};
 
 	albis = new Albis({
-		devMode: true
+		SDKendpoint: this.props.SDKendpoint,
+		apiStage: this.props.apiStage
 	});
 
 	getRates = async values => {

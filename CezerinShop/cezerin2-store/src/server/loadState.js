@@ -237,11 +237,14 @@ export const loadState = (req, language) => {
 			realm: settings.albisShopRealm,
 			provision: 3,
 			auth0Endpoint: settings.albisAuth0Endpoint,
+			SDKendpoint: settings.SDKendpoint,
 			audience: settings.albisAudience,
-			grant_type: settings.albisGrantType,
-			devMode: true
-		}).getAlbisToken()
-	]).then(([currentPage, settings, themeText, placeholdersResponse, albisToken]) => {
+			grantType: settings.albisGrantType,
+			apiStage: settings.apiStage
+		}).getAlbisToken(),
+		settings.SDKendpoint,
+		settings.apiStage
+	]).then(([currentPage, settings, themeText, placeholdersResponse, albisToken, SDKendpoint, apiStage]) => {
 		const productFilter = getFilter(currentPage, urlQuery, settings);
 
 		return getAllData(currentPage, productFilter, cookie).then(allData => {
@@ -253,6 +256,8 @@ export const loadState = (req, language) => {
 				productFilter
 			);
 			state.app.albisToken = albisToken
+			state.app.SDKendpoint = SDKendpoint
+			state.app.apiStage = apiStage
 			return {
 				state,
 				themeText,

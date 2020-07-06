@@ -22,9 +22,11 @@ class Albis {
    * @param {string=} settings.realm - shop owner connection name
    * @param {number=} settings.provision - provision - defines how much commission, retailer wants to receives for each deal. Possible values min: 0, max: 5. Default 0.
    * @param {string=} settings.auth0Endpoint
+   * @param {string=} settings.SDKendpoint
    * @param {string=} settings.audience
-   * @param {string=} settings.grant_type
-   * @param {boolean} settings.devMode - defines proper API Gateway enpoints for requests (true - /staging, false - /v1)
+   * @param {string=} settings.grantType
+   * @param {boolean} settings.apiStage - defines proper API Gateway enpoints for requests (true - /staging, false - /v1)
+   * @param {string} settings.nodeEnv - defines the environment (development, production, test)
    *
    * @example
    *
@@ -37,9 +39,11 @@ class Albis {
    *    realm: 'shop',
    *    provision: 3,
    *    auth0Endpoint: 'https://urlToTokenProvider/token',
+   *    SDKendpoint: 'https://sdkEndpoint',
    *    audience:'https://urlToTokenProvider/v2',
-   *    grant_type: 'https://urlToTokenProvider/password-realm',
-   *    devMode: false
+   *    grantType: 'https://urlToTokenProvider/password-realm',
+   *    apiStage: staging,
+   *    nodeEnv: 'development'
    *  })
    */
 
@@ -51,9 +55,11 @@ class Albis {
     this.realm = settings.realm;
     this.provision = settings.provision;
     this.auth0Endpoint = settings.auth0Endpoint;
+    this.SDKendpoint = settings.SDKendpoint;
     this.audience = settings.audience;
-    this.grant_type = settings.grant_type;
-    this.devMode = settings.devMode;
+    this.grantType = settings.grantType;
+    this.apiStage = settings.apiStage;
+    this.nodeEnv = settings.nodeEnv
   }
 
   /**
@@ -74,7 +80,8 @@ class Albis {
       this.password,
       this.realm,
       this.audience,
-      this.grant_type,
+      this.grantType,
+      this.nodeEnv
     );
     return albisToken
    }
@@ -91,14 +98,11 @@ class Albis {
    */
 
   async ping(albisToken) {
-    const endpoint = getEndpointPath('ping', this.devMode);
+    const endpoint = getEndpointPath('ping', this.apiStage, this.SDKendpoint, this.nodeEnv);
     return axios.get(endpoint, {
       headers: {
         'content-type': 'application/json',
         'Authorization': `Bearer ${albisToken.token}`,
-      },
-      params: {
-        // APIid: this.APIid,
       },
     });
   }
@@ -117,7 +121,7 @@ class Albis {
    * @returns {Object} An Object with attributes passed to the function and additional attributes:
    * leaseTerm,
    * value,
-   * ensurance
+   * insurance
    * finalPayment (if there is an opportunity to shrotening the lease term)
    *
    * @example
@@ -127,7 +131,7 @@ class Albis {
 
   async getRates(values, albisToken) {
     let rates = {};
-    const endpoint = getEndpointPath('rate', this.devMode);
+    const endpoint = getEndpointPath('rate', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
     values = {...values, paymentMethod: mapPaymentOption(values.paymentMethod)}
     rates = axios.get(endpoint, {
@@ -138,7 +142,6 @@ class Albis {
       params: {
         ...values,
         provision: this.provision,
-        // APIid: this.APIid,
       },
     });
 
@@ -210,7 +213,7 @@ class Albis {
    */
 
   async saveApplication(values, albisToken) {
-    const endpoint = getEndpointPath('application', this.devMode);
+    const endpoint = getEndpointPath('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
     //mapping payment options
     values = {...values, paymentMethod: mapPaymentOption(values.paymentMethod)}
@@ -230,7 +233,6 @@ class Albis {
     return axios.post(endpoint,
       {
         params: {
-        //APIid: this.APIid,
         application: JSON.stringify({...values, provision: this.provision}),
       }
     }, 
@@ -254,7 +256,7 @@ class Albis {
    */
 
   async findApplication(id, albisToken) {
-    const endpoint = getEndpointPath('application', this.devMode);
+    const endpoint = getEndpointPath('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
     return axios.get(endpoint, {
       headers: { 
@@ -262,7 +264,6 @@ class Albis {
         'Authorization': `Bearer ${albisToken.token}`,
       },
       params: {
-        //APIid: this.APIid,
         applicationId: id,
       },
     });
@@ -281,7 +282,7 @@ class Albis {
    */
 
   async updateApplication(id, leaseTerm, albisToken) {
-    const endpoint = getEndpointPath('application', this.devMode);
+    const endpoint = getEndpointPath('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
     //check if chosen lease term exist for those values
 
@@ -307,7 +308,6 @@ class Albis {
       },
       {
         params: {
-          // APIid: this.APIid,
           applicationId: id,
           leaseTerm: leaseTerm,
         },
@@ -329,7 +329,7 @@ class Albis {
    */
 
   async getLegalForms(albisToken) {
-    const endpoint = getEndpointPath('legalForms', this.devMode);
+    const endpoint = getEndpointPath('legalForms', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
     const legalForms = await axios.get(endpoint, {
       headers: { 

@@ -9,7 +9,8 @@ export async function getToken(
   password,
   realm,
   audience,
-  grant_type,
+  grantType,
+  nodeEnv
 ) {
   let LocalStorageToken = "{}"
   if (!(typeof window === 'undefined')) {
@@ -19,7 +20,7 @@ export async function getToken(
   const date = new Date();
   if (
     (_.isEmpty(albisToken) || albisToken.expires < new Date()) &&
-    process.env.NODE_ENV !== 'test'
+    nodeEnv !== 'test'
   ) {
     let token = {};
     try {
@@ -31,7 +32,8 @@ export async function getToken(
         password,
         realm,
         audience,
-        grant_type,
+        grantType,
+        nodeEnv
       );
     } catch (err) {
       return `Error occured during authentication: ${err}`;
@@ -60,41 +62,34 @@ export async function login(
   password,
   realm,
   audience,
-  grant_type,
+  grantType,
+  nodeEnv
 ) {
-  if (process.env.NODE_ENV === 'test')
-    return Promise.resolve({ data: { access_token: 'testAlbisToken12345' } });
+  if (nodeEnv === 'test')
+    return Promise.resolve({ data: { access_token: 'testAuth0Token12345' } });
   return axios.post(auth0Endpoint, {
     headers: { 'content-type': 'application/json' },
-    // username,
-    // password,
-    // realm,
+    username,
+    password,
+    realm,
     client_id: APIid,
     client_secret: APIsecret,
-    audience: audience,
-    grant_type: 'client_credentials',
+    audience,
+    grant_type: grantType,
   });
 }
 
-export function getEndpointPath(resource, devMode) {
-  if (resource === 'ping' && devMode)
-    return 'https://mzgz6czl6h.execute-api.eu-central-1.amazonaws.com/staging/ping';
-  if (resource === 'ping' && !devMode)
-    return 'https://mzgz6czl6h.execute-api.eu-central-1.amazonaws.com/v1/ping';
-  if (resource === 'rate' && process.env.NODE_ENV === 'test')
-    return 'http://localhost:3000/testModels/rates.json';
-  if (resource === 'rate' && devMode)
-    return 'https://mzgz6czl6h.execute-api.eu-central-1.amazonaws.com/staging/rate';
-  if (resource === 'rate' && !devMode)
-    return 'https://mzgz6czl6h.execute-api.eu-central-1.amazonaws.com/v1/rate';
-  if (resource === 'application' && devMode)
-    return 'https://mzgz6czl6h.execute-api.eu-central-1.amazonaws.com/staging/application';
-  if (resource === 'application' && !devMode)
-    return 'https://mzgz6czl6h.execute-api.eu-central-1.amazonaws.com/v1/application';
-  if (resource === 'legalForms' && devMode)
-    return 'https://mzgz6czl6h.execute-api.eu-central-1.amazonaws.com/staging/legal-forms';
-  if (resource === 'legalForms' && !devMode)
-    return 'https://mzgz6czl6h.execute-api.eu-central-1.amazonaws.com/v1/legal-forms';
+export function getEndpointPath(resource, apiStage, SDKendpoint, nodeEnv) {
+  if (resource === 'ping')
+    return `${SDKendpoint}/${apiStage}/ping`;
+  if (resource === 'rate' && nodeEnv === 'test')
+    return `http://localhost:3000/testModels/rates.json`;
+  if (resource === 'rate')
+    return `${SDKendpoint}/${apiStage}/rate`;
+  if (resource === 'application')
+    return `${SDKendpoint}/${apiStage}/application`;
+  if (resource === 'legalForms')
+    return `${SDKendpoint}/${apiStage}/legal-forms`;
   return "Such endpoint doesn't exist";
 }
 
@@ -145,6 +140,7 @@ export async function testGetRates(values) {
 export function mapPaymentOption(paymentOption) {
   const paymentOptions = {
     quarterly: 1,
+    monthly: 2
   };
-  return paymentOptions[paymentOption] || 2;
+  return paymentOptions[paymentOption];
 }

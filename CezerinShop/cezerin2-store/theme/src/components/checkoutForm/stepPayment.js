@@ -15,7 +15,9 @@ const CheckoutStepPayment = props => {
 		show,
 		title,
 		onCreateToken,
-		setApplicationId
+		setApplicationId,
+		SDKendpoint,
+		apiStage
 	} = props;
 
 	const { payment_method_gateway, grand_total } = cart;
@@ -40,6 +42,8 @@ const CheckoutStepPayment = props => {
 				{!processingCheckout && (
 					<PaymentForm
 						albisToken={albisToken}
+						SDKendpoint={SDKendpoint}
+						apiStage={apiStage}
 						cart={cart}
 						gateway={payment_method_gateway}
 						amount={grand_total}

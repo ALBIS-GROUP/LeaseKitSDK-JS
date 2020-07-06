@@ -63,7 +63,7 @@ class Albis {
     this.provision = provision;
     this.auth0Endpoint = 'https://dev-r5lmoyyy.eu.auth0.com/oauth/token';
     this.audience = 'https://dev-r5lmoyyy.eu.auth0.com/api/v2/';
-    this.grant_type = 'http://auth0.com/oauth/grant-type/password-realm';
+    this.grantType = 'http://auth0.com/oauth/grant-type/password-realm';
     this.devMode = devMode;
     this.lessee = {};
     this.listOfLegalForms = null;
@@ -88,7 +88,7 @@ class Albis {
       this.password,
       this.realm,
       this.audience,
-      this.grant_type,
+      this.grantType,
     );
     return axios.get(endpoint, {
       headers: { 'content-type': 'application/json' },
@@ -127,7 +127,7 @@ class Albis {
       this.password,
       this.realm,
       this.audience,
-      this.grant_type,
+      this.grantType,
     );
     const endpoint = getEndpointPath('rate', this.devMode);
 
@@ -221,7 +221,7 @@ class Albis {
       this.password,
       this.realm,
       this.audience,
-      this.grant_type,
+      this.grantType,
     );
     const endpoint = getEndpointPath('application', this.devMode);
 
@@ -266,7 +266,7 @@ class Albis {
       this.password,
       this.realm,
       this.audience,
-      this.grant_type,
+      this.grantType,
     );
     const endpoint = getEndpointPath('application', this.devMode);
 
@@ -298,7 +298,7 @@ class Albis {
       this.password,
       this.realm,
       this.audience,
-      this.grant_type,
+      this.grantType,
     );
     const endpoint = getEndpointPath('application', this.devMode);
 
@@ -350,7 +350,7 @@ class Albis {
       this.password,
       this.realm,
       this.audience,
-      this.grant_type,
+      this.grantType,
     );
     const endpoint = getEndpointPath('legalForms', this.devMode);
 

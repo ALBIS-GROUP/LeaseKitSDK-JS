@@ -141,6 +141,8 @@ export default class CheckoutForm extends React.Component {
 
 		const {
 			albisToken,
+			SDKendpoint,
+			apiStage,
 			settings,
 			cart,
 			customerProperties,
@@ -181,6 +183,8 @@ export default class CheckoutForm extends React.Component {
 				<div className="checkout-form">
 					<CheckoutStepContacts
 						albisToken={albisToken}
+						SDKendpoint={SDKendpoint}
+						apiStage={apiStage}
 						cart={cart}
 						isReadOnly={step > 1}
 						title={text.customerDetails}
@@ -226,6 +230,8 @@ export default class CheckoutForm extends React.Component {
 					{showPaymentForm && (
 						<CheckoutStepPayment
 							albisToken={albisToken}
+							SDKendpoint={SDKendpoint}
+							apiStage={apiStage}
 							show={step === 3}
 							title={text.payment}
 							inputClassName={checkoutInputClass}

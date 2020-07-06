@@ -37,14 +37,17 @@ class CheckoutStepContacts extends React.Component {
 			legalFormsList: [],
 			isLoadingLegalForms: true,
 			error: { errorLegalForms: null },
-			token: this.props.albisToken
+			token: this.props.albisToken,
+			SDKendpoint: this.props.SDKendpoint,
+			apiStage: this.props.apiStage
 		};
 
 		this.setInitialValues = this.setInitialValues.bind(this);
 	}
 
 	albis = new Albis({
-		devMode: true
+		SDKendpoint: this.props.SDKendpoint,
+		apiStage: this.props.apiStage
 	});
 
 	getLegalFormsList = async () => {
