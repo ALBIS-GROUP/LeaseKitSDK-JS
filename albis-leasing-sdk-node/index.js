@@ -1,7 +1,7 @@
-import axios from 'axios';
-import _ from 'lodash';
-import { getEndpointPath, getToken, testGetRates } from './helpers';
-import { mapPaymentOption } from './helpers';
+const axios = require('axios');
+const _ = require('lodash');
+const { getEndpointPath, getToken } = require('./helpers');
+const { mapPaymentOption } = require('./helpers');
 
 // run:
 // jsdoc -d ./public/doc/ src/utils/albis.js to create a documentation for this file
@@ -338,7 +338,7 @@ class Albis {
       },
     });
 
-    return Object.values(legalForms)[0];
+    return legalForms.data;
   }
 
   async mapLegalForm(name, albisToken) {
@@ -348,4 +348,4 @@ class Albis {
   }
 }
 
-export default Albis;
+module.exports = Albis;
