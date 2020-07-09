@@ -329,7 +329,7 @@ class Albis {
    */
 
   async getLegalForms(albisToken) {
-    const endpoint = getEndpointPath('legalForms', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    const endpoint = getEndpointPath('legal-forms', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
     const legalForms = await axios.get(endpoint, {
       headers: { 

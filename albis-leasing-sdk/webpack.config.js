@@ -9,12 +9,8 @@ module.exports = ['source-map'].map((devtool) => ({
     library: 'albis-leasing-sdk',
     libraryTarget: 'umd',
     globalObject: 'this',
-    
   },
   devtool,
-  // optimization: {
-  //   runtimeChunk: true,
-  // },
   externals: {
     lodash: {
       commonjs: 'lodash',

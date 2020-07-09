@@ -80,17 +80,9 @@ export async function login(
 }
 
 export function getEndpointPath(resource, apiStage, SDKendpoint, nodeEnv) {
-  if (resource === 'ping')
-    return `${SDKendpoint}/${apiStage}/ping`;
   if (resource === 'rate' && nodeEnv === 'test')
     return `http://localhost:3000/testModels/rates.json`;
-  if (resource === 'rate')
-    return `${SDKendpoint}/${apiStage}/rate`;
-  if (resource === 'application')
-    return `${SDKendpoint}/${apiStage}/application`;
-  if (resource === 'legalForms')
-    return `${SDKendpoint}/${apiStage}/legal-forms`;
-  return "Such endpoint doesn't exist";
+  return `${SDKendpoint}/${apiStage}/${resource}`;
 }
 
 export async function testGetRates(values) {
