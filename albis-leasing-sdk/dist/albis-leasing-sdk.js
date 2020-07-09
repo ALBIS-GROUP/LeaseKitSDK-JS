@@ -100,7 +100,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!************************!*\
   !*** ./src/helpers.js ***!
   \************************/
-/*! exports provided: getToken, login, getEndpointPath, testGetRates, mapPaymentOption */
+/*! exports provided: getToken, login, getEndpointPath, mapPaymentOption */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -108,7 +108,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getToken", function() { return getToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEndpointPath", function() { return getEndpointPath; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "testGetRates", function() { return testGetRates; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapPaymentOption", function() { return mapPaymentOption; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "axios");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -196,61 +195,9 @@ async function login(
 }
 
 function getEndpointPath(resource, apiStage, SDKendpoint, nodeEnv) {
-  if (resource === 'ping')
-    return `${SDKendpoint}/${apiStage}/ping`;
   if (resource === 'rate' && nodeEnv === 'test')
     return `http://localhost:3000/testModels/rates.json`;
-  if (resource === 'rate')
-    return `${SDKendpoint}/${apiStage}/rate`;
-  if (resource === 'application')
-    return `${SDKendpoint}/${apiStage}/application`;
-  if (resource === 'legalForms')
-    return `${SDKendpoint}/${apiStage}/legal-forms`;
-  return "Such endpoint doesn't exist";
-}
-
-async function testGetRates(values) {
-  if (isNaN(values.purchasePrice))
-    return Promise.reject('purchasePrice has not a proper type');
-  if (isNaN(values.productGroup))
-    return Promise.reject('productGroup has not a proper type');
-
-  if (isNaN(values.contractType))
-    return Promise.reject('contractType has not a proper type');
-
-  if (isNaN(values.provision))
-    return Promise.reject('provision has not a proper type');
-
-  if (
-    !(
-      typeof values.downPayment === 'number' ||
-      values.downPayment === undefined ||
-      values.downPayment === null
-    )
-  ) {
-    return Promise.reject('downPayment has not a proper type');
-  }
-
-  if (typeof values.paymentMethod !== 'string') {
-    return Promise.reject('paymentMethod has not a proper type');
-  }
-
-  if (values.provision > 5 || values.provision < 0) {
-    return Promise.reject(
-      'Error has occured - provision value exceeds range 0-5',
-    );
-  }
-
-  if (
-    !(
-      values.paymentMethod === 'monthly' || values.paymentMethod === 'quarterly'
-    )
-  ) {
-    return Promise.reject(
-      "Error has occured - provision option has uncorrect value. Should be 'monthly' or 'quartely'",
-    );
-  }
-  return true;
+  return `${SDKendpoint}/${apiStage}/${resource}`;
 }
 
 function mapPaymentOption(paymentOption) {
@@ -524,79 +471,6 @@ class Albis {
     })
   }
 
-  /**
-   * findApplication(id, albisToken) finds application by its id
-   * @param {number} id
-   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
-   *
-   * @returns {Object} An object with application data (see saveApplication function parameter)
-   *
-   * @example
-   * findApplication(54321, {token: '12345'})
-   */
-
-  async findApplication(id, albisToken) {
-    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
-
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-      params: {
-        applicationId: id,
-      },
-    });
-  }
-
-  /**
-   * updateApplication(id, leaseTerm, albisToken) - lets to update a particular application - changes lease term and accordingly its value, etc.
-   * @param {number} id
-   * @param {number} leaseTerm
-   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
-   *
-   * @returns "Application has been successufully sent"
-   *
-   * @example
-   * updateApplication(54321, 24, {token: '12345'})
-   */
-
-  async updateApplication(id, leaseTerm, albisToken) {
-    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
-
-    //check if chosen lease term exist for those values
-
-    const app = await this.findApplication(id);
-    const rates = await this.getRates(
-      lodash__WEBPACK_IMPORTED_MODULE_1___default.a.pick(app.rate, [
-        'purchasePrice',
-        'productGroup',
-        'downPayment',
-        'contractType',
-        'paymentMethod',
-        'provision',
-      ]),
-    );
-    const rate = rates.filter((rate) => rate.leaseTerm === leaseTerm);
-    if (rate) {
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(endpoint, 
-      {
-        headers: { 
-          'content-type': 'application/json',
-          'Authorization': `Bearer ${albisToken.token}`,
-        },
-      },
-      {
-        params: {
-          applicationId: id,
-          leaseTerm: leaseTerm,
-        },
-      });
-    } else {
-      return new Promise.reject('There is no rate for chosen leaseTerm');
-    }
-  }
-
     /**
    * getLegalForms() get a map of all legal forms (needed for lessee data)
    * 
@@ -609,7 +483,7 @@ class Albis {
    */
 
   async getLegalForms(albisToken) {
-    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('legalForms', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('legal-forms', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
     const legalForms = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
       headers: { 

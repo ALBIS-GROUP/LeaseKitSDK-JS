@@ -1,6 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
-import { getEndpointPath, getToken, testGetRates } from './helpers';
+import { getEndpointPath, getToken } from './helpers';
 import { mapPaymentOption } from './helpers';
 
 // run:
@@ -242,79 +242,6 @@ class Albis {
         'Authorization': `Bearer ${albisToken.token}`,
        }
     })
-  }
-
-  /**
-   * findApplication(id, albisToken) finds application by its id
-   * @param {number} id
-   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
-   *
-   * @returns {Object} An object with application data (see saveApplication function parameter)
-   *
-   * @example
-   * findApplication(54321, {token: '12345'})
-   */
-
-  async findApplication(id, albisToken) {
-    const endpoint = getEndpointPath('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
-
-    return axios.get(endpoint, {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-      params: {
-        applicationId: id,
-      },
-    });
-  }
-
-  /**
-   * updateApplication(id, leaseTerm, albisToken) - lets to update a particular application - changes lease term and accordingly its value, etc.
-   * @param {number} id
-   * @param {number} leaseTerm
-   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
-   *
-   * @returns "Application has been successufully sent"
-   *
-   * @example
-   * updateApplication(54321, 24, {token: '12345'})
-   */
-
-  async updateApplication(id, leaseTerm, albisToken) {
-    const endpoint = getEndpointPath('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
-
-    //check if chosen lease term exist for those values
-
-    const app = await this.findApplication(id);
-    const rates = await this.getRates(
-      _.pick(app.rate, [
-        'purchasePrice',
-        'productGroup',
-        'downPayment',
-        'contractType',
-        'paymentMethod',
-        'provision',
-      ]),
-    );
-    const rate = rates.filter((rate) => rate.leaseTerm === leaseTerm);
-    if (rate) {
-      return axios.put(endpoint, 
-      {
-        headers: { 
-          'content-type': 'application/json',
-          'Authorization': `Bearer ${albisToken.token}`,
-        },
-      },
-      {
-        params: {
-          applicationId: id,
-          leaseTerm: leaseTerm,
-        },
-      });
-    } else {
-      return new Promise.reject('There is no rate for chosen leaseTerm');
-    }
   }
 
     /**
