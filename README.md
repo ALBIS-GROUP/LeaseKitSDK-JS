@@ -28,3 +28,62 @@ Hier über GitHub finden Enwickler alle notwendigen und hilfreichen Informatione
 - Dokumentation
 - Bibliotheken für gängige Programmiersprachen (soweit verfügbar)
 - Code-Beispiele inklusive Beispiel-Shop-Integration
+
+## Installation
+
+Wenn Sie “npm“ verwenden:
+
+```bash
+$ npm install @albis-group/albis-leasing-sdk
+```
+
+Wenn Sie “yarn” verwenden:
+
+```bash
+$ yarn add @albis-group/albis-leasing-sdk
+```
+
+## Beispiel
+
+### CommonJS Nutzung
+
+Um die TypeScript-Schreibweisen (für intellisense / autocomplete) bei der Verwendung von CommonJS-Importen mit `require()` zu erhalten, gehen Sie folgendermaßen vor:
+
+```js
+const Albis = require('@albis-group/albis-leasing-sdk').default;
+
+// Albis.<method> Autovervollständigung und Parametereingaben stehen jetzt zur Verfügung
+```
+
+### Browser Nutzung
+
+```js
+import Albis from '@albis-group/albis-leasing-sdk';
+
+```
+
+Beispiel Code:
+```js
+const albis = new Albis({
+  APIid: 'albisApiId',
+  APIsecret: 'albisApiSecret',
+  username: 'albisShopUsername',
+  password: 'albisPassword',
+  realm: 'albisShopRealm',
+  provision: 3,
+  auth0Endpoint: 'albisAuth0Endpoint',
+  SDKendpoint: 'SDKendpoint',
+  audience: 'albisAudience',
+  grantType: 'albisGrantType',
+  apiStage: 'apiStage'
+})
+
+const token = albis.getAlbisToken()
+
+const rates = albis.getRates({
+  purchasePrice: 5000,
+  productGroup: 1,
+  downPayment: 0,
+  contractType: 1,
+  paymentMethod: 'monthly'
+  }, token)
