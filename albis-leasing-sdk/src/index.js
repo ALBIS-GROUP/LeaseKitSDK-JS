@@ -5,6 +5,8 @@ import { mapPaymentOption } from './helpers';
 
 // run:
 // jsdoc -d ./public/doc/ src/utils/albis.js to create a documentation for this file
+// OR if .md file needed
+// jsdoc2md path/to/JSfile.js  > yourFile.md
 
 /**
  * An Albis class
@@ -21,12 +23,12 @@ class Albis {
    * @param {string=} settings.password - shop owner or shop admin password
    * @param {string=} settings.realm - shop owner connection name
    * @param {number=} settings.provision - provision - defines how much commission, retailer wants to receives for each deal. Possible values min: 0, max: 5. Default 0.
-   * @param {string=} settings.auth0Endpoint
-   * @param {string=} settings.SDKendpoint
-   * @param {string=} settings.audience
-   * @param {string=} settings.grantType
-   * @param {boolean} settings.apiStage - defines proper API Gateway enpoints for requests (true - /staging, false - /v1)
-   * @param {string} settings.nodeEnv - defines the environment (development, production, test)
+   * @param {string=} settings.auth0Endpoint - Auth0 endpoint - needed to create a token usable in Albis methods
+   * @param {string=} settings.SDKendpoint - SDK endpoint
+   * @param {string=} settings.audience - Auth0 audience - needed to create a token usable in Albis methods
+   * @param {string=} settings.grantType - Auth0 grantType - needed to create a token usable in Albis methods
+   * @param {boolean=} settings.apiStage - defines proper API Gateway endpoints stage (API version) for requests 
+   * @param {string=} settings.nodeEnv - defines the environment (development, production, test)
    *
    * @example
    *
@@ -42,7 +44,7 @@ class Albis {
    *    SDKendpoint: 'https://sdkEndpoint',
    *    audience:'https://urlToTokenProvider/v2',
    *    grantType: 'https://urlToTokenProvider/password-realm',
-   *    apiStage: staging,
+   *    apiStage: 'staging',
    *    nodeEnv: 'development'
    *  })
    */
@@ -153,31 +155,31 @@ class Albis {
    *
    * @param {Object} values - An object with values data
    * @param {string} values.object - Name of the object (80 char max)
-   * @param {number} values.purchasePrice
-   * @param {number} values.downPayment
-   * @param {number} values.leasePayments
-   * @param {number} values.leaseTerm
-   * @param {number} values.leasePaymentsWithInsurance
-   * @param {number} values.finalPayment
+   * @param {number} values.purchasePrice - purchase price (object value)
+   * @param {number} values.downPayment - down payment
+   * @param {number} values.leasePayments - lease payments (returned from getRates() method)
+   * @param {number} values.leaseTerm - lease term (returned from getRates() method)
+   * @param {number} values.leasePaymentsWithInsurance - lease payments with insurance (returned from getRates() method)
+   * @param {number} values.finalPayment - final payment (returned from getRates() method)
    * @param {Object} values.lessee
-   * @param {string} values.lessee.name
-   * @param {string} values.lessee.street
-   * @param {number} values.lessee.zipCode
-   * @param {string} values.lessee.city
-   * @param {string} values.lessee.phoneNumber
-   * @param {string} values.lessee.email
-   * @param {string} values.lessee.legalForm
-   * @param {number} values.provision
-   * @param {string} values.productGroup
-   * @param {string} values.contractType
-   * @param {string} values.paymentMethod
-   * @param {string} values.iban
-   * @param {boolean} values.ssv
-   * @param {number} values.serviceFee
-   * @param {boolean} values.contractByEmail
+   * @param {string} values.lessee.name - lessee name
+   * @param {string} values.lessee.street - lessee street
+   * @param {number} values.lessee.zipCode - lessee zip code
+   * @param {string} values.lessee.city - lessee city
+   * @param {string} values.lessee.phoneNumber - lessee phone number
+   * @param {string} values.lessee.email - lessee email
+   * @param {string} values.lessee.legalForm - lessee legal form
+   * @param {number} values.provision - shop provision
+   * @param {string} values.productGroup - product group
+   * @param {string} values.contractType - contract type
+   * @param {string} values.paymentMethod - payment method ('monthly' or 'quarterly')
+   * @param {string} values.iban - iban
+   * @param {boolean} values.ssv - insurance value
+   * @param {number} values.serviceFee - service fee
+   * @param {boolean} values.contractByEmail - is contact by email required
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns "Application has been successufully sent"
+   * @returns {number} a unique number of the application
    *
    * @example
    *
