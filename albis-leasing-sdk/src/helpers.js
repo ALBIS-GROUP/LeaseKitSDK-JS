@@ -2,21 +2,18 @@ import axios from 'axios';
 import _ from 'lodash';
 
 export async function getToken(
-  APIid,
-  APIsecret,
-  auth0Endpoint,
+  SDKendpoint,
+  apiStage,
   username,
   password,
   realm,
-  audience,
-  grantType,
   nodeEnv
 ) {
-  let LocalStorageToken = "{}"
+  let localStorageToken = "{}"
   if (!(typeof window === 'undefined')) {
-    LocalStorageToken = localStorage.getItem('albisToken')
+    localStorageToken = localStorage.getItem('albisToken')
   }
-  let albisToken = JSON.parse(LocalStorageToken)
+  let albisToken = JSON.parse(localStorageToken)
   const date = new Date();
   if (
     (_.isEmpty(albisToken) || albisToken.expires < new Date()) &&
@@ -24,17 +21,15 @@ export async function getToken(
   ) {
     let token = {};
     try {
-      token = await login(
-        APIid,
-        APIsecret,
-        auth0Endpoint,
+      const tokenStringified = await login(
+        SDKendpoint,
+        apiStage,
         username,
         password,
         realm,
-        audience,
-        grantType,
         nodeEnv
       );
+      token = JSON.parse(tokenStringified)
     } catch (err) {
       return `Error occured during authentication: ${err}`;
     }
@@ -55,27 +50,22 @@ export async function getToken(
 }
 
 export async function login(
-  APIid,
-  APIsecret,
-  auth0Endpoint,
+  SDKendpoint,
+  apiStage,
   username,
   password,
   realm,
-  audience,
-  grantType,
   nodeEnv
 ) {
   if (nodeEnv === 'test')
     return Promise.resolve({ data: { access_token: 'testAuth0Token12345' } });
-  return axios.post(auth0Endpoint, {
+
+  const endpoint = getEndpointPath('token', apiStage, SDKendpoint, nodeEnv);
+  return axios.post(endpoint, {
     headers: { 'content-type': 'application/json' },
     username,
     password,
     realm,
-    client_id: APIid,
-    client_secret: APIsecret,
-    audience,
-    grant_type: grantType,
   });
 }
 

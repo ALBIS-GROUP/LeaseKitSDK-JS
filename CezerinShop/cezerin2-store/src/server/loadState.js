@@ -230,16 +230,11 @@ export const loadState = (req, language) => {
 		themeLocales.getText(language),
 		api.theme.placeholders.list(),
 		new Albis({
-			APIid: settings.albisApiId,
-			APIsecret: settings.albisApiSecret,
 			username: settings.albisShopUsername,
 			password: settings.albisPassword,
 			realm: settings.albisShopRealm,
 			provision: 3,
-			auth0Endpoint: settings.albisAuth0Endpoint,
 			SDKendpoint: settings.SDKendpoint,
-			audience: settings.albisAudience,
-			grantType: settings.albisGrantType,
 			apiStage: settings.apiStage
 		}).getAlbisToken(),
 		settings.SDKendpoint,

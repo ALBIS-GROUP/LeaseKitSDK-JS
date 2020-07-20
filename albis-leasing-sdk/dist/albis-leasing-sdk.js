@@ -118,21 +118,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 async function getToken(
-  APIid,
-  APIsecret,
-  auth0Endpoint,
+  SDKendpoint,
+  apiStage,
   username,
   password,
   realm,
-  audience,
-  grantType,
   nodeEnv
 ) {
-  let LocalStorageToken = "{}"
+  let localStorageToken = "{}"
   if (!(typeof window === 'undefined')) {
-    LocalStorageToken = localStorage.getItem('albisToken')
+    localStorageToken = localStorage.getItem('albisToken')
   }
-  let albisToken = JSON.parse(LocalStorageToken)
+  let albisToken = JSON.parse(localStorageToken)
   const date = new Date();
   if (
     (lodash__WEBPACK_IMPORTED_MODULE_1___default.a.isEmpty(albisToken) || albisToken.expires < new Date()) &&
@@ -141,14 +138,11 @@ async function getToken(
     let token = {};
     try {
       token = await login(
-        APIid,
-        APIsecret,
-        auth0Endpoint,
+        SDKendpoint,
+        apiStage,
         username,
         password,
         realm,
-        audience,
-        grantType,
         nodeEnv
       );
     } catch (err) {
@@ -171,27 +165,22 @@ async function getToken(
 }
 
 async function login(
-  APIid,
-  APIsecret,
-  auth0Endpoint,
+  SDKendpoint,
+  apiStage,
   username,
   password,
   realm,
-  audience,
-  grantType,
   nodeEnv
 ) {
   if (nodeEnv === 'test')
     return Promise.resolve({ data: { access_token: 'testAuth0Token12345' } });
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(auth0Endpoint, {
+
+  const endpoint = getEndpointPath('token', apiStage, SDKendpoint, nodeEnv);
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint, {
     headers: { 'content-type': 'application/json' },
     username,
     password,
     realm,
-    client_id: APIid,
-    client_secret: APIsecret,
-    audience,
-    grant_type: grantType,
   });
 }
 
@@ -285,6 +274,8 @@ __webpack_require__.r(__webpack_exports__);
 
 // run:
 // jsdoc -d ./public/doc/ src/utils/albis.js to create a documentation for this file
+// OR if .md file needed
+// jsdoc2md path/to/JSfile.js  > yourFile.md
 
 /**
  * An Albis class
@@ -295,49 +286,34 @@ class Albis {
    * Create an Albis object
    * Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, username, ...)
    * @param {Object} settings
-   * @param {string=} settings.APIid - API id used for retrieving a valid a token
-   * @param {string=} settings.APIsecret - API secret used for retrieving a valid token
    * @param {string=} settings.username - shop owner or shop admins username
    * @param {string=} settings.password - shop owner or shop admin password
    * @param {string=} settings.realm - shop owner connection name
    * @param {number=} settings.provision - provision - defines how much commission, retailer wants to receives for each deal. Possible values min: 0, max: 5. Default 0.
-   * @param {string=} settings.auth0Endpoint
-   * @param {string=} settings.SDKendpoint
-   * @param {string=} settings.audience
-   * @param {string=} settings.grantType
-   * @param {boolean} settings.apiStage - defines proper API Gateway enpoints for requests (true - /staging, false - /v1)
-   * @param {string} settings.nodeEnv - defines the environment (development, production, test)
+   * @param {string=} settings.SDKendpoint - SDK endpoint
+   * @param {boolean=} settings.apiStage - defines proper API Gateway endpoints stage (API version) for requests 
+   * @param {string=} settings.nodeEnv - defines the environment (development, production, test)
    *
    * @example
    *
    * new Albis(
    *  {
-   *    APIid: 'abcde',
-   *    APIsecret: 'asdf',
    *    username: 'username',
    *    password: 'password',
    *    realm: 'shop',
    *    provision: 3,
-   *    auth0Endpoint: 'https://urlToTokenProvider/token',
    *    SDKendpoint: 'https://sdkEndpoint',
-   *    audience:'https://urlToTokenProvider/v2',
-   *    grantType: 'https://urlToTokenProvider/password-realm',
-   *    apiStage: staging,
+   *    apiStage: 'staging',
    *    nodeEnv: 'development'
    *  })
    */
 
   constructor(settings) {
-    this.APIid = settings.APIid;
-    this.APIsecret = settings.APIsecret;
     this.username = settings.username;
     this.password = settings.password;
     this.realm = settings.realm;
     this.provision = settings.provision;
-    this.auth0Endpoint = settings.auth0Endpoint;
     this.SDKendpoint = settings.SDKendpoint;
-    this.audience = settings.audience;
-    this.grantType = settings.grantType;
     this.apiStage = settings.apiStage;
     this.nodeEnv = settings.nodeEnv
   }
@@ -353,15 +329,12 @@ class Albis {
 
    async getAlbisToken() {
     const albisToken = await Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getToken"])(
-      this.APIid,
-      this.APIsecret,
-      this.auth0Endpoint,
+      this.SDKendpoint,
+      this.apiStage,
       this.username,
       this.password,
       this.realm,
-      this.audience,
-      this.grantType,
-      this.nodeEnv
+      this.nodeEnv,
     );
     return albisToken
    }
@@ -392,9 +365,9 @@ class Albis {
    *
    * @param {Object} values - An object with data for providing rate offers
    * @param {number} values.purchasePrice - Total net value of the cart [EUR]
-   * @param {number} values.productGroup - Product group of chosen products FOR NOW constant 1    ~~~~~
+   * @param {number} values.productGroup - Product group of chosen products
    * @param {number=} values.downPayment - Net value of down payment [EUR]. Default 0
-   * @param {number} values.contractType - Contract type FOR NOW contant 1                        ~~~~~
+   * @param {number} values.contractType - Contract type
    * @param {string} values.paymentMethod - Payment options - possible values: 'quarterly' or 'monthly'
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
@@ -433,31 +406,31 @@ class Albis {
    *
    * @param {Object} values - An object with values data
    * @param {string} values.object - Name of the object (80 char max)
-   * @param {number} values.purchasePrice
-   * @param {number} values.downPayment
-   * @param {number} values.leasePayments
-   * @param {number} values.leaseTerm
-   * @param {number} values.leasePaymentsWithInsurance
-   * @param {number} values.finalPayment
+   * @param {number} values.purchasePrice - purchase price (object value)
+   * @param {number} values.downPayment - down payment
+   * @param {number} values.leasePayments - lease payments (returned from getRates() method)
+   * @param {number} values.leaseTerm - lease term (returned from getRates() method)
+   * @param {number} values.leasePaymentsWithInsurance - lease payments with insurance (returned from getRates() method)
+   * @param {number} values.finalPayment - final payment (returned from getRates() method)
    * @param {Object} values.lessee
-   * @param {string} values.lessee.name
-   * @param {string} values.lessee.street
-   * @param {number} values.lessee.zipCode
-   * @param {string} values.lessee.city
-   * @param {string} values.lessee.phoneNumber
-   * @param {string} values.lessee.email
-   * @param {string} values.lessee.legalForm
-   * @param {number} values.provision
-   * @param {string} values.productGroup
-   * @param {string} values.contractType
-   * @param {string} values.paymentMethod
-   * @param {string} values.iban
-   * @param {boolean} values.ssv
-   * @param {number} values.serviceFee
-   * @param {boolean} values.contractByEmail
+   * @param {string} values.lessee.name - lessee name
+   * @param {string} values.lessee.street - lessee street
+   * @param {number} values.lessee.zipCode - lessee zip code
+   * @param {string} values.lessee.city - lessee city
+   * @param {string} values.lessee.phoneNumber - lessee phone number
+   * @param {string} values.lessee.email - lessee email
+   * @param {string} values.lessee.legalForm - lessee legal form
+   * @param {number} values.provision - shop provision
+   * @param {string} values.productGroup - product group
+   * @param {string} values.contractType - contract type
+   * @param {string} values.paymentMethod - payment method ('monthly' or 'quarterly')
+   * @param {string} values.iban - iban
+   * @param {boolean} values.ssv - insurance value
+   * @param {number} values.serviceFee - service fee
+   * @param {boolean} values.contractByEmail - is contact by email required
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns "Application has been successufully sent"
+   * @returns {number} a unique number of the application
    *
    * @example
    *
