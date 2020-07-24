@@ -137,7 +137,7 @@ async function getToken(
   ) {
     let token = {};
     try {
-      token = await login(
+      const tokenStringified = await login(
         SDKendpoint,
         apiStage,
         username,
@@ -145,6 +145,7 @@ async function getToken(
         realm,
         nodeEnv
       );
+      token = JSON.parse(tokenStringified)
     } catch (err) {
       return `Error occured during authentication: ${err}`;
     }
@@ -185,17 +186,9 @@ async function login(
 }
 
 function getEndpointPath(resource, apiStage, SDKendpoint, nodeEnv) {
-  if (resource === 'ping')
-    return `${SDKendpoint}/${apiStage}/ping`;
   if (resource === 'rate' && nodeEnv === 'test')
     return `http://localhost:3000/testModels/rates.json`;
-  if (resource === 'rate')
-    return `${SDKendpoint}/${apiStage}/rate`;
-  if (resource === 'application')
-    return `${SDKendpoint}/${apiStage}/application`;
-  if (resource === 'legalForms')
-    return `${SDKendpoint}/${apiStage}/legal-forms`;
-  return "Such endpoint doesn't exist";
+  return `${SDKendpoint}/${apiStage}/${resource}`;
 }
 
 async function testGetRates(values) {
@@ -273,9 +266,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // run:
-// jsdoc -d ./public/doc/ src/utils/albis.js to create a documentation for this file
+// jsdoc -d ../public/doc/ src/index.js to create a documentation for this file
 // OR if .md file needed
-// jsdoc2md path/to/JSfile.js  > yourFile.md
+// jsdoc2md src/index.js  > yourFile.md to create a .md version of documentation (for GitHub)
 
 /**
  * An Albis class
@@ -403,64 +396,104 @@ class Albis {
 
   /**
    * saveApplication(values, albisToken) saves an application
-   *
-   * @param {Object} values - An object with values data
-   * @param {string} values.object - Name of the object (80 char max)
-   * @param {number} values.purchasePrice - purchase price (object value)
+   * 
+   * @param {Object} values - An object with application data
+   * @param {boolean} values.contactByEmail - is contact by email required
+   * @param {number} values.contractType - contract type
    * @param {number} values.downPayment - down payment
-   * @param {number} values.leasePayments - lease payments (returned from getRates() method)
-   * @param {number} values.leaseTerm - lease term (returned from getRates() method)
-   * @param {number} values.leasePaymentsWithInsurance - lease payments with insurance (returned from getRates() method)
    * @param {number} values.finalPayment - final payment (returned from getRates() method)
-   * @param {Object} values.lessee
-   * @param {string} values.lessee.name - lessee name
-   * @param {string} values.lessee.street - lessee street
-   * @param {number} values.lessee.zipCode - lessee zip code
+   * @param {number} values.hid400 - salesman number (Albis provides this number for each shop)
+   * @param {string} values.iban - iban
+   * @param {Object} values.lessee - lessee data
    * @param {string} values.lessee.city - lessee city
-   * @param {string} values.lessee.phoneNumber - lessee phone number
    * @param {string} values.lessee.email - lessee email
    * @param {string} values.lessee.legalForm - lessee legal form
-   * @param {number} values.provision - shop provision
-   * @param {string} values.productGroup - product group
-   * @param {string} values.contractType - contract type
+   * @param {string} values.lessee.name - lessee name
+   * @param {string} values.lessee.phoneNumber - lessee phone number
+   * @param {string} values.lessee.street - lessee street
+   * @param {string} values.lessee.zipCode - lessee zip code
+   * @param {Object} values.lessee.manager - lessee's manager data
+   * @param {string} values.lessee.manager.birthDate - lessee's manager birth date (format required: "DD.MM.YYYY")
+   * @param {string} values.lessee.manager.city - lessee's manager city
+   * @param {string} values.lessee.manager.firstName - lessee's manager first name
+   * @param {string} values.lessee.manager.lastName - lessee's manager last name
+   * @param {string} values.lessee.manager.salutation - lessee's manager salutation form
+   * @param {string} values.lessee.manager.street - lessee's manager street
+   * @param {string} values.lessee.manager.zipCode - lessee's manager zip code
+   * @param {number} values.leaseTerm - lease term (returned from getRates() method)
+   * @param {string} values.object - name of the object (80 char max)
    * @param {string} values.paymentMethod - payment method ('monthly' or 'quarterly')
-   * @param {string} values.iban - iban
-   * @param {boolean} values.ssv - insurance value
-   * @param {number} values.serviceFee - service fee
-   * @param {boolean} values.contractByEmail - is contact by email required
-   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   * @param {number} values.productGroup - product group
+   * @param {string} values.promotion_id - lease term (returned from getRates() if conditions matched any promotion)
+   * @param {number} values.purchasePrice - purchase price (object value)
+   * @param {number} values.rate - rate (returned from getRates() method)
+   * @param {number} values.rateWithInsurance - rate with insurance (returned from getRates() method)
+   * @param {string} values.reference - application reference (helper for shop employees)
+   * @param {Object} values.retailer - retailer (supplier) data - a company, which stores the object
+   * @param {string} values.retailer.city - retailer (supplier) city
+   * @param {string} values.retailer.email - retailer (supplier) email
+   * @param {string} values.retailer.name - retailer (supplier) name
+   * @param {string} values.retailer.street - retailer (supplier) street
+   * @param {string} values.retailer.telnr - retailer (supplier) phone number
+   * @param {string} values.retailer.zipCode - retailer (supplier) zip code
+   * @param {string} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
+   * @param {Object[]} values.receiverFailEmails - array of emails where info about connection with reveiver endpoint should be delivered (optional)
+   * @param values.residualValue - required if contract type equals 2
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
-   * @returns {number} a unique number of the application
+   * @returns {Object} response - response object
+   * @param response.result - a unique number of the application
+   * @param jsonrpc - "2.0"
+   * @param id - json rpc lib id
    *
    * @example
    *
    * saveApplication(
    *  {
-   *    object: 'Fridge VW',
-   *    purchasePrice: 5000,
+   *    contactByEmail: true,
+   *    contractType: 1,
    *    downPayment: null,
-   *    leasePayments: 300,
-   *    leaseTerm: 12,
-   *    leasePaymentsWithInsurance: 23,
    *    finalPayment: 150,
+   *    hid400: 1234567,
+   *    iban: 'DE88100900001234567892',
    *    lessee: {
    *      name: 'Antonina',
    *      street: 'Lichtenrade',
    *      city: 'Berlin',
-   *      zipCode: 50000,
+   *      zipCode: '50000',
    *      phoneNumber: '+48500000000',
-   *      faxNumber: '+48500000000'
    *      email: 'abc@gmail.com',
-   *      legalForm: 'GmbH'
+   *      legalForm: 'GmbH',
+   *      manager: {
+   *        salutation: 1,
+   *        firstName: 'Johanna',
+   *        lastName: 'Surname',
+   *        street: 'Piłsudskiego',
+   *        zipCode: '50000',
+   *        city: 'Hamburg',
+   *        birthDate: '01.01.1990'
+   *      },
    *    },
-   *    provision: 3,
-   *    productGroup: 1,
-   *    contractType: 1,
+   *    leaseTerm: 12,
+   *    object: 'Fridge VW',
    *    paymentMethod: 'quarterly',
-   *    iban: 'DE88100900001234567892',
-   *    ssv: true,
-   *    serviceFee: 300,
-   *    contractByEmail: true
+   *    productGroup: 1,
+   *    promotion_id: 'xyz',
+   *    purchasePrice: 5000,
+   *    rate: 300,
+   *    rateWithInsurance: 323,
+   *    reference: 'abc123',
+   *    ssv: true,,
+   *    retailer: {
+   *      email: 'xyz@gmai.com',
+   *      name: 'Retailer company',
+   *      city: 'Hamburg',
+   *      zipCode: '10000',
+   *      street: 'Kitzingstrasse',
+   *      phoneNumber: '123456789'
+   *    },
+   *    receiverEndpoint: 'company.com/endpoint',
+   *    receiverFailEmails: ['abc@gmail.com', 'abc2@gmail.com']
    * },
    * {token: '12345'})
    */
@@ -486,7 +519,7 @@ class Albis {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint,
       {
         params: {
-        application: JSON.stringify({...values, provision: this.provision}),
+        application: {...values, provision: this.provision},
       }
     }, 
       {
@@ -582,7 +615,7 @@ class Albis {
    */
 
   async getLegalForms(albisToken) {
-    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('legalForms', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('legal-forms', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
     const legalForms = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
       headers: { 

@@ -137,46 +137,47 @@ class Albis {
    * 
    * @param {Object} values - An object with application data
    * @param {boolean} values.contactByEmail - is contact by email required
-   * @param values.contractType - contract type
+   * @param {number} values.contractType - contract type
    * @param {number} values.downPayment - down payment
-   * @param values.finalPayment - final payment (returned from getRates() method)
-   * @param values.iban - iban
+   * @param {number} values.finalPayment - final payment (returned from getRates() method)
+   * @param {number} values.hid400 - salesman number (Albis provides this number for each shop)
+   * @param {string} values.iban - iban
    * @param {Object} values.lessee - lessee data
-   * @param values.lessee.city - lessee city
-   * @param values.lessee.email - lessee email
-   * @param values.lessee.legalForm - lessee legal form
-   * @param values.lessee.name - lessee name
-   * @param values.lessee.phoneNumber - lessee phone number
-   * @param values.lessee.street - lessee street
-   * @param values.lessee.zipCode - lessee zip code
+   * @param {string} values.lessee.city - lessee city
+   * @param {string} values.lessee.email - lessee email
+   * @param {string} values.lessee.legalForm - lessee legal form
+   * @param {string} values.lessee.name - lessee name
+   * @param {string} values.lessee.phoneNumber - lessee phone number
+   * @param {string} values.lessee.street - lessee street
+   * @param {string} values.lessee.zipCode - lessee zip code
    * @param {Object} values.lessee.manager - lessee's manager data
-   * @param values.lessee.manager.birthDate - lessee's manager birth date
-   * @param values.lessee.manager.city - lessee's manager city
-   * @param values.lessee.manager.firstName - lessee's manager first name
-   * @param values.lessee.manager.lastName - lessee's manager last name
-   * @param values.lessee.manager.salutation - lessee's manager salutation form
-   * @param values.lessee.manager.street - lessee's manager street
-   * @param values.lessee.manager.zipCode - lessee's manager zip code
-   * @param values.leaseTerm - lease term (returned from getRates() method)
-   * @param values.object - name of the object (80 char max)
-   * @param values.paymentMethod - payment method ('monthly' or 'quarterly')
-   * @param values.productGroup - product group
-   * @param values.promotion_id - lease term (returned from getRates() if conditions matched any promotion)
-   * @param values.purchasePrice - purchase price (object value)
-   * @param values.rate - rate (returned from getRates() method)
-   * @param values.rateWithInsurance - rate with insurance (returned from getRates() method)
-   * @param values.reference - application reference (helper for shop employees)
+   * @param {string} values.lessee.manager.birthDate - lessee's manager birth date (format required: "DD.MM.YYYY")
+   * @param {string} values.lessee.manager.city - lessee's manager city
+   * @param {string} values.lessee.manager.firstName - lessee's manager first name
+   * @param {string} values.lessee.manager.lastName - lessee's manager last name
+   * @param {string} values.lessee.manager.salutation - lessee's manager salutation form
+   * @param {string} values.lessee.manager.street - lessee's manager street
+   * @param {string} values.lessee.manager.zipCode - lessee's manager zip code
+   * @param {number} values.leaseTerm - lease term (returned from getRates() method)
+   * @param {string} values.object - name of the object (80 char max)
+   * @param {string} values.paymentMethod - payment method ('monthly' or 'quarterly')
+   * @param {number} values.productGroup - product group
+   * @param {string} values.promotion_id - lease term (returned from getRates() if conditions matched any promotion)
+   * @param {number} values.purchasePrice - purchase price (object value)
+   * @param {number} values.rate - rate (returned from getRates() method)
+   * @param {number} values.rateWithInsurance - rate with insurance (returned from getRates() method)
+   * @param {string} values.reference - application reference (helper for shop employees)
    * @param {Object} values.retailer - retailer (supplier) data - a company, which stores the object
-   * @param values.retailer.city - retailer (supplier) city
-   * @param values.retailer.email - retailer (supplier) email
-   * @param values.retailer.name - retailer (supplier) name
-   * @param values.retailer.street - retailer (supplier) street
-   * @param values.retailer.telnr - retailer (supplier) phone number
-   * @param values.retailer.zipCode - retailer (supplier) zip code
-   * @param values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
-   * @param values.receiverFailEmails - array of emails where info about connection with reveiver endpoint should be delivered (optional)
-   * @param values.residualValue - 
-   * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API
+   * @param {string} values.retailer.city - retailer (supplier) city
+   * @param {string} values.retailer.email - retailer (supplier) email
+   * @param {string} values.retailer.name - retailer (supplier) name
+   * @param {string} values.retailer.street - retailer (supplier) street
+   * @param {string} values.retailer.telnr - retailer (supplier) phone number
+   * @param {string} values.retailer.zipCode - retailer (supplier) zip code
+   * @param {string} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
+   * @param {Object[]} values.receiverFailEmails - array of emails where info about connection with reveiver endpoint should be delivered (optional)
+   * @param values.residualValue - required if contract type equals 2
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
    * @returns {Object} response - response object
    * @param response.result - a unique number of the application
@@ -191,12 +192,13 @@ class Albis {
    *    contractType: 1,
    *    downPayment: null,
    *    finalPayment: 150,
+   *    hid400: 1234567,
    *    iban: 'DE88100900001234567892',
    *    lessee: {
    *      name: 'Antonina',
    *      street: 'Lichtenrade',
    *      city: 'Berlin',
-   *      zipCode: 50000,
+   *      zipCode: '50000',
    *      phoneNumber: '+48500000000',
    *      email: 'abc@gmail.com',
    *      legalForm: 'GmbH',
@@ -205,10 +207,10 @@ class Albis {
    *        firstName: 'Johanna',
    *        lastName: 'Surname',
    *        street: 'Piłsudskiego',
-   *        zipCode: 50000,
+   *        zipCode: '50000',
    *        city: 'Hamburg',
-   *        birthDate: '2000-01-01'
-   *      }
+   *        birthDate: '01.01.1990'
+   *      },
    *    },
    *    leaseTerm: 12,
    *    object: 'Fridge VW',
@@ -223,13 +225,13 @@ class Albis {
    *    retailer: {
    *      email: 'xyz@gmai.com',
    *      name: 'Retailer company',
-   *      ort: 'Hamburg',
-   *      plz: '10000',
-   *      strasse: 'Kitzingstrasse',
-   *      telnr: '123456789'
-   *    }
+   *      city: 'Hamburg',
+   *      zipCode: '10000',
+   *      street: 'Kitzingstrasse',
+   *      phoneNumber: '123456789'
+   *    },
    *    receiverEndpoint: 'company.com/endpoint',
-   *    receiverFailEmails: [abc@gmail.com, abc2@gmail.com]
+   *    receiverFailEmails: ['abc@gmail.com', 'abc2@gmail.com']
    * },
    * {token: '12345'})
    */
@@ -255,7 +257,7 @@ class Albis {
     return axios.post(endpoint,
       {
         params: {
-        application: JSON.stringify({...values, provision: this.provision}),
+        application: {...values, provision: this.provision},
       }
     }, 
       {
