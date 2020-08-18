@@ -142,6 +142,8 @@ export default class CheckoutForm extends React.Component {
 		const {
 			albisToken,
 			SDKendpoint,
+			receiverEndpoint,
+			receiverFailEmails,
 			apiStage,
 			settings,
 			cart,
@@ -231,6 +233,8 @@ export default class CheckoutForm extends React.Component {
 						<CheckoutStepPayment
 							albisToken={albisToken}
 							SDKendpoint={SDKendpoint}
+							receiverEndpoint={receiverEndpoint}
+							receiverFailEmails={receiverFailEmails}
 							apiStage={apiStage}
 							show={step === 3}
 							title={text.payment}

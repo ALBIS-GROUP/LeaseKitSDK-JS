@@ -79,7 +79,7 @@ class CheckoutStepContacts extends React.Component {
 		} else {
 			// everything works fine, legal forms fetched
 			this.setState({
-				legalFormsList: a,
+				legalFormsList: a.result,
 				isLoadingLegalForms: false,
 				error: { errorLegalForms: null }
 			});

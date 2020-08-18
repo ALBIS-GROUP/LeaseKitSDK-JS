@@ -26,6 +26,8 @@ module.exports = {
 	albisAudience: process.env.ALBIS_AUDIENCE,
 	albisGrantType: process.env.ALBIS_GRANT_TYPE,
 	SDKendpoint: process.env.SDK_ENDPOINT,
+	receiverEndpoint:  process.env.RECEIVER_ENDPOINT,
+	receiverFailEmails: process.env.RECEIVER_FAIL_EMAILS,
 	apiStage: process.env.API_STAGE,
 	nodeEnv: process.env.NODE_ENV
 };

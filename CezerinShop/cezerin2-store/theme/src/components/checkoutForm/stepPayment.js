@@ -17,6 +17,8 @@ const CheckoutStepPayment = props => {
 		onCreateToken,
 		setApplicationId,
 		SDKendpoint,
+		receiverEndpoint,
+		receiverFailEmails,
 		apiStage
 	} = props;
 
@@ -43,6 +45,8 @@ const CheckoutStepPayment = props => {
 					<PaymentForm
 						albisToken={albisToken}
 						SDKendpoint={SDKendpoint}
+						receiverEndpoint={receiverEndpoint}
+						receiverFailEmails={receiverFailEmails}
 						apiStage={apiStage}
 						cart={cart}
 						gateway={payment_method_gateway}

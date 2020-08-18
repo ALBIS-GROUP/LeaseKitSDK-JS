@@ -230,21 +230,18 @@ export const loadState = (req, language) => {
 		themeLocales.getText(language),
 		api.theme.placeholders.list(),
 		new Albis({
-			APIid: settings.albisApiId,
-			APIsecret: settings.albisApiSecret,
 			username: settings.albisShopUsername,
 			password: settings.albisPassword,
 			realm: settings.albisShopRealm,
 			provision: 3,
-			auth0Endpoint: settings.albisAuth0Endpoint,
 			SDKendpoint: settings.SDKendpoint,
-			audience: settings.albisAudience,
-			grantType: settings.albisGrantType,
 			apiStage: settings.apiStage
 		}).getAlbisToken(),
 		settings.SDKendpoint,
-		settings.apiStage
-	]).then(([currentPage, settings, themeText, placeholdersResponse, albisToken, SDKendpoint, apiStage]) => {
+		settings.apiStage,
+		settings.receiverEndpoint,
+		settings.receiverFailEmails,
+	]).then(([currentPage, settings, themeText, placeholdersResponse, albisToken, SDKendpoint, apiStage, receiverEndpoint, receiverFailEmails]) => {
 		const productFilter = getFilter(currentPage, urlQuery, settings);
 
 		return getAllData(currentPage, productFilter, cookie).then(allData => {
@@ -258,6 +255,8 @@ export const loadState = (req, language) => {
 			state.app.albisToken = albisToken
 			state.app.SDKendpoint = SDKendpoint
 			state.app.apiStage = apiStage
+			state.app.receiverEndpoint = receiverEndpoint
+			state.app.receiverFailEmails = receiverFailEmails
 			return {
 				state,
 				themeText,

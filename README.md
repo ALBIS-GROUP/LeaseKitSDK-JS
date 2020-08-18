@@ -65,16 +65,11 @@ import Albis from '@albis-group/albis-leasing-sdk';
 Beispiel Code:
 ```js
 const albis = new Albis({
-  APIid: 'albisApiId',
-  APIsecret: 'albisApiSecret',
   username: 'albisShopUsername',
   password: 'albisPassword',
   realm: 'albisShopRealm',
   provision: 3,
-  auth0Endpoint: 'albisAuth0Endpoint',
   SDKendpoint: 'SDKendpoint',
-  audience: 'albisAudience',
-  grantType: 'albisGrantType',
   apiStage: 'apiStage'
 })
 
