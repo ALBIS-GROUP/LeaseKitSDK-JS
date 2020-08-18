@@ -58,7 +58,7 @@ export default class PaymentForm extends React.Component {
 	}
 
 	render() {
-		const { gateway, shopSettings, onPayment, onCreateToken, cart, setApplicationId, albisToken, SDKendpoint, apiStage } = this.props;
+		const { gateway, shopSettings, onPayment, onCreateToken, cart, setApplicationId, albisToken, SDKendpoint, apiStage, receiverEndpoint, receiverFailEmails, } = this.props;
 		const { formSettings, loading } = this.state;
 
 		if (loading) {
@@ -103,6 +103,8 @@ export default class PaymentForm extends React.Component {
 						<AlbisPaymentForm
 							albisToken={albisToken}
 							SDKendpoint={SDKendpoint}
+							receiverEndpoint={receiverEndpoint}
+							receiverFailEmails={receiverFailEmails}
 							apiStage={apiStage}
 							cart={cart}
 							formSettings={formSettings}

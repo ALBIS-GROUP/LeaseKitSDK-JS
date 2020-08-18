@@ -134,72 +134,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
         <tr>
             
-                <td class="name"><code>APIid</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">API id used for retrieving a valid a token</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>APIsecret</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">API secret used for retrieving a valid token</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>username</code></td>
             
 
@@ -332,39 +266,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
         <tr>
             
-                <td class="name"><code>auth0Endpoint</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Auth0 endpoint - needed to create a token usable in Albis methods</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>SDKendpoint</code></td>
             
 
@@ -392,72 +293,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             
 
             <td class="description last">SDK endpoint</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>audience</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Auth0 audience - needed to create a token usable in Albis methods</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>grantType</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Auth0 grantType - needed to create a token usable in Albis methods</td>
         </tr>
 
     
@@ -571,7 +406,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line52">line 52</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
@@ -604,16 +439,11 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <pre class="prettyprint"><code>new Albis(
  {
-   APIid: 'abcde',
-   APIsecret: 'asdf',
    username: 'username',
    password: 'password',
    realm: 'shop',
    provision: 3,
-   auth0Endpoint: 'https://urlToTokenProvider/token',
    SDKendpoint: 'https://sdkEndpoint',
-   audience:'https://urlToTokenProvider/v2',
-   grantType: 'https://urlToTokenProvider/password-realm',
    apiStage: 'staging',
    nodeEnv: 'development'
  })</code></pre>
@@ -698,7 +528,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line76">line 76</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -862,7 +692,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line260">line 260</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line242">line 242</a>
     </li></ul></dd>
     
 
@@ -1068,7 +898,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">Product group of chosen products FOR NOW constant 1    ~~~~~</td>
+            <td class="description last">Product group of chosen products</td>
         </tr>
 
     
@@ -1132,7 +962,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">Contract type FOR NOW contant 1                        ~~~~~</td>
+            <td class="description last">Contract type</td>
         </tr>
 
     
@@ -1234,7 +1064,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line134">line 134</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line116">line 116</a>
     </li></ul></dd>
     
 
@@ -1402,7 +1232,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line102">line 102</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line84">line 84</a>
     </li></ul></dd>
     
 
@@ -2170,7 +2000,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line217">line 217</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line199">line 199</a>
     </li></ul></dd>
     
 
@@ -2354,7 +2184,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Tue Jul 14 2020 08:51:13 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Wed Jul 15 2020 15:52:03 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>
