@@ -38,6 +38,8 @@ services:
      - NODE_ENV=development
      - SDK_ENDPOINT=
      - API_STAGE=staging
+     - RECEIVER_ENDPOINT=
+     - RECEIVER_FAIL_EMAILS=
    ports:
      - 3000:80
    depends_on:

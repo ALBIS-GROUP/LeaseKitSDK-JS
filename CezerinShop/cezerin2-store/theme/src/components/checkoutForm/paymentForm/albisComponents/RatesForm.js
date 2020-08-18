@@ -10,7 +10,7 @@ class RatesForm extends Component {
 		productGroup: 1,
 		downPayment: null,
 		contractType: 1,
-		paymentMethod: 'quarterly',
+		paymentMethod: 'monthly',
 		serviceFee: 30,
 		iban: 'DE88100900001234567892'
 	};
@@ -173,8 +173,8 @@ class RatesForm extends Component {
 								type="select"
 								onChange={e => this.setPaymentMethod(e.target.value)}
 							>
-								<option value="quarterly">quarterly</option>
 								<option value="monthly">monthly</option>
+								<option value="quarterly">quarterly</option>
 							</AvInput>
 						</Col>
 					</AvGroup>

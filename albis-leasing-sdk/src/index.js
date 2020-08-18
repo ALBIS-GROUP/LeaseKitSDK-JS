@@ -256,9 +256,7 @@ class Albis {
     }
     return axios.post(endpoint,
       {
-        params: {
-        application: {...values, provision: this.provision},
-      }
+        ...values, provision: this.provision,
     }, 
       {
         headers: {
@@ -367,7 +365,7 @@ class Albis {
 
   async mapLegalForm(name, albisToken) {
     const list = await(this.getLegalForms(albisToken));
-    let result = list.find(lf => lf.text === name);
+    let result = list.result.find(lf => lf.text === name);
     return result.id || 99;
   }
 }

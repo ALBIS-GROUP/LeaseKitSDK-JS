@@ -137,7 +137,7 @@ async function getToken(
   ) {
     let token = {};
     try {
-      const tokenStringified = await login(
+      token = await login(
         SDKendpoint,
         apiStage,
         username,
@@ -145,7 +145,6 @@ async function getToken(
         realm,
         nodeEnv
       );
-      token = JSON.parse(tokenStringified)
     } catch (err) {
       return `Error occured during authentication: ${err}`;
     }
@@ -518,9 +517,7 @@ class Albis {
     }
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint,
       {
-        params: {
-        application: {...values, provision: this.provision},
-      }
+        ...values, provision: this.provision,
     }, 
       {
         headers: {
@@ -629,7 +626,7 @@ class Albis {
 
   async mapLegalForm(name, albisToken) {
     const list = await(this.getLegalForms(albisToken));
-    let result = list.find(lf => lf.text === name);
+    let result = list.result.find(lf => lf.text === name);
     return result.id || 99;
   }
 }

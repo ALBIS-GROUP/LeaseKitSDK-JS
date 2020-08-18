@@ -20,13 +20,14 @@ class AlbisPaymentForm extends Component {
 			.map(item => item.price_total)
 			.reduce((a, b) => a + b, 0),
 		productGroup: 1,
+		contactByEmail: false,
 		downPayment: null,
 		contractType: 1,
 		paymentMethod: 'quarterly',
 		rates: null,
-		leasePayments: null,
+		rate: null,
 		leaseTerm: null,
-		leasePaymentsWithInsurance: null,
+		rateWithInsurance: null,
 		finalPayment: null,
 		lessee: {
 			name: this.props.cart.first_name + ' ' + this.props.cart.last_name,
@@ -36,8 +37,27 @@ class AlbisPaymentForm extends Component {
 			city: this.props.cart.shipping_address.city,
 			phoneNumber: this.props.cart.mobile,
 			faxNumber: this.props.cart.fax,
-			email: this.props.cart.email
+			email: this.props.cart.email,
+			manager: {
+				salutation: 1,
+				firstName: 'Lady X',
+				lastName: 'Blackwater',
+				street: 'Piłsudskiego',
+				zipCode: '50000',
+				city: 'Warszawa',
+				birthDate: '01.01.1990'
+			},
 		},
+		retailer: {
+			name: 'Cezerin',
+			street: 'IT-street',
+			zipCode: '50500',
+			city: 'Hamburg',
+			email: 'cezerin@gmail.com',
+			phoneNumber: '123456789'
+		},
+		receiverEndpoint: this.props.receiverEndpoint,
+    receiverFailEmails: this.props.receiverFailEmails ? this.props.receiverFailEmails.split(',') : [],
 		serviceFee: 30,
 		iban: null,
 		applicationId: null,
@@ -49,7 +69,8 @@ class AlbisPaymentForm extends Component {
 
 	albis = new Albis({
 		SDKendpoint: this.props.SDKendpoint,
-		apiStage: this.props.apiStage
+		apiStage: this.props.apiStage,
+		provision: 3
 	});
 
 	getRates = async values => {
@@ -90,9 +111,9 @@ class AlbisPaymentForm extends Component {
 
 	chooseRate = rate => {
 		this.setState({
-			leasePayments: rate.leasePayments,
+			rate: rate.rate,
 			leaseTerm: rate.leaseTerm,
-			leasePaymentsWithInsurance: rate.leasePaymentsWithInsurance,
+			rateWithInsurance: rate.rateWithInsurance,
 			finalPayment: rate.finalPayment
 		});
 	};
@@ -111,14 +132,17 @@ class AlbisPaymentForm extends Component {
 					'object',
 					'purchasePrice',
 					'leaseTerm',
-					'leasePayments',
+					'rate',
 					'lessee',
 					'productGroup',
 					'iban',
 					'downPayment',
 					'contractType',
 					'paymentMethod',
-					'serviceFee'
+					'serviceFee',
+					'retailer',
+					'receiverEndpoint',
+					'receiverFailEmails'
 				]),
 				this.state.token
 			);
@@ -133,16 +157,16 @@ class AlbisPaymentForm extends Component {
 				isLoadingApplication: false,
 				applicationId: null
 			});
-		} else if (a.data.message) {
+		} else if (a.data.error) {
 			// error caused by Albis API
 			this.setState({
-				error: { errorApplication: a.data },
+				error: { errorApplication: a.data.error },
 				isLoadingApplication: false,
 				applicationId: null
 			});
 		} else {
 			// everything works fine, application fetched
-			this.props.setApplicationId(a.data);
+			this.props.setApplicationId(a.data.result);
 			this.setState({
 				applicationId: a,
 				isLoadingApplication: false,
@@ -196,7 +220,7 @@ class AlbisPaymentForm extends Component {
 						isLoadingRates={isLoadingRates}
 					/>
 				)}
-				{this.state.leasePayments && (
+				{this.state.rate && (
 					<div className="checkout-button-wrap">
 						<Button
 							className="checkout-button button"
@@ -224,9 +248,9 @@ class AlbisPaymentForm extends Component {
 						/>
 					</div>
 				)}
-				{applicationId && applicationId.data && !applicationId.data.message && (
+				{applicationId && applicationId.data.result && !applicationId.data.result.message && (
 					<div className={'albis-application-result'}>
-						<h1>Application id is: {applicationId.data}</h1>
+						<h1>Application id is: {applicationId.result}</h1>
 					</div>
 				)}
 			</div>

@@ -21,7 +21,7 @@ export async function getToken(
   ) {
     let token = {};
     try {
-      const tokenStringified = await login(
+      token = await login(
         SDKendpoint,
         apiStage,
         username,
@@ -29,7 +29,6 @@ export async function getToken(
         realm,
         nodeEnv
       );
-      token = JSON.parse(tokenStringified)
     } catch (err) {
       return `Error occured during authentication: ${err}`;
     }
