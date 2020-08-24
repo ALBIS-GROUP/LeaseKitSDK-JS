@@ -17,8 +17,10 @@ class Albis {
    * Create an Albis object
    * Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, username, ...)
    * @param {Object} settings
-   * @param {string=} settings.username - shop owner or shop admins username
-   * @param {string=} settings.password - shop owner or shop admin password
+   * @param {string=} settings.username - shop owner or shop admins Albis username
+   * @param {string=} settings.password - shop owner or shop admins Albis password
+   * @param {string=} settings.auth0Username - shop owner or shop admins auth0 username
+   * @param {string=} settings.auth0Password - shop owner or shop admin auth0 password
    * @param {string=} settings.realm - shop owner connection name
    * @param {number=} settings.provision - provision - defines how much commission, retailer wants to receives for each deal. Possible values min: 0, max: 5. Default 0.
    * @param {string=} settings.SDKendpoint - SDK endpoint
@@ -31,6 +33,8 @@ class Albis {
    *  {
    *    username: 'username',
    *    password: 'password',
+   *    auth0Username: 'auth0Username',
+   *    auth0Password: 'auth0Password',
    *    realm: 'shop',
    *    provision: 3,
    *    SDKendpoint: 'https://sdkEndpoint',
@@ -42,6 +46,8 @@ class Albis {
   constructor(settings) {
     this.username = settings.username;
     this.password = settings.password;
+    this.auth0Username = settings.auth0Username;
+    this.auth0Password = settings.auth0Password;
     this.realm = settings.realm;
     this.provision = settings.provision;
     this.SDKendpoint = settings.SDKendpoint;
@@ -64,6 +70,8 @@ class Albis {
       this.apiStage,
       this.username,
       this.password,
+      this.auth0Username,
+      this.auth0Password,
       this.realm,
       this.nodeEnv,
     );
@@ -104,13 +112,14 @@ class Albis {
    *
    * @returns {Object} An Object with attributes passed to the function and additional attributes:
    * leaseTerm,
-   * value,
-   * insurance
-   * finalPayment (if there is an opportunity to shrotening the lease term)
+   * rate,
+   * rateWithInsurance
+   * finalPayment (if there is an opportunity to shrotening the lease term),
+   * total
    *
    * @example
    *
-   * getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 'quarterly'}, , { token: '12345' })
+   * getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 'quarterly'}, { token: '12345' })
    */
 
   async getRates(values, albisToken) {
@@ -175,7 +184,7 @@ class Albis {
    * @param {string} values.retailer.telnr - retailer (supplier) phone number
    * @param {string} values.retailer.zipCode - retailer (supplier) zip code
    * @param {string} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
-   * @param {Object[]} values.receiverFailEmails - array of emails where info about connection with reveiver endpoint should be delivered (optional)
+   * @param {Object[]} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
    * @param values.residualValue - required if contract type equals 2
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *

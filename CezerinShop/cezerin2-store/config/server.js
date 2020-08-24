@@ -22,6 +22,8 @@ module.exports = {
 	albisApiSecret: process.env.ALBIS_API_SECRET,
 	albisShopUsername: process.env.ALBIS_SHOP_USERNAME,
 	albisPassword: process.env.ALBIS_SHOP_PASSWORD,
+	auth0Username: process.env.AUTH0_USERNAME,
+	auth0Password: process.env.AUTH0_PASSWORD,
 	albisShopRealm: process.env.ALBIS_SHOP_REALM,
 	albisAudience: process.env.ALBIS_AUDIENCE,
 	albisGrantType: process.env.ALBIS_GRANT_TYPE,

@@ -41,7 +41,7 @@ class RatesResult extends Component {
 														Cost per month:{' '}
 													</div>
 													<div className="albis-rate-data">
-														{rate.leasePayments + ' €'}
+														{rate.rate + ' €'}
 													</div>
 												</div>
 											</div>
@@ -51,7 +51,7 @@ class RatesResult extends Component {
 														Cost per month (insurance included):{' '}
 													</div>
 													<div className="albis-rate-data">
-														{rate.leasePaymentsWithInsurance + ' €'}{' '}
+														{rate.rateWithInsurance + ' €'}{' '}
 													</div>
 												</div>
 											</div>

@@ -160,7 +160,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">shop owner or shop admins username</td>
+            <td class="description last">shop owner or shop admins Albis username</td>
         </tr>
 
     
@@ -193,7 +193,73 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">shop owner or shop admin password</td>
+            <td class="description last">shop owner or shop admins Albis password</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>auth0Username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">shop owner or shop admins auth0 username</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>auth0Password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">shop owner or shop admin auth0 password</td>
         </tr>
 
     
@@ -406,7 +472,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line42">line 42</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -441,6 +507,8 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
  {
    username: 'username',
    password: 'password',
+   auth0Username: 'auth0Username',
+   auth0Password: 'auth0Password',
    realm: 'shop',
    provision: 3,
    SDKendpoint: 'https://sdkEndpoint',
@@ -528,7 +596,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line61">line 61</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line67">line 67</a>
     </li></ul></dd>
     
 
@@ -692,7 +760,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line280">line 280</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line289">line 289</a>
     </li></ul></dd>
     
 
@@ -1064,7 +1132,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line116">line 116</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -1095,9 +1163,10 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 <div class="param-desc">
     An Object with attributes passed to the function and additional attributes:
 leaseTerm,
-value,
-insurance
-finalPayment (if there is an opportunity to shrotening the lease term)
+rate,
+rateWithInsurance
+finalPayment (if there is an opportunity to shrotening the lease term),
+total
 </div>
 
 
@@ -1121,7 +1190,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 'quarterly'}, , { token: '12345' })</code></pre>
+    <pre class="prettyprint"><code>getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 'quarterly'}, { token: '12345' })</code></pre>
 
 
 
@@ -1232,7 +1301,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line84">line 84</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -2372,7 +2441,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
             
 
-            <td class="description last">array of emails where info about connection with reveiver endpoint should be delivered (optional)</td>
+            <td class="description last">array of string emails where info about connection with reveiver endpoint should be delivered (optional)</td>
         </tr>
 
     
@@ -2515,7 +2584,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line239">line 239</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line248">line 248</a>
     </li></ul></dd>
     
 
@@ -2641,7 +2710,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Tue Aug 18 2020 15:30:30 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Mon Aug 24 2020 13:46:48 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>
