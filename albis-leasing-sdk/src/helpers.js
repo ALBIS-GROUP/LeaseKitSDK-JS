@@ -6,6 +6,8 @@ export async function getToken(
   apiStage,
   username,
   password,
+  auth0Username,
+  auth0Password,
   realm,
   nodeEnv
 ) {
@@ -26,6 +28,8 @@ export async function getToken(
         apiStage,
         username,
         password,
+        auth0Username,
+        auth0Password,
         realm,
         nodeEnv
       );
@@ -53,6 +57,8 @@ export async function login(
   apiStage,
   username,
   password,
+  auth0Username,
+  auth0Password,
   realm,
   nodeEnv
 ) {
@@ -64,6 +70,8 @@ export async function login(
     headers: { 'content-type': 'application/json' },
     username,
     password,
+    auth0Username,
+    auth0Password,
     realm,
   });
 }

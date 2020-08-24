@@ -232,6 +232,8 @@ export const loadState = (req, language) => {
 		new Albis({
 			username: settings.albisShopUsername,
 			password: settings.albisPassword,
+			auth0Username: settings.auth0Username,
+			auth0Password: settings.auth0Password,
 			realm: settings.albisShopRealm,
 			provision: 3,
 			SDKendpoint: settings.SDKendpoint,
