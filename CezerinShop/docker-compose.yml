@@ -30,6 +30,8 @@ services:
      - ALBIS_SHOP_USERNAME=
      - ALBIS_SHOP_PASSWORD=
      - ALBIS_SHOP_REALM=
+     - AUTH0_USERNAME=
+     - AUTH0_PASSWORD=
      - NODE_ENV=development
      - SDK_ENDPOINT=
      - API_STAGE=staging

@@ -160,7 +160,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">shop owner or shop admins username</td>
+            <td class="description last">shop owner or shop admins Albis username</td>
         </tr>
 
     
@@ -193,7 +193,73 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">shop owner or shop admin password</td>
+            <td class="description last">shop owner or shop admins Albis password</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>auth0Username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">shop owner or shop admins auth0 username</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>auth0Password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">shop owner or shop admin auth0 password</td>
         </tr>
 
     
@@ -406,7 +472,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line42">line 42</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -441,6 +507,8 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
  {
    username: 'username',
    password: 'password',
+   auth0Username: 'auth0Username',
+   auth0Password: 'auth0Password',
    realm: 'shop',
    provision: 3,
    SDKendpoint: 'https://sdkEndpoint',
@@ -469,6 +537,193 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="findApplication"><span class="type-signature">(async) </span>findApplication<span class="signature">(id, albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    findApplication(id, albisToken) finds application by its id
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line289">line 289</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An object with application data (see saveApplication function parameter)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>findApplication(54321, {token: '12345'})</code></pre>
+
+
 
         
             
@@ -528,7 +783,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line61">line 61</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line67">line 67</a>
     </li></ul></dd>
     
 
@@ -692,7 +947,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line242">line 242</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line362">line 362</a>
     </li></ul></dd>
     
 
@@ -1064,7 +1319,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line116">line 116</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -1095,9 +1350,10 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 <div class="param-desc">
     An Object with attributes passed to the function and additional attributes:
 leaseTerm,
-value,
-insurance
-finalPayment (if there is an opportunity to shrotening the lease term)
+rate,
+rateWithInsurance
+finalPayment (if there is an opportunity to shrotening the lease term),
+total
 </div>
 
 
@@ -1121,7 +1377,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 'quarterly'}, , { token: '12345' })</code></pre>
+    <pre class="prettyprint"><code>getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 'quarterly'}, { token: '12345' })</code></pre>
 
 
 
@@ -1232,7 +1488,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line84">line 84</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -1295,7 +1551,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
     
 
     
-    <h4 class="name" id="saveApplication"><span class="type-signature">(async) </span>saveApplication<span class="signature">(values, albisToken)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    <h4 class="name" id="saveApplication"><span class="type-signature">(async) </span>saveApplication<span class="signature">(values, albisToken, jsonrpc, id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
 
     
@@ -1355,7 +1611,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
             
 
-            <td class="description last">An object with values data
+            <td class="description last">An object with application data
                 <h6>Properties</h6>
                 
 
@@ -1381,13 +1637,13 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
         <tr>
             
-                <td class="name"><code>object</code></td>
+                <td class="name"><code>contactByEmail</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">boolean</span>
 
 
             
@@ -1397,14 +1653,14 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
             
 
-            <td class="description last">Name of the object (80 char max)</td>
+            <td class="description last">is contact by email required</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>purchasePrice</code></td>
+                <td class="name"><code>contractType</code></td>
             
 
             <td class="type">
@@ -1420,7 +1676,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
             
 
-            <td class="description last">purchase price (object value)</td>
+            <td class="description last">contract type</td>
         </tr>
 
     
@@ -1450,75 +1706,6 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
         <tr>
             
-                <td class="name"><code>leasePayments</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lease payments (returned from getRates() method)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>leaseTerm</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lease term (returned from getRates() method)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>leasePaymentsWithInsurance</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lease payments with insurance (returned from getRates() method)</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>finalPayment</code></td>
             
 
@@ -1542,6 +1729,52 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
         <tr>
             
+                <td class="name"><code>hid400</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">salesman number (Albis provides this number for each shop)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iban</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">iban</td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>lessee</code></td>
             
 
@@ -1558,7 +1791,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
             
 
-            <td class="description last">
+            <td class="description last">lessee data
                 <h6>Properties</h6>
                 
 
@@ -1584,75 +1817,6 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
         <tr>
             
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee name</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>street</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee street</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>zipCode</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee zip code</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>city</code></td>
             
 
@@ -1670,29 +1834,6 @@ finalPayment (if there is an opportunity to shrotening the lease term)
             
 
             <td class="description last">lessee city</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>phoneNumber</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee phone number</td>
         </tr>
 
     
@@ -1742,6 +1883,308 @@ finalPayment (if there is an opportunity to shrotening the lease term)
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phoneNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee phone number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>street</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee street</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>zipCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee zip code</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>manager</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee's manager data
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>birthDate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee's manager birth date (format required: "DD.MM.YYYY")</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>city</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee's manager city</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>firstName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee's manager first name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lastName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee's manager last name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>salutation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee's manager salutation form</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>street</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee's manager street</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>zipCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee's manager zip code</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -1752,7 +2195,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
         <tr>
             
-                <td class="name"><code>provision</code></td>
+                <td class="name"><code>leaseTerm</code></td>
             
 
             <td class="type">
@@ -1768,14 +2211,14 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
             
 
-            <td class="description last">shop provision</td>
+            <td class="description last">lease term (returned from getRates() method)</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>productGroup</code></td>
+                <td class="name"><code>object</code></td>
             
 
             <td class="type">
@@ -1791,30 +2234,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
             
 
-            <td class="description last">product group</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>contractType</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">contract type</td>
+            <td class="description last">name of the object (80 char max)</td>
         </tr>
 
     
@@ -1844,53 +2264,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
         <tr>
             
-                <td class="name"><code>iban</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">iban</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ssv</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">insurance value</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>serviceFee</code></td>
+                <td class="name"><code>productGroup</code></td>
             
 
             <td class="type">
@@ -1906,20 +2280,20 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
             
 
-            <td class="description last">service fee</td>
+            <td class="description last">product group</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>contractByEmail</code></td>
+                <td class="name"><code>promotion_id</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">string</span>
 
 
             
@@ -1929,7 +2303,279 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
             
 
-            <td class="description last">is contact by email required</td>
+            <td class="description last">lease term (returned from getRates() if conditions matched any promotion)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>purchasePrice</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">purchase price (object value)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">rate (returned from getRates() method)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rateWithInsurance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">rate with insurance (returned from getRates() method)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>reference</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">application reference (helper for shop employees)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>retailer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">retailer (supplier) data - a company, which stores the object
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>city</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">retailer (supplier) city</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">retailer (supplier) email</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">retailer (supplier) name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>street</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">retailer (supplier) street</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>telnr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">retailer (supplier) phone number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>zipCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">retailer (supplier) zip code</td>
         </tr>
 
     
@@ -1937,6 +2583,388 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 </table>
 
             </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>receiverEndpoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">endpoint address where requests about application/documentation updates should be delivered (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>receiverFailEmails</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array of string emails where info about connection with reveiver endpoint should be delivered (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>residualValue</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required if contract type equals 2</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>response.result</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a unique number of the application</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>jsonrpc</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">"2.0"</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">json rpc lib id</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line248">line 248</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    response - response object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>saveApplication(
+ {
+   contactByEmail: true,
+   contractType: 1,
+   downPayment: null,
+   finalPayment: 150,
+   hid400: 1234567,
+   iban: 'DE88100900001234567892',
+   lessee: {
+     name: 'Antonina',
+     street: 'Lichtenrade',
+     city: 'Berlin',
+     zipCode: '50000',
+     phoneNumber: '+48500000000',
+     email: 'abc@gmail.com',
+     legalForm: 'GmbH',
+     manager: {
+       salutation: 1,
+       firstName: 'Johanna',
+       lastName: 'Surname',
+       street: 'Piłsudskiego',
+       zipCode: '50000',
+       city: 'Hamburg',
+       birthDate: '01.01.1990'
+     },
+   },
+   leaseTerm: 12,
+   object: 'Fridge VW',
+   paymentMethod: 'quarterly',
+   productGroup: 1,
+   promotion_id: 'xyz',
+   purchasePrice: 5000,
+   rate: 300,
+   rateWithInsurance: 323,
+   reference: 'abc123',
+   ssv: true,,
+   retailer: {
+     email: 'xyz@gmai.com',
+     name: 'Retailer company',
+     city: 'Hamburg',
+     zipCode: '10000',
+     street: 'Kitzingstrasse',
+     phoneNumber: '123456789'
+   },
+   receiverEndpoint: 'company.com/endpoint',
+   receiverFailEmails: ['abc@gmail.com', 'abc2@gmail.com']
+},
+{token: '12345'})</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateApplication"><span class="type-signature">(async) </span>updateApplication<span class="signature">(id, leaseTerm, albisToken)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    updateApplication(id, leaseTerm, albisToken) - lets to update a particular application - changes lease term and accordingly its value, etc.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>leaseTerm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -2000,7 +3028,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line199">line 199</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line315">line 315</a>
     </li></ul></dd>
     
 
@@ -2029,22 +3057,10 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
         
 <div class="param-desc">
-    a unique number of the application
+    "Application has been successufully sent"
 </div>
 
 
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">number</span>
-
-
-    </dd>
-</dl>
 
     
 
@@ -2053,113 +3069,8 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>saveApplication(
- {
-   object: 'Fridge VW',
-   purchasePrice: 5000,
-   downPayment: null,
-   leasePayments: 300,
-   leaseTerm: 12,
-   leasePaymentsWithInsurance: 23,
-   finalPayment: 150,
-   lessee: {
-     name: 'Antonina',
-     street: 'Lichtenrade',
-     city: 'Berlin',
-     zipCode: 50000,
-     phoneNumber: '+48500000000',
-     faxNumber: '+48500000000'
-     email: 'abc@gmail.com',
-     legalForm: 'GmbH'
-   },
-   provision: 3,
-   productGroup: 1,
-   contractType: 1,
-   paymentMethod: 'quarterly',
-   iban: 'DE88100900001234567892',
-   ssv: true,
-   serviceFee: 300,
-   contractByEmail: true
-},
-{token: '12345'})</code></pre>
+    <pre class="prettyprint"><code>updateApplication(54321, 24, {token: '12345'})</code></pre>
 
-<<<<<<< HEAD
-          <h4 class="name" id="updateApplication">
-            <span class="type-signature">(async) </span>updateApplication<span
-              class="signature"
-              >(id, leaseTerm)</span
-            ><span class="type-signature"></span>
-          </h4>
-
-          <div class="description">
-            updateApplication(id, leaseTerm) - lets to update a particular
-            application - changes lease term and accordingly its value, etc.
-          </div>
-
-          <h5>Parameters:</h5>
-
-          <table class="params">
-            <thead>
-              <tr>
-                <th>Name</th>
-
-                <th>Type</th>
-
-                <th class="last">Description</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td class="name"><code>id</code></td>
-
-                <td class="type">
-                  <span class="param-type">number</span>
-                </td>
-
-                <td class="description last"></td>
-              </tr>
-
-              <tr>
-                <td class="name"><code>leaseTerm</code></td>
-
-                <td class="type">
-                  <span class="param-type">number</span>
-                </td>
-
-                <td class="description last"></td>
-              </tr>
-            </tbody>
-          </table>
-
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="index.js.html">index.js</a>,
-                  <a href="index.js.html#line264">line 264</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-
-          <h5>Returns:</h5>
-
-          <div class="param-desc">
-            "Application has been successufully sent"
-          </div>
-
-          <h5>Example</h5>
-
-          <pre
-            class="prettyprint"
-          ><code>updateApplication(12345, 24)</code></pre>
-        </article>
-      </section>
-    </div>
-=======
->>>>>>> 5d29183... doc update after username and pass restoring
 
 
         
@@ -2184,7 +3095,7 @@ finalPayment (if there is an opportunity to shrotening the lease term)
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Wed Jul 15 2020 15:52:03 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Mon Aug 24 2020 13:58:02 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>
