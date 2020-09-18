@@ -100,7 +100,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!************************!*\
   !*** ./src/helpers.js ***!
   \************************/
-/*! exports provided: getToken, login, getEndpointPath, testGetRates, mapPaymentOption */
+/*! exports provided: getToken, login, getEndpointPath */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -108,8 +108,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getToken", function() { return getToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEndpointPath", function() { return getEndpointPath; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "testGetRates", function() { return testGetRates; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapPaymentOption", function() { return mapPaymentOption; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "axios");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "lodash");
@@ -198,58 +196,6 @@ function getEndpointPath(resource, apiStage, SDKendpoint, nodeEnv) {
   return `${SDKendpoint}/${apiStage}/${resource}`;
 }
 
-async function testGetRates(values) {
-  if (isNaN(values.purchasePrice))
-    return Promise.reject('purchasePrice has not a proper type');
-  if (isNaN(values.productGroup))
-    return Promise.reject('productGroup has not a proper type');
-
-  if (isNaN(values.contractType))
-    return Promise.reject('contractType has not a proper type');
-
-  if (isNaN(values.provision))
-    return Promise.reject('provision has not a proper type');
-
-  if (
-    !(
-      typeof values.downPayment === 'number' ||
-      values.downPayment === undefined ||
-      values.downPayment === null
-    )
-  ) {
-    return Promise.reject('downPayment has not a proper type');
-  }
-
-  if (typeof values.paymentMethod !== 'string') {
-    return Promise.reject('paymentMethod has not a proper type');
-  }
-
-  if (values.provision > 5 || values.provision < 0) {
-    return Promise.reject(
-      'Error has occured - provision value exceeds range 0-5',
-    );
-  }
-
-  if (
-    !(
-      values.paymentMethod === 'monthly' || values.paymentMethod === 'quarterly'
-    )
-  ) {
-    return Promise.reject(
-      "Error has occured - provision option has uncorrect value. Should be 'monthly' or 'quartely'",
-    );
-  }
-  return true;
-}
-
-function mapPaymentOption(paymentOption) {
-  const paymentOptions = {
-    quarterly: 1,
-    monthly: 2
-  };
-  return paymentOptions[paymentOption];
-}
-
 
 /***/ }),
 
@@ -267,7 +213,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "lodash");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers */ "./src/helpers.js");
-
 
 
 
@@ -376,7 +321,7 @@ class Albis {
    * @param {number} values.productGroup - Product group of chosen products
    * @param {number=} values.downPayment - Net value of down payment [EUR]. Default 0
    * @param {number} values.contractType - Contract type
-   * @param {string} values.paymentMethod - Payment options - possible values: 'quarterly' or 'monthly'
+   * @param {number} values.paymentMethod - Payment options
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
    * @returns {Object} An Object with attributes passed to the function and additional attributes:
@@ -388,14 +333,13 @@ class Albis {
    *
    * @example
    *
-   * getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 'quarterly'}, { token: '12345' })
+   * getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 1 }, { token: '12345' })
    */
 
   async getRates(values, albisToken) {
     let rates = {};
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('rate', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
-    values = {...values, paymentMethod: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["mapPaymentOption"])(values.paymentMethod)}
     rates = axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
       headers: {
         'content-type': 'application/json',
@@ -423,7 +367,7 @@ class Albis {
    * @param {Object} values.lessee - lessee data
    * @param {string} values.lessee.city - lessee city
    * @param {string} values.lessee.email - lessee email
-   * @param {string} values.lessee.legalForm - lessee legal form
+   * @param {number} values.lessee.legalForm - lessee legal form
    * @param {string} values.lessee.name - lessee name
    * @param {string} values.lessee.phoneNumber - lessee phone number
    * @param {string} values.lessee.street - lessee street
@@ -438,9 +382,9 @@ class Albis {
    * @param {string} values.lessee.manager.zipCode - lessee's manager zip code
    * @param {number} values.leaseTerm - lease term (returned from getRates() method)
    * @param {string} values.object - name of the object (80 char max)
-   * @param {string} values.paymentMethod - payment method ('monthly' or 'quarterly')
+   * @param {number} values.paymentMethod - payment method
    * @param {number} values.productGroup - product group
-   * @param {string} values.promotion_id - lease term (returned from getRates() if conditions matched any promotion)
+   * @param {string} values.promotionId - lease term (returned from getRates() if conditions matched any promotion)
    * @param {number} values.purchasePrice - purchase price (object value)
    * @param {number} values.rate - rate (returned from getRates() method)
    * @param {number} values.rateWithInsurance - rate with insurance (returned from getRates() method)
@@ -454,7 +398,7 @@ class Albis {
    * @param {string} values.retailer.zipCode - retailer (supplier) zip code
    * @param {string} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
    * @param {Object[]} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
-   * @param values.residualValue - required if contract type equals 2
+   * @param values.residualValuePercent - required if contract type equals 2
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
    * @returns {Object} response - response object
@@ -479,7 +423,7 @@ class Albis {
    *      zipCode: '50000',
    *      phoneNumber: '+48500000000',
    *      email: 'abc@gmail.com',
-   *      legalForm: 'GmbH',
+   *      legalForm: 1,
    *      manager: {
    *        salutation: 1,
    *        firstName: 'Johanna',
@@ -492,9 +436,9 @@ class Albis {
    *    },
    *    leaseTerm: 12,
    *    object: 'Fridge VW',
-   *    paymentMethod: 'quarterly',
+   *    paymentMethod: 1,
    *    productGroup: 1,
-   *    promotion_id: 'xyz',
+   *    promotionId: 'xyz',
    *    purchasePrice: 5000,
    *    rate: 300,
    *    rateWithInsurance: 323,
@@ -516,18 +460,6 @@ class Albis {
 
   async saveApplication(values, albisToken) {
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
-
-    //mapping payment options
-    values = {...values, paymentMethod: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["mapPaymentOption"])(values.paymentMethod)}
-
-    //mapping legalForms (from string to number)
-    values = {
-      ...values,
-      lessee: {
-        ...values.lessee,
-        legalForm: await this.mapLegalForm(values.lessee.legalForm, albisToken),
-      },
-    };
 
     if (values.object.length > 80) {
       values = {...values, object: values.object.substring(0,77) + "..." }
@@ -569,54 +501,6 @@ class Albis {
     });
   }
 
-  /**
-   * updateApplication(id, leaseTerm, albisToken) - lets to update a particular application - changes lease term and accordingly its value, etc.
-   * @param {number} id
-   * @param {number} leaseTerm
-   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
-   *
-   * @returns "Application has been successufully sent"
-   *
-   * @example
-   * updateApplication(54321, 24, {token: '12345'})
-   */
-
-  async updateApplication(id, leaseTerm, albisToken) {
-    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
-
-    //check if chosen lease term exist for those values
-
-    const app = await this.findApplication(id);
-    const rates = await this.getRates(
-      lodash__WEBPACK_IMPORTED_MODULE_1___default.a.pick(app.rate, [
-        'purchasePrice',
-        'productGroup',
-        'downPayment',
-        'contractType',
-        'paymentMethod',
-        'provision',
-      ]),
-    );
-    const rate = rates.filter((rate) => rate.leaseTerm === leaseTerm);
-    if (rate) {
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(endpoint, 
-      {
-        headers: { 
-          'content-type': 'application/json',
-          'Authorization': `Bearer ${albisToken.token}`,
-        },
-      },
-      {
-        params: {
-          applicationId: id,
-          leaseTerm: leaseTerm,
-        },
-      });
-    } else {
-      return new Promise.reject('There is no rate for chosen leaseTerm');
-    }
-  }
-
     /**
    * getLegalForms() get a map of all legal forms (needed for lessee data)
    * 
@@ -641,11 +525,54 @@ class Albis {
     return legalForms.data;
   }
 
-  async mapLegalForm(name, albisToken) {
-    const list = await(this.getLegalForms(albisToken));
-    let result = list.result.find(lf => lf.text === name);
-    return result.id || 99;
+   /**
+   * getApplicationsStatus() get an array of all posible application status
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {Object} An object with array of possible application status (plural)
+   *
+   * @example
+   * getApplicationsStatus({token: '12345'})
+   */
+
+  async getApplicationsStatus(albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('applications-status', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+    const applicationStatus = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+    });
+
+    return applicationStatus.data;
   }
+
+  /**
+   * getSalutations() get an array of all posible salutations (needed for saveApplication in values.lessee.manager.salutation)
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {Object} An object with array of possible salutations
+   *
+   * @example
+   * getSalutations({token: '12345'})
+   */
+
+  async getSalutations(albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('salutations', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+    const salutations = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+    });
+
+    return salutations.data;
+  }
+
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Albis);
