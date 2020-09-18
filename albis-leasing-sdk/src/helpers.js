@@ -81,11 +81,3 @@ export function getEndpointPath(resource, apiStage, SDKendpoint, nodeEnv) {
     return `http://localhost:3000/testModels/rates.json`;
   return `${SDKendpoint}/${apiStage}/${resource}`;
 }
-
-export function mapPaymentOption(paymentOption) {
-  const paymentOptions = {
-    quarterly: 1,
-    monthly: 2
-  };
-  return paymentOptions[paymentOption];
-}

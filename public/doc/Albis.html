@@ -472,7 +472,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line46">line 46</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line45">line 45</a>
     </li></ul></dd>
     
 
@@ -544,6 +544,193 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
+    <h4 class="name" id="findApplication"><span class="type-signature">(async) </span>findApplication<span class="signature">(id, albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    findApplication(id, albisToken) finds application by its id
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line275">line 275</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An object with application data (see saveApplication function parameter)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>findApplication(54321, {token: '12345'})</code></pre>
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="getAlbisToken"><span class="type-signature">(async) </span>getAlbisToken<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
 
@@ -596,7 +783,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line67">line 67</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line66">line 66</a>
     </li></ul></dd>
     
 
@@ -650,6 +837,170 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>getAlbisToken()</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getApplicationsStatus"><span class="type-signature">(async) </span>getApplicationsStatus<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    getApplicationsStatus() get an array of all posible application status
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line324">line 324</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An object with array of possible application status (plural)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>getApplicationsStatus({token: '12345'})</code></pre>
 
 
 
@@ -760,7 +1111,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line289">line 289</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line300">line 300</a>
     </li></ul></dd>
     
 
@@ -1043,7 +1394,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
             
@@ -1061,7 +1412,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">Payment options - possible values: 'quarterly' or 'monthly'</td>
+            <td class="description last">Payment options</td>
         </tr>
 
     
@@ -1132,7 +1483,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line125">line 125</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line124">line 124</a>
     </li></ul></dd>
     
 
@@ -1190,7 +1541,171 @@ total
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 'quarterly'}, { token: '12345' })</code></pre>
+    <pre class="prettyprint"><code>getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 1 }, { token: '12345' })</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getSalutations"><span class="type-signature">(async) </span>getSalutations<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    getSalutations() get an array of all posible salutations (needed for saveApplication in values.lessee.manager.salutation)
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line348">line 348</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An object with array of possible salutations
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>getSalutations({token: '12345'})</code></pre>
 
 
 
@@ -1301,7 +1816,7 @@ total
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line92">line 92</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line91">line 91</a>
     </li></ul></dd>
     
 
@@ -1682,7 +2197,7 @@ total
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
             
@@ -2060,7 +2575,7 @@ total
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
             
@@ -2070,7 +2585,7 @@ total
 
             
 
-            <td class="description last">payment method ('monthly' or 'quarterly')</td>
+            <td class="description last">payment method</td>
         </tr>
 
     
@@ -2100,7 +2615,7 @@ total
 
         <tr>
             
-                <td class="name"><code>promotion_id</code></td>
+                <td class="name"><code>promotionId</code></td>
             
 
             <td class="type">
@@ -2448,7 +2963,7 @@ total
 
         <tr>
             
-                <td class="name"><code>residualValue</code></td>
+                <td class="name"><code>residualValuePercent</code></td>
             
 
             <td class="type">
@@ -2584,7 +3099,7 @@ total
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line248">line 248</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line246">line 246</a>
     </li></ul></dd>
     
 
@@ -2652,7 +3167,7 @@ total
      zipCode: '50000',
      phoneNumber: '+48500000000',
      email: 'abc@gmail.com',
-     legalForm: 'GmbH',
+     legalForm: 1,
      manager: {
        salutation: 1,
        firstName: 'Johanna',
@@ -2665,9 +3180,9 @@ total
    },
    leaseTerm: 12,
    object: 'Fridge VW',
-   paymentMethod: 'quarterly',
+   paymentMethod: 1,
    productGroup: 1,
-   promotion_id: 'xyz',
+   promotionId: 'xyz',
    purchasePrice: 5000,
    rate: 300,
    rateWithInsurance: 323,
@@ -2710,7 +3225,7 @@ total
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Mon Aug 24 2020 13:46:48 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Fri Sep 18 2020 12:29:54 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
 import { getEndpointPath, getToken } from './helpers';
-import { mapPaymentOption } from './helpers';
 
 // run:
 // jsdoc -d ../public/doc/ src/index.js to create a documentation for this file
@@ -107,7 +106,7 @@ class Albis {
    * @param {number} values.productGroup - Product group of chosen products
    * @param {number=} values.downPayment - Net value of down payment [EUR]. Default 0
    * @param {number} values.contractType - Contract type
-   * @param {string} values.paymentMethod - Payment options - possible values: 'quarterly' or 'monthly'
+   * @param {number} values.paymentMethod - Payment options
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
    * @returns {Object} An Object with attributes passed to the function and additional attributes:
@@ -119,14 +118,13 @@ class Albis {
    *
    * @example
    *
-   * getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 'quarterly'}, { token: '12345' })
+   * getRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 1 }, { token: '12345' })
    */
 
   async getRates(values, albisToken) {
     let rates = {};
     const endpoint = getEndpointPath('rate', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
-    values = {...values, paymentMethod: mapPaymentOption(values.paymentMethod)}
     rates = axios.get(endpoint, {
       headers: {
         'content-type': 'application/json',
@@ -154,7 +152,7 @@ class Albis {
    * @param {Object} values.lessee - lessee data
    * @param {string} values.lessee.city - lessee city
    * @param {string} values.lessee.email - lessee email
-   * @param {string} values.lessee.legalForm - lessee legal form
+   * @param {number} values.lessee.legalForm - lessee legal form
    * @param {string} values.lessee.name - lessee name
    * @param {string} values.lessee.phoneNumber - lessee phone number
    * @param {string} values.lessee.street - lessee street
@@ -169,9 +167,9 @@ class Albis {
    * @param {string} values.lessee.manager.zipCode - lessee's manager zip code
    * @param {number} values.leaseTerm - lease term (returned from getRates() method)
    * @param {string} values.object - name of the object (80 char max)
-   * @param {string} values.paymentMethod - payment method ('monthly' or 'quarterly')
+   * @param {number} values.paymentMethod - payment method
    * @param {number} values.productGroup - product group
-   * @param {string} values.promotion_id - lease term (returned from getRates() if conditions matched any promotion)
+   * @param {string} values.promotionId - lease term (returned from getRates() if conditions matched any promotion)
    * @param {number} values.purchasePrice - purchase price (object value)
    * @param {number} values.rate - rate (returned from getRates() method)
    * @param {number} values.rateWithInsurance - rate with insurance (returned from getRates() method)
@@ -185,7 +183,7 @@ class Albis {
    * @param {string} values.retailer.zipCode - retailer (supplier) zip code
    * @param {string} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
    * @param {Object[]} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
-   * @param values.residualValue - required if contract type equals 2
+   * @param values.residualValuePercent - required if contract type equals 2
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
    * @returns {Object} response - response object
@@ -210,7 +208,7 @@ class Albis {
    *      zipCode: '50000',
    *      phoneNumber: '+48500000000',
    *      email: 'abc@gmail.com',
-   *      legalForm: 'GmbH',
+   *      legalForm: 1,
    *      manager: {
    *        salutation: 1,
    *        firstName: 'Johanna',
@@ -223,9 +221,9 @@ class Albis {
    *    },
    *    leaseTerm: 12,
    *    object: 'Fridge VW',
-   *    paymentMethod: 'quarterly',
+   *    paymentMethod: 1,
    *    productGroup: 1,
-   *    promotion_id: 'xyz',
+   *    promotionId: 'xyz',
    *    purchasePrice: 5000,
    *    rate: 300,
    *    rateWithInsurance: 323,
@@ -248,18 +246,6 @@ class Albis {
   async saveApplication(values, albisToken) {
     const endpoint = getEndpointPath('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
-    //mapping payment options
-    values = {...values, paymentMethod: mapPaymentOption(values.paymentMethod)}
-
-    //mapping legalForms (from string to number)
-    values = {
-      ...values,
-      lessee: {
-        ...values.lessee,
-        legalForm: await this.mapLegalForm(values.lessee.legalForm, albisToken),
-      },
-    };
-
     if (values.object.length > 80) {
       values = {...values, object: values.object.substring(0,77) + "..." }
     }
@@ -273,6 +259,31 @@ class Albis {
         'Authorization': `Bearer ${albisToken.token}`,
        }
     })
+  }
+
+  /**
+   * findApplication(id, albisToken) finds application by its id
+   * @param {number} id
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {Object} An object with application data (see saveApplication function parameter)
+   *
+   * @example
+   * findApplication(54321, {token: '12345'})
+   */
+
+  async findApplication(id, albisToken) {
+    const endpoint = getEndpointPath('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+    return axios.get(endpoint, {
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+      params: {
+        applicationId: id,
+      },
+    });
   }
 
     /**
@@ -299,11 +310,54 @@ class Albis {
     return legalForms.data;
   }
 
-  async mapLegalForm(name, albisToken) {
-    const list = await(this.getLegalForms(albisToken));
-    let result = list.result.find(lf => lf.text === name);
-    return result.id || 99;
+   /**
+   * getApplicationsStatus() get an array of all posible application status
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {Object} An object with array of possible application status (plural)
+   *
+   * @example
+   * getApplicationsStatus({token: '12345'})
+   */
+
+  async getApplicationsStatus(albisToken) {
+    const endpoint = getEndpointPath('applications-status', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+    const applicationStatus = await axios.get(endpoint, {
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+    });
+
+    return applicationStatus.data;
   }
+
+  /**
+   * getSalutations() get an array of all posible salutations (needed for saveApplication in values.lessee.manager.salutation)
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {Object} An object with array of possible salutations
+   *
+   * @example
+   * getSalutations({token: '12345'})
+   */
+
+  async getSalutations(albisToken) {
+    const endpoint = getEndpointPath('salutations', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+    const salutations = await axios.get(endpoint, {
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+    });
+
+    return salutations.data;
+  }
+
 }
 
 export default Albis;
