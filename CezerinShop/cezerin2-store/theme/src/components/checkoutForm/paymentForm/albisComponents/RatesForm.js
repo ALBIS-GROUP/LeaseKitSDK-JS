@@ -10,7 +10,7 @@ class RatesForm extends Component {
 		productGroup: 1,
 		downPayment: null,
 		contractType: 1,
-		paymentMethod: 'monthly',
+		paymentMethod: 2,
 		serviceFee: 30,
 		iban: 'DE88100900001234567892'
 	};
@@ -23,7 +23,7 @@ class RatesForm extends Component {
 
 	setDownPayment = value => {
 		this.setState({
-			downPayment: value
+			downPayment: Number(value)
 		});
 	};
 
@@ -35,7 +35,7 @@ class RatesForm extends Component {
 
 	setPaymentMethod = value => {
 		this.setState({
-			paymentMethod: value
+			paymentMethod: Number(value)
 		});
 	};
 
@@ -173,8 +173,8 @@ class RatesForm extends Component {
 								type="select"
 								onChange={e => this.setPaymentMethod(e.target.value)}
 							>
-								<option value="monthly">monthly</option>
-								<option value="quarterly">quarterly</option>
+								<option value="2">monthly</option>
+								<option value="1">quarterly</option>
 							</AvInput>
 						</Col>
 					</AvGroup>

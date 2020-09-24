@@ -15,7 +15,7 @@ class LesseeForm extends Component {
 	};
 
 	setLesseeLegalForm = value => {
-		this.setState({ legalForm: value });
+		this.setState({ legalForm: Number(value) });
 	};
 
 	setLesseeStreet = value => {
@@ -90,7 +90,7 @@ class LesseeForm extends Component {
 								onChange={e => this.setLesseeLegalForm(e.target.value)}
 							>
 								{this.props.legalForms.map(legalForm => (
-									<option key={legalForm.text} value={legalForm.text}>
+									<option key={legalForm.id} value={legalForm.id}>
 										{legalForm.text}
 									</option>
 								))}

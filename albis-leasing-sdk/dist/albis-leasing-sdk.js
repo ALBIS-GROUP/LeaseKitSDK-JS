@@ -362,7 +362,6 @@ class Albis {
    * @param {number} values.contractType - contract type
    * @param {number} values.downPayment - down payment
    * @param {number} values.finalPayment - final payment (returned from getRates() method)
-   * @param {number} values.hid400 - salesman number (Albis provides this number for each shop)
    * @param {string} values.iban - iban
    * @param {Object} values.lessee - lessee data
    * @param {string} values.lessee.city - lessee city
@@ -467,7 +466,93 @@ class Albis {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint,
       {
         ...values, provision: this.provision,
-    }, 
+      }, 
+      {
+        headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+       }
+    })
+  }
+
+  /**
+   * updateApplication(values, albisToken) updates an application
+   * 
+   * @param {Object} values - An object with application data
+   * @param {number} values.id - application number, which will be updated
+   * @param {boolean} values.contactByEmail - is contact by email required
+   * @param {number} values.contractType - contract type
+   * @param {number} values.downPayment - down payment
+   * @param {string} values.iban - iban
+   * @param {Object} values.lessee - lessee data
+   * @param {string} values.lessee.city - lessee city
+   * @param {string} values.lessee.email - lessee email
+   * @param {number} values.lessee.legalForm - lessee legal form
+   * @param {string} values.lessee.name - lessee name
+   * @param {string} values.lessee.phoneNumber - lessee phone number
+   * @param {string} values.lessee.street - lessee street
+   * @param {string} values.lessee.zipCode - lessee zip code
+   * @param {number} values.leaseTerm - lease term (returned from getRates() method)
+   * @param {string} values.object - name of the object (80 char max)
+   * @param {number} values.paymentMethod - payment method
+   * @param {number} values.productGroup - product group
+   * @param {string} values.promotionId - lease term (returned from getRates() if conditions matched any promotion)
+   * @param {string} values.provision - defines how much commission, retailer wants to receives for each deal. Possible values min: 0, max: 5. Default 0
+   * @param {number} values.purchasePrice - purchase price (object value)
+   * @param {number} values.rate - rate (returned from getRates() method)
+   * @param {string} values.reference - application reference (helper for shop employees)
+   * @param {string} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
+   * @param {Object[]} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
+   * @param values.residualValuePercent - required if contract type equals 2
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
+   *
+   * @returns {Object} response - response object
+   * @param response.result - a unique number of the application
+   * @param jsonrpc - "2.0"
+   * @param id - json rpc lib id
+   *
+   * @example
+   *
+   * updateApplication(
+   *  {
+   *    id: 12345,
+   *    contactByEmail: true,
+   *    contractType: 1,
+   *    downPayment: null,
+   *    iban: 'DE88100900001234567892',
+   *    lessee: {
+   *      name: 'Antonina',
+   *      street: 'Lichtenrade',
+   *      city: 'Berlin',
+   *      zipCode: '50000',
+   *      phoneNumber: '+48500000000',
+   *      email: 'abc@gmail.com',
+   *      legalForm: 1,
+   *    },
+   *    leaseTerm: 12,
+   *    object: 'Fridge VW',
+   *    paymentMethod: 1,
+   *    productGroup: 1,
+   *    promotionId: 'xyz',
+   *    provision: 3,
+   *    purchasePrice: 5000,
+   *    rate: 300,
+   *    reference: 'abc123',
+   *    receiverEndpoint: 'company.com/endpoint',
+   *    receiverFailEmails: ['abc@gmail.com', 'abc2@gmail.com']
+   * },
+   * {token: '12345'})
+   */
+
+  async updateApplication(values, albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+    if (values.object.length > 80) {
+      values = {...values, object: values.object.substring(0,77) + "..." }
+    }
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(endpoint,
+      {...values,
+      applicationId: values.id}, 
       {
         headers: {
         'content-type': 'application/json',
@@ -502,7 +587,7 @@ class Albis {
   }
 
     /**
-   * getLegalForms() get a map of all legal forms (needed for lessee data)
+   * getLegalForms(albisToken) get a map of all legal forms (needed for lessee data)
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
@@ -526,7 +611,7 @@ class Albis {
   }
 
    /**
-   * getApplicationsStatus() get an array of all posible application status
+   * getApplicationsStatus(albisToken) get an array of all posible application status
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
@@ -549,8 +634,42 @@ class Albis {
     return applicationStatus.data;
   }
 
+   /**
+   * uploadDocuments(id, documents, albisToken) lets to upload application documents
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   * @param {number} id - application number
+   * @param {Object[]} documents - array of objects
+   * @param {number} documents.art - document type number (possible values: 1 for Identity card, 2 for Acquired possession form, 3 for Signed contract, 4 for Direct debit authorization, 99 for miscellaneous)
+   * @param {string} documents.ext - file extension (possible values: 'pdf', 'jpg', 'jpeg', 'png')
+   * @param {string} documents.doc - string created by file encoding using base64
+   *
+   * @returns {string} An approval message
+   *
+   * @example
+   * uploadDocuments(12345, [{art: 1, ext: "pdf", "doc": "string created by file encoding using base64"}], {token: '12345'})
+   */
+
+  async uploadDocuments(id, documents, albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('documents', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+    const albisResponse = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint, 
+      {
+        applicationId: id,
+        documents
+      },
+      {
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+    });
+
+    return albisResponse.data;
+  }
+
   /**
-   * getSalutations() get an array of all posible salutations (needed for saveApplication in values.lessee.manager.salutation)
+   * getSalutations(albisToken) get an array of all posible salutations (needed for saveApplication in values.lessee.manager.salutation)
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *

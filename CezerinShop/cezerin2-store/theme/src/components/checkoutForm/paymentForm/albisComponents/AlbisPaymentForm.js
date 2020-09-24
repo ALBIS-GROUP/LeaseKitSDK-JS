@@ -23,7 +23,7 @@ class AlbisPaymentForm extends Component {
 		contactByEmail: false,
 		downPayment: null,
 		contractType: 1,
-		paymentMethod: 'quarterly',
+		paymentMethod: 2,
 		rates: null,
 		rate: null,
 		leaseTerm: null,
