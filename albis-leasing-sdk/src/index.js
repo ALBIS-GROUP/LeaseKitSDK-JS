@@ -187,8 +187,8 @@ class Albis {
    *
    * @returns {Object} response - response object
    * @param response.result - a unique number of the application
-   * @param jsonrpc - "2.0"
-   * @param id - json rpc lib id
+   * @param response.jsonrpc - "2.0"
+   * @param response.id - json rpc lib id
    *
    * @example
    *
@@ -293,8 +293,8 @@ class Albis {
    *
    * @returns {Object} response - response object
    * @param response.result - a unique number of the application
-   * @param jsonrpc - "2.0"
-   * @param id - json rpc lib id
+   * @param response.resultjsonrpc - "2.0"
+   * @param response.resultid - json rpc lib id
    *
    * @example
    *
@@ -422,12 +422,12 @@ class Albis {
    /**
    * uploadDocuments(id, documents, albisToken) lets to upload application documents
    * 
-   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    * @param {number} id - application number
    * @param {Object[]} documents - array of objects
    * @param {number} documents.art - document type number (possible values: 1 for Identity card, 2 for Acquired possession form, 3 for Signed contract, 4 for Direct debit authorization, 99 for miscellaneous)
    * @param {string} documents.ext - file extension (possible values: 'pdf', 'jpg', 'jpeg', 'png')
    * @param {string} documents.doc - string created by file encoding using base64
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
    * @returns {string} An approval message
    *

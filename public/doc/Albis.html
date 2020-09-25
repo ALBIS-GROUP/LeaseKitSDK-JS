@@ -668,7 +668,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line275">line 275</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line360">line 360</a>
     </li></ul></dd>
     
 
@@ -854,7 +854,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
 
 <div class="description">
-    getApplicationsStatus() get an array of all posible application status
+    getApplicationsStatus(albisToken) get an array of all posible application status
 </div>
 
 
@@ -947,7 +947,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line324">line 324</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line409">line 409</a>
     </li></ul></dd>
     
 
@@ -1018,7 +1018,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
 
 <div class="description">
-    getLegalForms() get a map of all legal forms (needed for lessee data)
+    getLegalForms(albisToken) get a map of all legal forms (needed for lessee data)
 </div>
 
 
@@ -1111,7 +1111,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line300">line 300</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line385">line 385</a>
     </li></ul></dd>
     
 
@@ -1559,7 +1559,7 @@ total
 
 
 <div class="description">
-    getSalutations() get an array of all posible salutations (needed for saveApplication in values.lessee.manager.salutation)
+    getSalutations(albisToken) get an array of all posible salutations (needed for saveApplication in values.lessee.manager.salutation)
 </div>
 
 
@@ -1652,7 +1652,7 @@ total
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line348">line 348</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line467">line 467</a>
     </li></ul></dd>
     
 
@@ -1879,7 +1879,7 @@ total
     
 
     
-    <h4 class="name" id="saveApplication"><span class="type-signature">(async) </span>saveApplication<span class="signature">(values, albisToken, jsonrpc, id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="saveApplication"><span class="type-signature">(async) </span>saveApplication<span class="signature">(values, albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
 
     
@@ -2051,29 +2051,6 @@ total
             
 
             <td class="description last">final payment (returned from getRates() method)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>hid400</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">salesman number (Albis provides this number for each shop)</td>
         </tr>
 
     
@@ -3029,7 +3006,7 @@ total
 
         <tr>
             
-                <td class="name"><code>jsonrpc</code></td>
+                <td class="name"><code>response.jsonrpc</code></td>
             
 
             <td class="type">
@@ -3047,7 +3024,7 @@ total
 
         <tr>
             
-                <td class="name"><code>id</code></td>
+                <td class="name"><code>response.id</code></td>
             
 
             <td class="type">
@@ -3099,7 +3076,7 @@ total
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line246">line 246</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line245">line 245</a>
     </li></ul></dd>
     
 
@@ -3204,6 +3181,1202 @@ total
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="updateApplication"><span class="type-signature">(async) </span>updateApplication<span class="signature">(values, albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    updateApplication(values, albisToken) updates an application
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>values</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An object with application data
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">application number, which will be updated</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contactByEmail</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">is contact by email required</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contractType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contract type</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>downPayment</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">down payment</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iban</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">iban</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lessee</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee data
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>city</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee city</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee email</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>legalForm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee legal form</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phoneNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee phone number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>street</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee street</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>zipCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee zip code</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>leaseTerm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lease term (returned from getRates() method)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">name of the object (80 char max)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>paymentMethod</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">payment method</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>productGroup</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">product group</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>promotionId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lease term (returned from getRates() if conditions matched any promotion)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>provision</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">defines how much commission, retailer wants to receives for each deal. Possible values min: 0, max: 5. Default 0</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>purchasePrice</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">purchase price (object value)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">rate (returned from getRates() method)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>reference</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">application reference (helper for shop employees)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>receiverEndpoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">endpoint address where requests about application/documentation updates should be delivered (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>receiverFailEmails</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array of string emails where info about connection with reveiver endpoint should be delivered (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>residualValuePercent</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required if contract type equals 2</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>response.result</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a unique number of the application</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>response.resultjsonrpc</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">"2.0"</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>response.resultid</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">json rpc lib id</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line332">line 332</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    response - response object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>updateApplication(
+ {
+   id: 12345,
+   contactByEmail: true,
+   contractType: 1,
+   downPayment: null,
+   iban: 'DE88100900001234567892',
+   lessee: {
+     name: 'Antonina',
+     street: 'Lichtenrade',
+     city: 'Berlin',
+     zipCode: '50000',
+     phoneNumber: '+48500000000',
+     email: 'abc@gmail.com',
+     legalForm: 1,
+   },
+   leaseTerm: 12,
+   object: 'Fridge VW',
+   paymentMethod: 1,
+   productGroup: 1,
+   promotionId: 'xyz',
+   provision: 3,
+   purchasePrice: 5000,
+   rate: 300,
+   reference: 'abc123',
+   receiverEndpoint: 'company.com/endpoint',
+   receiverFailEmails: ['abc@gmail.com', 'abc2@gmail.com']
+},
+{token: '12345'})</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="uploadDocuments"><span class="type-signature">(async) </span>uploadDocuments<span class="signature">(id, documents, albisToken)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    uploadDocuments(id, documents, albisToken) lets to upload application documents
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">application number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>documents</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array of objects
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>art</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">document type number (possible values: 1 for Identity card, 2 for Acquired possession form, 3 for Signed contract, 4 for Direct debit authorization, 99 for miscellaneous)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ext</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">file extension (possible values: 'pdf', 'jpg', 'jpeg', 'png')</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>doc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">string created by file encoding using base64</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line438">line 438</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An approval message
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>uploadDocuments(12345, [{art: 1, ext: "pdf", "doc": "string created by file encoding using base64"}], {token: '12345'})</code></pre>
+
+
+
+        
     
 
     
@@ -3225,7 +4398,7 @@ total
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Fri Sep 18 2020 12:29:54 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Fri Sep 25 2020 10:42:44 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>
