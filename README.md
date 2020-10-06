@@ -76,9 +76,9 @@ const albis = new Albis({
    nodeEnv: 'development'
  })
 
-const token = albis.getAlbisToken()
+const token = await albis.getAlbisToken()
 
-const rates = albis.getRates({
+const rates = await albis.getRates({
   purchasePrice: 5000,
   productGroup: 1,
   downPayment: 0,
