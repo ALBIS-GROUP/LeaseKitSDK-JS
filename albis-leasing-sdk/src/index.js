@@ -53,7 +53,7 @@ class Albis {
     this.apiStage = settings.apiStage;
     this.nodeEnv = settings.nodeEnv
   }
-
+  
   /**
    * getAlbisToken() returns albisToken needed to call other Albis functions
    * 

@@ -76,7 +76,21 @@ export async function login(
   });
 }
 
+function versionCheck (apiStage) {
+  console.log("DDDD")
+  const stage = apiStage;
+  console.log(stage)
+  const stageValidator = RegExp(/^v[1-9]+$|^staging$/);
+  const validateStage = stageValidator.test(stage);
+  console.log(validateStage)
+
+  if (!validateStage) {
+    throw ('API stage not valid');
+  }
+}
+
 export function getEndpointPath(resource, apiStage, SDKendpoint, nodeEnv) {
+  versionCheck(apiStage);
   if (resource === 'rate' && nodeEnv === 'test')
     return `http://localhost:3000/testModels/rates.json`;
   return `${SDKendpoint}/${apiStage}/${resource}`;
