@@ -96,6 +96,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "./package.json":
+/*!**********************!*\
+  !*** ./package.json ***!
+  \**********************/
+/*! exports provided: name, version, dependencies, description, publishConfig, repository, main, scripts, author, license, devDependencies, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"name\":\"@albis-group/albis-leasing-sdk\",\"version\":\"1.0.0\",\"dependencies\":{},\"description\":\"SDK for integrating the ALBIS leasing API as payment method in your e-commerce solution.\",\"publishConfig\":{\"registry\":\"https://npm.pkg.github.com/\"},\"repository\":{\"type\":\"git\",\"url\":\"https://github.com/ALBIS-GROUP/LeaseKitSDK.git\",\"directory\":\"albis-leasing-sdk/@albis-group/albis-leasing-sdk\"},\"main\":\"dist/albis-leasing-sdk.js\",\"scripts\":{\"test\":\"echo \\\"Error: no test specified\\\" && exit 1\",\"build\":\"webpack --config webpack.config.js\"},\"author\":\"Infopark AG\",\"license\":\"ISC\",\"devDependencies\":{\"axios\":\"^0.19.2\",\"babel-plugin-transform-class-properties\":\"^6.24.1\",\"babel-plugin-transform-object-rest-spread\":\"^6.26.0\",\"babel-preset-env\":\"^1.7.0\",\"babel-preset-es2015\":\"^6.24.1\",\"babel-preset-react\":\"^6.24.1\",\"lodash\":\"^4.17.15\",\"webpack\":\"^4.43.0\",\"webpack-cli\":\"^3.3.12\"}}");
+
+/***/ }),
+
 /***/ "./src/helpers.js":
 /*!************************!*\
   !*** ./src/helpers.js ***!
@@ -112,6 +123,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "lodash");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _package_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../package.json */ "./package.json");
+var _package_json__WEBPACK_IMPORTED_MODULE_2___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../package.json */ "./package.json", 1);
+
 
 
 
@@ -191,15 +205,19 @@ async function login(
 }
 
 function versionCheck (apiStage) {
-  console.log("DDDD")
   const stage = apiStage;
-  console.log(stage)
   const stageValidator = RegExp(/^v[1-9]+$|^staging$/);
   const validateStage = stageValidator.test(stage);
-  console.log(validateStage)
+  
+  const stageNumber = parseInt(stage.slice(1, stage.length), 10) || "staging";
+
+  const versionNumber = parseInt(_package_json__WEBPACK_IMPORTED_MODULE_2__["version"], 10);
 
   if (!validateStage) {
     throw ('API stage not valid');
+  } 
+  if (!(stageNumber === "staging" || stageNumber === versionNumber)){
+    throw ('Package version does not match API version')
   }
 }
 
@@ -515,8 +533,6 @@ class Albis {
    * @param {number} values.purchasePrice - purchase price (object value)
    * @param {number} values.rate - rate (returned from getRates() method)
    * @param {string} values.reference - application reference (helper for shop employees)
-   * @param {string} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
-   * @param {Object[]} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
    * @param values.residualValuePercent - required if contract type equals 2
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
@@ -552,8 +568,6 @@ class Albis {
    *    purchasePrice: 5000,
    *    rate: 300,
    *    reference: 'abc123',
-   *    receiverEndpoint: 'company.com/endpoint',
-   *    receiverFailEmails: ['abc@gmail.com', 'abc2@gmail.com']
    * },
    * {token: '12345'})
    */

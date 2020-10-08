@@ -286,8 +286,6 @@ class Albis {
    * @param {number} values.purchasePrice - purchase price (object value)
    * @param {number} values.rate - rate (returned from getRates() method)
    * @param {string} values.reference - application reference (helper for shop employees)
-   * @param {string} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
-   * @param {Object[]} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
    * @param values.residualValuePercent - required if contract type equals 2
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
@@ -323,8 +321,6 @@ class Albis {
    *    purchasePrice: 5000,
    *    rate: 300,
    *    reference: 'abc123',
-   *    receiverEndpoint: 'company.com/endpoint',
-   *    receiverFailEmails: ['abc@gmail.com', 'abc2@gmail.com']
    * },
    * {token: '12345'})
    */
