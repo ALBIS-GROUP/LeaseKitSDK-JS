@@ -1,5 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
+import {version} from '../package.json';
 
 export async function getToken(
   SDKendpoint,
@@ -77,15 +78,19 @@ export async function login(
 }
 
 function versionCheck (apiStage) {
-  console.log("DDDD")
   const stage = apiStage;
-  console.log(stage)
   const stageValidator = RegExp(/^v[1-9]+$|^staging$/);
   const validateStage = stageValidator.test(stage);
-  console.log(validateStage)
+  
+  const stageNumber = parseInt(stage.slice(1, stage.length), 10) || "staging";
+
+  const versionNumber = parseInt(version, 10);
 
   if (!validateStage) {
     throw ('API stage not valid');
+  } 
+  if (!(stageNumber === "staging" || stageNumber === versionNumber)){
+    throw ('Package version does not match API version')
   }
 }
 
