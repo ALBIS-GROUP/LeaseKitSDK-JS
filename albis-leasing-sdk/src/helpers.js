@@ -1,5 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
+import {version} from '../package.json';
 
 export async function getToken(
   SDKendpoint,
@@ -76,7 +77,25 @@ export async function login(
   });
 }
 
+function versionCheck (apiStage) {
+  const stage = apiStage;
+  const stageValidator = RegExp(/^v[1-9]+$|^staging$/);
+  const validateStage = stageValidator.test(stage);
+  
+  const stageNumber = parseInt(stage.slice(1, stage.length), 10) || "staging";
+
+  const versionNumber = parseInt(version, 10);
+
+  if (!validateStage) {
+    throw ('API stage not valid');
+  } 
+  if (!(stageNumber === "staging" || stageNumber === versionNumber)){
+    throw ('Package version does not match API version')
+  }
+}
+
 export function getEndpointPath(resource, apiStage, SDKendpoint, nodeEnv) {
+  versionCheck(apiStage);
   if (resource === 'rate' && nodeEnv === 'test')
     return `http://localhost:3000/testModels/rates.json`;
   return `${SDKendpoint}/${apiStage}/${resource}`;
