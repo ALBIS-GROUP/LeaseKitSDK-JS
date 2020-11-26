@@ -96,6 +96,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "./package.json":
+/*!**********************!*\
+  !*** ./package.json ***!
+  \**********************/
+/*! exports provided: name, version, dependencies, description, publishConfig, repository, main, scripts, author, license, devDependencies, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"name\":\"@albis-group/albis-leasing-sdk\",\"version\":\"1.0.0\",\"dependencies\":{\"jsdoc\":\"^3.6.6\"},\"description\":\"SDK for integrating the ALBIS leasing API as payment method in your e-commerce solution.\",\"publishConfig\":{\"registry\":\"https://npm.pkg.github.com/\"},\"repository\":{\"type\":\"git\",\"url\":\"https://github.com/ALBIS-GROUP/LeaseKitSDK.git\",\"directory\":\"albis-leasing-sdk/@albis-group/albis-leasing-sdk\"},\"main\":\"dist/albis-leasing-sdk.js\",\"scripts\":{\"test\":\"echo \\\"Error: no test specified\\\" && exit 1\",\"build\":\"webpack --config webpack.config.js\"},\"author\":\"Infopark AG\",\"license\":\"ISC\",\"devDependencies\":{\"axios\":\"^0.19.2\",\"babel-plugin-transform-class-properties\":\"^6.24.1\",\"babel-plugin-transform-object-rest-spread\":\"^6.26.0\",\"babel-preset-env\":\"^1.7.0\",\"babel-preset-es2015\":\"^6.24.1\",\"babel-preset-react\":\"^6.24.1\",\"lodash\":\"^4.17.15\",\"webpack\":\"^4.43.0\",\"webpack-cli\":\"^3.3.12\"}}");
+
+/***/ }),
+
 /***/ "./src/helpers.js":
 /*!************************!*\
   !*** ./src/helpers.js ***!
@@ -112,6 +123,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "lodash");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _package_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../package.json */ "./package.json");
+var _package_json__WEBPACK_IMPORTED_MODULE_2___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../package.json */ "./package.json", 1);
+
 
 
 
@@ -191,15 +205,19 @@ async function login(
 }
 
 function versionCheck (apiStage) {
-  console.log("DDDD")
   const stage = apiStage;
-  console.log(stage)
   const stageValidator = RegExp(/^v[1-9]+$|^staging$/);
   const validateStage = stageValidator.test(stage);
-  console.log(validateStage)
+  
+  const stageNumber = parseInt(stage.slice(1, stage.length), 10) || "staging";
+
+  const versionNumber = parseInt(_package_json__WEBPACK_IMPORTED_MODULE_2__["version"], 10);
 
   if (!validateStage) {
     throw ('API stage not valid');
+  } 
+  if (!(stageNumber === "staging" || stageNumber === versionNumber)){
+    throw ('Package version does not match API version')
   }
 }
 
@@ -311,7 +329,7 @@ class Albis {
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {string} "{result: "pong"}"
+   * @returns {Object} "{result: "pong"}"
    *
    * @example
    * ping({token: '1234'})
@@ -325,6 +343,89 @@ class Albis {
         'Authorization': `Bearer ${albisToken.token}`,
       },
     });
+  }
+  /**
+  * echo(data, albisToken)
+  * @param {string} data - random string
+  * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+  * 
+  * @returns {Object} An Object with attributes passed to the function
+  * 
+  * @example
+  * echo("Hello World", {token: '1234'})
+  */
+
+  async echo(data, albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('echo', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+      params: {
+        data 
+      }
+    })
+  }
+
+  /**
+   * getDocuments(applicationId, purchasePrice, iban, rate, albisToken) returns needed documents
+   * @param {number} applicationId - application number
+   * @param {number} purchasePrice - purchase price
+   * @param {string} iban - iban 
+   * @param {number} rate - rate
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   * 
+   * @returns {Object} returns Base64 string (pdf file)
+   * 
+   * @example 
+   * 
+   * getDocuments(123456, 5000, "DE88100900001234567892", 300, {token: 12345})
+   */
+  
+  async getDocuments(applicationId, purchasePrice, iban, rate, albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('documents', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+      params: {
+        applicationId, 
+        purchasePrice, 
+        iban, 
+        rate,
+      },
+    });
+  }
+
+  /**
+   * changePassword(albisNewPassword, auth0NewPassword, albisToken)
+   * 
+   * @param {string} albisNewPassword - albis new password
+   * @param {string} auth0NewPassword - auth0 new password
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API 
+   * 
+   * @returns {Object} An object containing attributes: 
+   * auth0PassChangeStatus - object returned by Auth0
+   * albisPassChangeStatus - object returned by Albis 
+   */
+
+  async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('password', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint,
+      {
+        albisNewPassword,
+        auth0NewPassword
+      }, 
+      {
+        headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+       }
+    })
   }
 
   /**

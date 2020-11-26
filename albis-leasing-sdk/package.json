@@ -1,7 +1,9 @@
 {
   "name": "@albis-group/albis-leasing-sdk",
   "version": "1.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "jsdoc": "^3.6.6"
+  },
   "description": "SDK for integrating the ALBIS leasing API as payment method in your e-commerce solution.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
