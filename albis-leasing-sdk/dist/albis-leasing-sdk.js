@@ -346,6 +346,93 @@ class Albis {
   }
 
   /**
+  * echo(data, albisToken)
+  * @param {string} data - random string
+  * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+  * 
+  * @returns {Object} An Object with attributes passed to the function
+  * 
+  * @example
+  * echo("Hello World", {token: '1234'})
+  */
+
+ async echo(data, albisToken) {
+  const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('echo', this.apiStage, this.SDKendpoint, this.nodeEnv);
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${albisToken.token}`,
+    },
+    params: {
+      data 
+    }
+  })
+}
+
+/**
+ * getDocuments(applicationId, purchasePrice, iban, rate, albisToken) returns needed documents
+ * @param {number} applicationId - application number
+ * @param {number} purchasePrice - purchase price
+ * @param {string} iban - iban 
+ * @param {number} rate - rate
+ * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+ * 
+ * @returns {Object} returns Base64 string (pdf file)
+ * 
+ * @example 
+ * 
+ * getDocuments(123456, 5000, "DE88100900001234567892", 300, {token: 12345})
+ */
+
+async getDocuments(applicationId, purchasePrice, iban, rate, albisToken) {
+  const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('documents', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+    headers: { 
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${albisToken.token}`,
+    },
+    params: {
+      applicationId, 
+      purchasePrice, 
+      iban, 
+      rate,
+    },
+  });
+}
+
+/**
+ * changePassword(albisNewPassword, auth0NewPassword, albisToken)
+ * 
+ * @param {string} albisNewPassword - albis new password
+ * @param {string} auth0NewPassword - auth0 new password
+ * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API 
+ * 
+ * @returns {Object} An object containing attributes: 
+ * auth0PassChangeStatus - object returned by Auth0
+ * albisPassChangeStatus - object returned by Albis 
+ * 
+ * @example 
+ * changePassword("albisNewPassword", "auth0NewPassword", {token: 12345})
+ */
+
+async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
+  const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('password', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint,
+    {
+      albisNewPassword,
+      auth0NewPassword
+    }, 
+    {
+      headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${albisToken.token}`,
+     }
+  })
+}
+
+  /**
    * getRates(values, albisToken) retrieves proposed rates. Returned object is needed for proceed getApplication(albisToken)
    *
    * @param {Object} values - An object with data for providing rate offers
