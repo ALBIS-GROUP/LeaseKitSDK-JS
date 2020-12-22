@@ -103,7 +103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /*! exports provided: name, version, dependencies, description, publishConfig, repository, main, scripts, author, license, devDependencies, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"@albis-group/albis-leasing-sdk\",\"version\":\"1.0.0\",\"dependencies\":{},\"description\":\"SDK for integrating the ALBIS leasing API as payment method in your e-commerce solution.\",\"publishConfig\":{\"registry\":\"https://npm.pkg.github.com/\"},\"repository\":{\"type\":\"git\",\"url\":\"https://github.com/ALBIS-GROUP/LeaseKitSDK.git\",\"directory\":\"albis-leasing-sdk/@albis-group/albis-leasing-sdk\"},\"main\":\"dist/albis-leasing-sdk.js\",\"scripts\":{\"test\":\"echo \\\"Error: no test specified\\\" && exit 1\",\"build\":\"webpack --config webpack.config.js\"},\"author\":\"Infopark AG\",\"license\":\"ISC\",\"devDependencies\":{\"axios\":\"^0.19.2\",\"babel-plugin-transform-class-properties\":\"^6.24.1\",\"babel-plugin-transform-object-rest-spread\":\"^6.26.0\",\"babel-preset-env\":\"^1.7.0\",\"babel-preset-es2015\":\"^6.24.1\",\"babel-preset-react\":\"^6.24.1\",\"lodash\":\"^4.17.15\",\"webpack\":\"^4.43.0\",\"webpack-cli\":\"^3.3.12\"}}");
+module.exports = JSON.parse("{\"name\":\"@albis-group/albis-leasing-sdk\",\"version\":\"1.0.1\",\"dependencies\":{\"axios\":\"^0.21.0\",\"lodash\":\"^4.17.20\"},\"description\":\"SDK for integrating the ALBIS leasing API as payment method in your e-commerce solution.\",\"publishConfig\":{\"registry\":\"https://npm.pkg.github.com/\"},\"repository\":{\"type\":\"git\",\"url\":\"https://github.com/ALBIS-GROUP/LeaseKitSDK.git\",\"directory\":\"albis-leasing-sdk/@albis-group/albis-leasing-sdk\"},\"main\":\"dist/albis-leasing-sdk.js\",\"scripts\":{\"test\":\"echo \\\"Error: no test specified\\\" && exit 1\",\"build\":\"webpack --config webpack.config.js\"},\"author\":\"Infopark AG\",\"license\":\"ISC\",\"devDependencies\":{\"babel-plugin-transform-class-properties\":\"^6.24.1\",\"babel-plugin-transform-object-rest-spread\":\"^6.26.0\",\"babel-preset-env\":\"^1.7.0\",\"babel-preset-es2015\":\"^6.24.1\",\"babel-preset-react\":\"^6.24.1\",\"webpack\":\"^4.43.0\",\"webpack-cli\":\"^3.3.12\"}}");
 
 /***/ }),
 
@@ -517,6 +517,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
    * @param {Object[]} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
    * @param values.residualValuePercent - required if contract type equals 2
+   * @param {number} values.serviceFee - required if contract type equals 7 or 12
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
    * @returns {Object} response - response object
@@ -805,6 +806,30 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
     });
 
     return salutations.data;
+  }
+
+  /**
+   * logout(albisToken) logs the user out
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {string} An approval message
+   *
+   * @example
+   * logout({token: '12345'})
+   */
+
+  async logout(albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('token', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+    const log = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(endpoint, {
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+    });
+
+    return log.data;
   }
 
 }

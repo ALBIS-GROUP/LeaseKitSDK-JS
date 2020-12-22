@@ -541,7 +541,7 @@ class CheckoutStepContacts extends React.Component {
 								>
 									<option />
 									{this.state.legalFormsList.map(legalForm => (
-										<option value={legalForm.text} key={legalForm.text}>
+										<option value={legalForm.id} key={legalForm.text}>
 											{legalForm.text}
 										</option>
 									))}

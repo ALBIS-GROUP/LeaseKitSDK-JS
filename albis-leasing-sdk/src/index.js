@@ -270,6 +270,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
    * @param {Object[]} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
    * @param values.residualValuePercent - required if contract type equals 2
+   * @param {number} values.serviceFee - required if contract type equals 7 or 12
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
    * @returns {Object} response - response object
@@ -558,6 +559,30 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
     });
 
     return salutations.data;
+  }
+
+  /**
+   * logout(albisToken) logs the user out
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {string} An approval message
+   *
+   * @example
+   * logout({token: '12345'})
+   */
+
+  async logout(albisToken) {
+    const endpoint = getEndpointPath('token', this.apiStage, this.SDKendpoint, this.nodeEnv);
+
+    const log = await axios.delete(endpoint, {
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+    });
+
+    return log.data;
   }
 
 }
