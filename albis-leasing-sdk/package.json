@@ -1,6 +1,6 @@
 {
   "name": "@albis-group/albis-leasing-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "dependencies": {
     "axios": "^0.21.0",
     "lodash": "^4.17.20"
