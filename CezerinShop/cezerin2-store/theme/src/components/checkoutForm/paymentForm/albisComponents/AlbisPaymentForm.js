@@ -92,17 +92,10 @@ class AlbisPaymentForm extends Component {
 				isLoadingRates: false,
 				rates: null
 			});
-		} else if (a.data.message) {
-			// error caused by Albis API
-			this.setState({
-				error: { errorRates: a.data },
-				isLoadingRates: false,
-				rates: null
-			});
 		} else {
 			// everything works fine, rates fetched
 			this.setState({
-				rates: a.data,
+				rates: a.result,
 				isLoadingRates: false,
 				error: { errorRates: null }
 			});
@@ -146,6 +139,7 @@ class AlbisPaymentForm extends Component {
 				]),
 				this.state.token
 			);
+			console.log(a)
 		} catch (err) {
 			console.log(err);
 			error = 'Something went wrong';
@@ -157,18 +151,11 @@ class AlbisPaymentForm extends Component {
 				isLoadingApplication: false,
 				applicationId: null
 			});
-		} else if (a.data.error) {
-			// error caused by Albis API
-			this.setState({
-				error: { errorApplication: a.data.error },
-				isLoadingApplication: false,
-				applicationId: null
-			});
 		} else {
 			// everything works fine, application fetched
-			this.props.setApplicationId(a.data.result);
+			this.props.setApplicationId(a.result);
 			this.setState({
-				applicationId: a,
+				applicationId: a.result,
 				isLoadingApplication: false,
 				error: { errorApplication: null }
 			});
@@ -248,7 +235,7 @@ class AlbisPaymentForm extends Component {
 						/>
 					</div>
 				)}
-				{applicationId && applicationId.data.result && !applicationId.data.result.message && (
+				{applicationId && applicationId.result && !applicationId.result.message && (
 					<div className={'albis-application-result'}>
 						<h1>Application id is: {applicationId.result}</h1>
 					</div>

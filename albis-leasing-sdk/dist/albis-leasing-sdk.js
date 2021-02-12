@@ -111,11 +111,12 @@ module.exports = JSON.parse("{\"name\":\"@albis-group/albis-leasing-sdk\",\"vers
 /*!************************!*\
   !*** ./src/helpers.js ***!
   \************************/
-/*! exports provided: getToken, login, getEndpointPath */
+/*! exports provided: errorObj, getToken, login, getEndpointPath */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorObj", function() { return errorObj; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getToken", function() { return getToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEndpointPath", function() { return getEndpointPath; });
@@ -128,6 +129,21 @@ var _package_json__WEBPACK_IMPORTED_MODULE_2___namespace = /*#__PURE__*/__webpac
 
 
 
+
+function errorObj(err) {
+  if (!err.response) {
+    return {
+      status: 'Error from LeaseKit lib',
+      statusText: err,
+    }
+  }
+  return {
+    status: err.response.status,
+    statusText: err.response.statusText,
+    headers: err.response.headers,
+    data: err.response.data
+  }
+}
 
 async function getToken(
   SDKendpoint,
@@ -162,7 +178,7 @@ async function getToken(
         nodeEnv
       );
     } catch (err) {
-      return `Error occured during authentication: ${err}`;
+      throw err;
     }
     albisToken = {
       token: token.data.access_token,
@@ -311,16 +327,21 @@ class Albis {
    */
 
    async getAlbisToken() {
-    const albisToken = await Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getToken"])(
-      this.SDKendpoint,
-      this.apiStage,
-      this.username,
-      this.password,
-      this.auth0Username,
-      this.auth0Password,
-      this.realm,
-      this.nodeEnv,
-    );
+    let albisToken = ""
+    try {
+      albisToken = await Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getToken"])(
+        this.SDKendpoint,
+        this.apiStage,
+        this.username,
+        this.password,
+        this.auth0Username,
+        this.auth0Password,
+        this.realm,
+        this.nodeEnv,
+      );
+    } catch (e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
     return albisToken
    }
 
@@ -337,12 +358,18 @@ class Albis {
 
   async ping(albisToken) {
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('ping', this.apiStage, this.SDKendpoint, this.nodeEnv);
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
-      headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-    });
+    let res = {}
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch (e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
+    return res.data
   }
 
   /**
@@ -358,15 +385,21 @@ class Albis {
 
  async echo(data, albisToken) {
   const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('echo', this.apiStage, this.SDKendpoint, this.nodeEnv);
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
-    headers: {
-      'content-type': 'application/json',
-      'Authorization': `Bearer ${albisToken.token}`,
-    },
-    params: {
-      data 
-    }
-  })
+  let res = {}
+  try {
+    res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+      params: {
+        data 
+      }
+    })
+  } catch (e) {
+    throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+  }
+  return res.data
 }
 
 /**
@@ -386,19 +419,24 @@ class Albis {
 
 async getDocuments(applicationId, purchasePrice, iban, rate, albisToken) {
   const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('documents', this.apiStage, this.SDKendpoint, this.nodeEnv);
-
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
-    headers: { 
-      'content-type': 'application/json',
-      'Authorization': `Bearer ${albisToken.token}`,
-    },
-    params: {
-      applicationId, 
-      purchasePrice, 
-      iban, 
-      rate,
-    },
-  });
+  let res = {}
+  try {
+    res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+      params: {
+        applicationId, 
+        purchasePrice, 
+        iban, 
+        rate,
+      },
+    });
+  } catch (e) {
+    throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+  }
+  return res.data
 }
 
 /**
@@ -418,18 +456,23 @@ async getDocuments(applicationId, purchasePrice, iban, rate, albisToken) {
 
 async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('password', this.apiStage, this.SDKendpoint, this.nodeEnv);
-
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint,
-    {
-      albisNewPassword,
-      auth0NewPassword
-    }, 
-    {
-      headers: {
-      'content-type': 'application/json',
-      'Authorization': `Bearer ${albisToken.token}`,
-     }
-  })
+  let res = {}
+  try {
+    res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint,
+      {
+        albisNewPassword,
+        auth0NewPassword
+      }, 
+      {
+        headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+       }
+    })
+  } catch(e) {
+    throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+  }
+  return res.data
 }
 
   /**
@@ -443,7 +486,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {number} values.paymentMethod - Payment options
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {Object} An Object with attributes passed to the function and additional attributes:
+   * @returns {Object} An Object with attributes:
    * leaseTerm,
    * rate,
    * rateWithInsurance
@@ -456,21 +499,25 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    */
 
   async getRates(values, albisToken) {
-    let rates = {};
+    let res = {};
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('rate', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
-    rates = axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
-      headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-      params: {
-        ...values,
-        provision: this.provision,
-      },
-    });
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+        params: {
+          ...values,
+          provision: this.provision,
+        },
+      });
+    } catch (e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
 
-    return rates;
+    return res.data;
   }
 
   /**
@@ -579,20 +626,26 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async saveApplication(values, albisToken) {
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
     if (values.object.length > 80) {
       values = {...values, object: values.object.substring(0,77) + "..." }
     }
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint,
-      {
-        ...values, provision: this.provision,
-      }, 
-      {
-        headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-       }
-    })
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint,
+        {
+          ...values, provision: this.provision,
+        }, 
+        {
+          headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+         }
+      })
+    } catch(e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
+    return res.data
   }
 
   /**
@@ -662,19 +715,26 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async updateApplication(values, albisToken) {
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
     if (values.object.length > 80) {
       values = {...values, object: values.object.substring(0,77) + "..." }
     }
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(endpoint,
-      {...values,
-      applicationId: values.id}, 
-      {
-        headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-       }
-    })
+
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(endpoint,
+        {...values,
+        applicationId: values.id}, 
+        {
+          headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+         }
+      })
+    } catch(e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
+    return res.data
   }
 
   /**
@@ -690,16 +750,21 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async findApplication(id, albisToken) {
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
-
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-      params: {
-        applicationId: id,
-      },
-    });
+    let res = {}
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+        params: {
+          applicationId: id,
+        },
+      });
+    } catch (e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
+    return res.data
   }
 
     /**
@@ -715,15 +780,20 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async getLegalForms(albisToken) {
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('legal-forms', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
-    const legalForms = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-    });
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch (e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
 
-    return legalForms.data;
+    return res.data
   }
 
    /**
@@ -739,15 +809,20 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async getApplicationsStatus(albisToken) {
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('applications-status', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
-    const applicationStatus = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-    });
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch(e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
 
-    return applicationStatus.data;
+    return res.data
   }
 
    /**
@@ -768,20 +843,25 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async uploadDocuments(id, documents, albisToken) {
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('documents', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
-    const albisResponse = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint, 
-      {
-        applicationId: id,
-        documents
-      },
-      {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-    });
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(endpoint, 
+        {
+          applicationId: id,
+          documents
+        },
+        {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch(e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
 
-    return albisResponse.data;
+    return res.data;
   }
 
   /**
@@ -797,15 +877,20 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async getSalutations(albisToken) {
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('salutations', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
-    const salutations = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-    });
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch(e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
 
-    return salutations.data;
+    return res.data;
   }
 
   /**
@@ -821,15 +906,20 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async logout(albisToken) {
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('token', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
-    const log = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(endpoint, {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-    });
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch(e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
 
-    return log.data;
+    return res.data;
   }
 
 }
