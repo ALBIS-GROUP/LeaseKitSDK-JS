@@ -2,7 +2,7 @@ version: '3'
 
 services:
  cezerin2:
-   image: docker.pkg.github.com/albis-group/leasekitsdk/albis-cezerin2
+   image: docker.pkg.github.com/albis-group/leasekitsdk-js/albis-cezerin2:1.0
    ports:
      - 3001:80
    environment:
@@ -22,7 +22,7 @@ services:
    restart: always
 
  cezerin2-store:
-   image: docker.pkg.github.com/albis-group/leasekitsdk/albis-cezerin2-store
+   image: docker.pkg.github.com/albis-group/leasekitsdk-js/albis-cezerin2-store:1.1
    environment:
      - API_BASE_URL=http://cezerin2/api/v1
      - AJAX_BASE_URL=http://cezerin2/ajax
@@ -44,7 +44,7 @@ services:
    restart: always
 
  admin:
-   image: docker.pkg.github.com/albis-group/leasekitsdk/albis-cezerin2-admin
+   image: docker.pkg.github.com/albis-group/leasekitsdk-js/albis-cezerin2-admin:1.0
    ports:
      - 3002:80
    environment:
