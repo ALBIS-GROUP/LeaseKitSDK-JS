@@ -1,6 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
-import { getEndpointPath, getToken } from './helpers';
+import { getEndpointPath, getToken, errorObj } from './helpers';
 
 // run:
 // jsdoc -d ../public/doc/ src/index.js to create a documentation for this file
@@ -64,16 +64,21 @@ class Albis {
    */
 
    async getAlbisToken() {
-    const albisToken = await getToken(
-      this.SDKendpoint,
-      this.apiStage,
-      this.username,
-      this.password,
-      this.auth0Username,
-      this.auth0Password,
-      this.realm,
-      this.nodeEnv,
-    );
+    let albisToken = ""
+    try {
+      albisToken = await getToken(
+        this.SDKendpoint,
+        this.apiStage,
+        this.username,
+        this.password,
+        this.auth0Username,
+        this.auth0Password,
+        this.realm,
+        this.nodeEnv,
+      );
+    } catch (e) {
+      throw errorObj(e)
+    }
     return albisToken
    }
 
@@ -90,12 +95,18 @@ class Albis {
 
   async ping(albisToken) {
     const endpoint = getEndpointPath('ping', this.apiStage, this.SDKendpoint, this.nodeEnv);
-    return axios.get(endpoint, {
-      headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-    });
+    let res = {}
+    try {
+      res = await axios.get(endpoint, {
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch (e) {
+      throw errorObj(e)
+    }
+    return res.data
   }
 
   /**
@@ -111,15 +122,21 @@ class Albis {
 
  async echo(data, albisToken) {
   const endpoint = getEndpointPath('echo', this.apiStage, this.SDKendpoint, this.nodeEnv);
-  return axios.get(endpoint, {
-    headers: {
-      'content-type': 'application/json',
-      'Authorization': `Bearer ${albisToken.token}`,
-    },
-    params: {
-      data 
-    }
-  })
+  let res = {}
+  try {
+    res = await axios.get(endpoint, {
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+      params: {
+        data 
+      }
+    })
+  } catch (e) {
+    throw errorObj(e)
+  }
+  return res.data
 }
 
 /**
@@ -139,19 +156,24 @@ class Albis {
 
 async getDocuments(applicationId, purchasePrice, iban, rate, albisToken) {
   const endpoint = getEndpointPath('documents', this.apiStage, this.SDKendpoint, this.nodeEnv);
-
-  return axios.get(endpoint, {
-    headers: { 
-      'content-type': 'application/json',
-      'Authorization': `Bearer ${albisToken.token}`,
-    },
-    params: {
-      applicationId, 
-      purchasePrice, 
-      iban, 
-      rate,
-    },
-  });
+  let res = {}
+  try {
+    res = await axios.get(endpoint, {
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+      },
+      params: {
+        applicationId, 
+        purchasePrice, 
+        iban, 
+        rate,
+      },
+    });
+  } catch (e) {
+    throw errorObj(e)
+  }
+  return res.data
 }
 
 /**
@@ -171,18 +193,23 @@ async getDocuments(applicationId, purchasePrice, iban, rate, albisToken) {
 
 async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   const endpoint = getEndpointPath('password', this.apiStage, this.SDKendpoint, this.nodeEnv);
-
-  return axios.post(endpoint,
-    {
-      albisNewPassword,
-      auth0NewPassword
-    }, 
-    {
-      headers: {
-      'content-type': 'application/json',
-      'Authorization': `Bearer ${albisToken.token}`,
-     }
-  })
+  let res = {}
+  try {
+    res = await axios.post(endpoint,
+      {
+        albisNewPassword,
+        auth0NewPassword
+      }, 
+      {
+        headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${albisToken.token}`,
+       }
+    })
+  } catch(e) {
+    throw errorObj(e)
+  }
+  return res.data
 }
 
   /**
@@ -196,7 +223,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {number} values.paymentMethod - Payment options
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {Object} An Object with attributes passed to the function and additional attributes:
+   * @returns {Object} An Albis object with attribute result contains array of objects with attributes:
    * leaseTerm,
    * rate,
    * rateWithInsurance
@@ -209,21 +236,25 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    */
 
   async getRates(values, albisToken) {
-    let rates = {};
+    let res = {};
     const endpoint = getEndpointPath('rate', this.apiStage, this.SDKendpoint, this.nodeEnv);
 
-    rates = axios.get(endpoint, {
-      headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-      params: {
-        ...values,
-        provision: this.provision,
-      },
-    });
+    try {
+      res = await axios.get(endpoint, {
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+        params: {
+          ...values,
+          provision: this.provision,
+        },
+      });
+    } catch (e) {
+      throw errorObj(e)
+    }
 
-    return rates;
+    return res.data;
   }
 
   /**
@@ -332,20 +363,26 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async saveApplication(values, albisToken) {
     const endpoint = getEndpointPath('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
     if (values.object.length > 80) {
       values = {...values, object: values.object.substring(0,77) + "..." }
     }
-    return axios.post(endpoint,
-      {
-        ...values, provision: this.provision,
-      }, 
-      {
-        headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-       }
-    })
+    try {
+      res = await axios.post(endpoint,
+        {
+          ...values, provision: this.provision,
+        }, 
+        {
+          headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+         }
+      })
+    } catch(e) {
+      throw errorObj(e)
+    }
+    return res.data
   }
 
   /**
@@ -415,19 +452,26 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async updateApplication(values, albisToken) {
     const endpoint = getEndpointPath('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
     if (values.object.length > 80) {
       values = {...values, object: values.object.substring(0,77) + "..." }
     }
-    return axios.put(endpoint,
-      {...values,
-      applicationId: values.id}, 
-      {
-        headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-       }
-    })
+
+    try {
+      res = await axios.put(endpoint,
+        {...values,
+        applicationId: values.id}, 
+        {
+          headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+         }
+      })
+    } catch(e) {
+      throw errorObj(e)
+    }
+    return res.data
   }
 
   /**
@@ -443,16 +487,21 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async findApplication(id, albisToken) {
     const endpoint = getEndpointPath('application', this.apiStage, this.SDKendpoint, this.nodeEnv);
-
-    return axios.get(endpoint, {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-      params: {
-        applicationId: id,
-      },
-    });
+    let res = {}
+    try {
+      res = await axios.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+        params: {
+          applicationId: id,
+        },
+      });
+    } catch (e) {
+      throw errorObj(e)
+    }
+    return res.data
   }
 
     /**
@@ -468,15 +517,20 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async getLegalForms(albisToken) {
     const endpoint = getEndpointPath('legal-forms', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
-    const legalForms = await axios.get(endpoint, {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-    });
+    try {
+      res = await axios.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch (e) {
+      throw errorObj(e)
+    }
 
-    return legalForms.data;
+    return res.data
   }
 
    /**
@@ -492,15 +546,20 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async getApplicationsStatus(albisToken) {
     const endpoint = getEndpointPath('applications-status', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
-    const applicationStatus = await axios.get(endpoint, {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-    });
+    try {
+      res = await axios.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch(e) {
+      throw errorObj(e)
+    }
 
-    return applicationStatus.data;
+    return res.data
   }
 
    /**
@@ -521,20 +580,25 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async uploadDocuments(id, documents, albisToken) {
     const endpoint = getEndpointPath('documents', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
-    const albisResponse = await axios.post(endpoint, 
-      {
-        applicationId: id,
-        documents
-      },
-      {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-    });
+    try {
+      res = await axios.post(endpoint, 
+        {
+          applicationId: id,
+          documents
+        },
+        {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch(e) {
+      throw errorObj(e)
+    }
 
-    return albisResponse.data;
+    return res.data;
   }
 
   /**
@@ -550,15 +614,20 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async getSalutations(albisToken) {
     const endpoint = getEndpointPath('salutations', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
-    const salutations = await axios.get(endpoint, {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-    });
+    try {
+      res = await axios.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch(e) {
+      throw errorObj(e)
+    }
 
-    return salutations.data;
+    return res.data;
   }
 
   /**
@@ -574,15 +643,20 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
   async logout(albisToken) {
     const endpoint = getEndpointPath('token', this.apiStage, this.SDKendpoint, this.nodeEnv);
+    let res = {}
 
-    const log = await axios.delete(endpoint, {
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${albisToken.token}`,
-      },
-    });
+    try {
+      res = await axios.delete(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch(e) {
+      throw errorObj(e)
+    }
 
-    return log.data;
+    return res.data;
   }
 
 }

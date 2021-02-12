@@ -2,6 +2,21 @@ import axios from 'axios';
 import _ from 'lodash';
 import {version} from '../package.json';
 
+export function errorObj(err) {
+  if (!err.response) {
+    return {
+      status: 'Error from LeaseKit lib',
+      statusText: err,
+    }
+  }
+  return {
+    status: err.response.status,
+    statusText: err.response.statusText,
+    headers: err.response.headers,
+    data: err.response.data
+  }
+}
+
 export async function getToken(
   SDKendpoint,
   apiStage,
@@ -35,7 +50,7 @@ export async function getToken(
         nodeEnv
       );
     } catch (err) {
-      return `Error occured during authentication: ${err}`;
+      throw err;
     }
     albisToken = {
       token: token.data.access_token,
