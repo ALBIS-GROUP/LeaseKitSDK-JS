@@ -54,12 +54,7 @@ class Albis {
   /**
    * getAlbisToken() returns albisToken needed to call other Albis functions
    * 
-   * @returns {Object} albisToken
-   * @param {string} albisToken.token - token used for user authorisation
-   * @param {string} albisToken.scope - shows users access
-   * @param {string} albisToken.token_type - token type
-   * @param {number} albisToken.expires_in_Auth0 - how long the token will be valid (number of seconds)
-   * @param {number} albisToken.expires - how long the token will be valid (Unix time stamp)
+   * @returns {ResponseGetAlbisToken} response object
    *
    * @example
    * Albis.getAlbisToken()
@@ -88,10 +83,7 @@ class Albis {
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {Object} response
-   * @param {string} response.id - json rpc lib id
-   * @param {string} response.jsonrpc - json rpc version number ("2.0")
-   * @param {string} response.result - 'pong'
+   * @returns {ResponsePing} response object
    *
    * @example
    * Albis.ping({ token: '1234' })
@@ -118,10 +110,7 @@ class Albis {
   * @param {string=} data - random string (optional)
   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
   * 
-  * @returns {Object} response
-  * @param {string} response.id - json rpc lib id
-  * @param {string} response.jsonrpc - json rpc version number ("2.0")
-  * @param {string} response.result - data input string (or default "Test")
+  * @returns {ResponseEcho} response object
   * 
   * @example
   * Albis.echo("Hello World", { token: '1234' })
@@ -151,10 +140,7 @@ class Albis {
  * @param {number} applicationId - application number
  * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
  * 
- * @returns {Object} response
- * @param {string} response.id - json rpc lib id
- * @param {string} response.jsonrpc - json rpc version number ("2.0")
- * @param {string} response.result - base64 string (i.e. a PDF file)
+ * @returns {ResponseGetDocuments} response object
  * 
  * @example 
  * 
@@ -187,23 +173,7 @@ async getDocuments(applicationId, albisToken) {
  * @param {string=} auth0NewPassword - auth0 new password (optional)
  * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API 
  * 
- * @returns {Object} response
- * @param {string} response.albisPassChangeStatus.id - json rpc lib id
- * @param {string} response.albisPassChangeStatus.jsonrpc - json rpc version number ("2.0")
- * @param {string} response.albisPassChangeStatus.result - null
- * @param {string} response.auth0PassChangeStatus.created_at - date when the user has been created
- * @param {string} response.auth0PassChangeStatus.email - user's email (same as login)
- * @param {boolean} response.auth0PassChangeStatus.email_verified - is email verified
- * @param {Object} response.auth0PassChangeStatus.identities - object with description of user connection
- * @param {boolean} response.auth0PassChangeStatus.name - user login name (same as email)
- * @param {boolean} response.auth0PassChangeStatus.nickname - user nickname name (same as email without the domain ending)
- * @param {string} response.auth0PassChangeStatus.picture - user picture URL (png)
- * @param {string} response.auth0PassChangeStatus.updated_at - date of the last update
- * @param {string} response.auth0PassChangeStatus.user_id - auth0 user id
- * @param {string} response.auth0PassChangeStatus.last_password_reset - date of the last password reset
- * @param {string} response.auth0PassChangeStatus.last_ip - ip used for the last connection
- * @param {string} response.auth0PassChangeStatus.last_login - date of the last login
- * @param {number} response.auth0PassChangeStatus.logins_count - number of total logins of this user
+ * @returns {ResponseChangePassword} response object
  * 
  * @example 
  * Albis.changePassword("albisNewPassword", "auth0NewPassword", { token: 12345 })
@@ -241,16 +211,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {number} values.paymentMethod - Payment options
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {Object} response
-   * @param {string} response.id - json rpc lib id
-   * @param {string} response.jsonrpc - json rpc version number ("2.0")
-   * @param {Object[]} response.result - array of objects i.e.
-   * {
-   *  leaseTerm: 18,
-   *  rate: 188.8,
-   *  rateWithInsurance: 195.7,
-   *  total: 3522.6
-   * }
+   * @returns {ResponseGetRates} response object
    *
    * @example
    *
@@ -320,11 +281,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {number=} values.serviceFee - required if contract type equals 7 or 12 (optional)
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
-   * @returns {Object} response - response object
-   * @param {string} response.id - json rpc lib id
-   * @param {string} response.jsonrpc - json rpc version number ("2.0")
-   * @param {number} response.result - a unique number of the application
-   * @param {string} response.receiverToken - receiver token (if used in input params), a string, which can be used by a client to ensure that the notification concerns his application
+   * @returns {ResponseSaveApplication} response - response object
    *
    * @example
    *
@@ -426,11 +383,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {number} values.residualValuePercent - required if contract type equals 2
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
-   * @returns {Object} response - response object
-   * @param {null} response.result - null
-   * @param {string} response.jsonrpc - "2.0"
-   * @param {number} response.id - json rpc lib id
-   * @param {string} response.receiverToken - receiver token (if used in input params), a string, which can be used by a client to ensure that the notification concerns his application
+   * @returns {ResponseUpdateApplication} response object
    *
    * @example
    *
@@ -494,69 +447,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {number} id
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {Object} response - An object with application data
-   * @param {string} response.jsonrpc - "2.0"
-   * @param {string} response.id - json rpc lib id
-   * @param {Object} response.result - object with application data
-   * @param {number} response.result.applicationId - application id i.e. 54321
-   * @param {number} response.result.applicationStatus - application status number i.e. 1150 (you can compare the result with getApplicationsStatus method)
-   * @param {string} response.result.applicationStatusDesc - application status description i.e. 'in Bearbeitung' (you can compare the result with getApplicationsStatus method)
-   * @param {string} response.result.applicationReceptionDate - when application data were received i.e. '2020-12-21 09:04:11'
-   * @param {string} response.result.bankName - bank name, which will cover the transation i.e. 'Berliner Volksbank'
-   * @param {string} response.result.bankIdentifierCode - bank identifier code i.e. 'BEVODEBBXYZ'
-   * @param {Object[]} response.result.contractDocuments - list of missing or incorrect contract documents. Array with objects, i.e.
-   * {
-   *    errorNumber: 1,
-   *    errorText: 'Id document is needed to proceed the application',
-   *    value: 'some more information about the document error',
-   *    documentReceptionDate: '2021-02-20',
-   *    documentType: 'id'
-   * }
-   * @param {number} response.result.contractType - contract type i.e. 1 (you can compare the result with getContractTypes method)
-   * @param {string[]} response.result.decisionDocuments - list of missing documents for the decision i.e. ['id']
-   * @param {number} response.result.downPayment - down payment id i.e. 500
-   * @param {number} response.result.finalPayment - possible final payment if the term is shortened. This field is only available to be filled if the contract is cancellable id i.e. 2831.08
-   * @param {string} response.result.iban - IBAN of account to be charged with contract instalments i.e. 'DE88100900001234567892'
-   * @param {boolean} response.result.insurance - is insurance i.e. true
-   * @param {boolean} response.result.isContactByEmail - indicator that the leasing contract should be sent to the lessee by e-mail after approval i.e. true
-   * @param {boolean} response.result.isLesseeEmailContact - did lessee agreed to receive an email i.e. true
-   * @param {number} response.result.leaseTerm - term of lease in months i.e. 54
-   * @param {Object} response.result.lessee - object with lessee data
-   * @param {string} response.result.lessee.city - lessee city i.e. 'New York'
-   * @param {string} response.result.lessee.email - lessee email i.e. 'johndoe@gmail.com'
-   * @param {string} response.result.lessee.fax - lessee fax i.e. '0123 123 123'
-   * @param {Object} response.result.lessee.manager - lessee manager data
-   * @param {string} response.result.lessee.manager.birthDate - lessee manager birth date, i.e. '1960-12-24' (format YYYY-MM-DD)
-   * @param {string} response.result.lessee.manager.city - lessee manager city, i.e. 'New York'
-   * @param {string} response.result.lessee.manager.firstName - lessee manager first name, i.e. 'Susane'
-   * @param {string} response.result.lessee.manager.fullName - lessee manager full name, i.e. 'Susane Cooper'
-   * @param {string} response.result.lessee.manager.lastName - lessee manager last name, i.e. 'Cooper'
-   * @param {number} response.result.lessee.manager.salutation - lessee manager salutation, i.e. 2 (you can compare the result with getSalutations method)
-   * @param {string} response.result.lessee.manager.salutationDesc - lessee manager salutation description, i.e. 'Frau' (you can compare the result with getSalutations method)
-   * @param {string} response.result.lessee.manager.street - lessee manager street, i.e. 'Fifth Avenue'
-   * @param {string} response.result.lessee.manager.zipCode - lessee manager zip code, i.e. '50123'
-   * @param {string} response.result.lessee.mobileNumber - lessee mobile number, i.e. '+49 543 123 123'
-   * @param {string} response.result.lessee.name - lessee name, i.e. 'John Doe'
-   * @param {number} response.result.lessee.legalForm - lessee legal form, i.e. 1 (you can compare the result with getLegalFroms method)
-   * @param {string} response.result.lessee.phoneNumber - lessee phone number, i.e. '030 1234 1234'
-   * @param {string} response.result.lessee.street - lessee street, i.e. 'Fifth Avenue'
-   * @param {string} response.result.lessee.zipCode - lessee zip code, i.e. '50125'
-   * @param {string} response.result.object - designation of object of lease i.e. 'Fridge Samsung model XYZ'
-   * @param {string} response.result.paymentMethod - payment method i.e. 2 (you can compare the result with getPaymentMethods method)
-   * @param {string} response.result.productGroup - product group of object of lease i.e. 1
-   * @param {string} response.result.promotionId - promotionId (if conditions matched any promotion) i.e. 'xyz'
-   * @param {number} response.result.provision - commission, i.e. 4.5
-   * @param {number} response.result.purchasePrice - purchase price for object of lease, i.e. 5000
-   * @param {number} response.result.rate - monthly leasing rate i.e. 117.87
-   * @param {string} response.result.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered i.e. 'https://companyName.com/shop1'
-   * @param {string[]} response.result.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered i.e. ['emailToBeNotified@gmail.com']
-   * @param {string} response.result.receiverToken - a string, which can be used by a client to ensure that the notification concerns his application i.e. 'xyz123'
-   * @param {string} response.result.reference - application reference (helper for shop employees) i.e. '123abc'
-   * @param {number} response.result.residualValue - residual value i.e. 300 (0 if contract type different than 2)
-   * @param {number} response.result.residualValuePercent - residual value percent i.e. 3.0 (null if contract type different than 2)
-   * @param {boolean} response.result.saleAndLeaseBack - is application of type sale and lease back i.e. true
-   * @param {number} response.result.salesmanId - salesman id which created the application i.e. 12345
-   * @param {number} response.result.terminationTerm - when the lease is possible to terminate i.e. 30
+   * @returns {ResponseFindApplication} response - An object with application data
    *
    * @example
    * Albis.findApplication(54321, { token: '12345' })
@@ -586,14 +477,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    * 
-   * @returns {Object} response
-   * @param {string} response.id - json rpc lib id
-   * @param {string} response.jsonrpc - json rpc version number ("2.0")
-   * @param {Object[]} response.result - array of objects like:
-   * {
-   *   id: 1,
-   *   text: 'GmbH'
-   * }
+   * @returns {ResponseGetLegalForms} response object
    *
    * @example
    * Albis.getLegalForms({ token: '12345' })
@@ -622,10 +506,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {Object} response
-   * @param {string} response.id - json rpc lib id
-   * @param {string} response.jsonrpc - json rpc version number ("2.0")
-   * @param {string[]} response.result - array of strings with names of applications status
+   * @returns {ResponseGetApplicationsStatus} response
    *
    * @example
    * Albis.getApplicationsStatus({ token: '12345' })
@@ -659,10 +540,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string} documents.doc - string created by file encoding using base64
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {Object} response
-   * @param {string} response.id - json rpc lib id
-   * @param {string} response.jsonrpc - json rpc version number ("2.0")
-   * @param {string} response.result - an approval message
+   * @returns {ResponseUploadDocuments} response object
    *
    * @example
    * Albis.uploadDocuments(12345, [{ art: 1, ext: "pdf", "doc": "string created by file encoding using base64" }], { token: '12345' })
@@ -696,14 +574,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {Object} response
-   * @param {string} response.id - json rpc lib id
-   * @param {string} response.jsonrpc - json rpc version number ("2.0")
-   * @param {Object[]} response.result - array with objects like:
-   * {
-   *   id: 1,
-   *   text: 'Herr'
-   * }
+   * @returns {ResponseGetSalutations} response object
    *
    * @example
    * Albis.getSalutations({ token: '12345' })
@@ -732,10 +603,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {Object} response
-   * @param {string} response.id - json rpc lib id
-   * @param {string} response.jsonrpc - json rpc version number ("2.0")
-   * @param {null} response.result
+   * @returns {ResponseLogout} response object
    *
    * @example
    * Albis.logout({ token: '12345' })
@@ -762,3 +630,192 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 }
 
 export default Albis;
+
+/**
+ * @typedef {Object} ResponseGetAlbisToken
+ * @property {string} albisToken.token - token used for user authorisation
+ * @property {string} albisToken.scope - shows users access
+ * @property {string} albisToken.token_type - token type
+ * @property {number} albisToken.expires_in_Auth0 - how long the token will be valid (number of seconds)
+ * @property {number} albisToken.expires - how long the token will be valid (Unix time stamp)
+ */
+
+
+/**
+ * @typedef {Object} ResponsePing
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {string} response.result - 'pong'
+ */
+
+/**
+ * @typedef {Object} ResponseEcho
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {string} response.result - data input string (or default "Test")
+ */
+
+ /**
+ * @typedef {Object} ResponseGetDocuments
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {string} response.result - base64 string (i.e. a PDF file)
+ */
+
+ /**
+ * @typedef {Object} ResponseChangePassword
+ * @property {string} response.albisPassChangeStatus.id - json rpc lib id
+ * @property {string} response.albisPassChangeStatus.jsonrpc - json rpc version number ("2.0")
+ * @property {string} response.albisPassChangeStatus.result - null
+ * @property {string} response.auth0PassChangeStatus.created_at - date when the user has been created
+ * @property {string} response.auth0PassChangeStatus.email - user's email (same as login)
+ * @property {boolean} response.auth0PassChangeStatus.email_verified - is email verified
+ * @property {Object} response.auth0PassChangeStatus.identities - object with description of user connection
+ * @property {boolean} response.auth0PassChangeStatus.name - user login name (same as email)
+ * @property {boolean} response.auth0PassChangeStatus.nickname - user nickname name (same as email without the domain ending)
+ * @property {string} response.auth0PassChangeStatus.picture - user picture URL (png)
+ * @property {string} response.auth0PassChangeStatus.updated_at - date of the last update
+ * @property {string} response.auth0PassChangeStatus.user_id - auth0 user id
+ * @property {string} response.auth0PassChangeStatus.last_password_reset - date of the last password reset
+ * @property {string} response.auth0PassChangeStatus.last_ip - ip used for the last connection
+ * @property {string} response.auth0PassChangeStatus.last_login - date of the last login
+ * @property {number} response.auth0PassChangeStatus.logins_count - number of total logins of this user
+ */
+
+ /**
+ * @typedef {Object} ResponseGetRates
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects i.e.
+ *  {
+ *    leaseTerm: 18,
+ *    rate: 188.8,
+ *    rateWithInsurance: 195.7,
+ *    total: 3522.6
+ *  }
+ */
+
+ /**
+ * @typedef {Object} ResponseSaveApplication
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {number} response.result - a unique number of the application
+ * @property {string} response.receiverToken - receiver token (if used in input params), a string, which can be used by a client to ensure that the notification concerns his application
+ */
+
+ /**
+ * @typedef {Object} ResponseUpdateApplication
+ * @property {null} response.result - null
+ * @property {string} response.jsonrpc - "2.0"
+ * @property {number} response.id - json rpc lib id
+ * @property {string} response.receiverToken - receiver token (if used in input params), a string, which can be used by a client to ensure that the notification concerns his application
+ */
+
+/**
+ * @typedef {Object} ResponseFindApplication
+ * @property {string} response.jsonrpc - "2.0"
+ * @property {string} response.id - json rpc lib id
+ * @property {Object} response.result - object with application data
+ * @property {number} response.result.applicationId - application id i.e. 54321
+ * @property {number} response.result.applicationStatus - application status number i.e. 1150 (you can compare the result with getApplicationsStatus method)
+ * @property {string} response.result.applicationStatusDesc - application status description i.e. 'in Bearbeitung' (you can compare the result with getApplicationsStatus method)
+ * @property {string} response.result.applicationReceptionDate - when application data were received i.e. '2020-12-21 09:04:11'
+ * @property {string} response.result.bankName - bank name, which will cover the transation i.e. 'Berliner Volksbank'
+ * @property {string} response.result.bankIdentifierCode - bank identifier code i.e. 'BEVODEBBXYZ'
+ * @property {Object[]} response.result.contractDocuments - list of missing or incorrect contract documents. Array with objects, i.e.
+   * {
+   *    errorNumber: 1,
+   *    errorText: 'Id document is needed to proceed the application',
+   *    value: 'some more information about the document error',
+   *    documentReceptionDate: '2021-02-20',
+   *    documentType: 'id'
+   * }
+ * @property {number} response.result.contractType - contract type i.e. 1 (you can compare the result with getContractTypes method)
+ * @property {string[]} response.result.decisionDocuments - list of missing documents for the decision i.e. ['id']
+ * @property {number} response.result.downPayment - down payment id i.e. 500
+ * @property {number} response.result.finalPayment - possible final payment if the term is shortened. This field is only available to be filled if the contract is cancellable id i.e. 2831.08
+ * @property {string} response.result.iban - IBAN of account to be charged with contract instalments i.e. 'DE88100900001234567892'
+ * @property {boolean} response.result.insurance - is insurance i.e. true
+ * @property {boolean} response.result.isContactByEmail - indicator that the leasing contract should be sent to the lessee by e-mail after approval i.e. true
+ * @property {boolean} response.result.isLesseeEmailContact - did lessee agreed to receive an email i.e. true
+ * @property {number} response.result.leaseTerm - term of lease in months i.e. 54
+ * @property {Object} response.result.lessee - object with lessee data
+ * @property {string} response.result.lessee.city - lessee city i.e. 'New York'
+ * @property {string} response.result.lessee.email - lessee email i.e. 'johndoe@gmail.com'
+ * @property {string} response.result.lessee.fax - lessee fax i.e. '0123 123 123'
+ * @property {Object} response.result.lessee.manager - lessee manager data
+ * @property {string} response.result.lessee.manager.birthDate - lessee manager birth date, i.e. '1960-12-24' (format YYYY-MM-DD)
+ * @property {string} response.result.lessee.manager.city - lessee manager city, i.e. 'New York'
+ * @property {string} response.result.lessee.manager.firstName - lessee manager first name, i.e. 'Susane'
+ * @property {string} response.result.lessee.manager.fullName - lessee manager full name, i.e. 'Susane Cooper'
+ * @property {string} response.result.lessee.manager.lastName - lessee manager last name, i.e. 'Cooper'
+ * @property {number} response.result.lessee.manager.salutation - lessee manager salutation, i.e. 2 (you can compare the result with getSalutations method)
+ * @property {string} response.result.lessee.manager.salutationDesc - lessee manager salutation description, i.e. 'Frau' (you can compare the result with getSalutations method)
+ * @property {string} response.result.lessee.manager.street - lessee manager street, i.e. 'Fifth Avenue'
+ * @property {string} response.result.lessee.manager.zipCode - lessee manager zip code, i.e. '50123'
+ * @property {string} response.result.lessee.mobileNumber - lessee mobile number, i.e. '+49 543 123 123'
+ * @property {string} response.result.lessee.name - lessee name, i.e. 'John Doe'
+ * @property {number} response.result.lessee.legalForm - lessee legal form, i.e. 1 (you can compare the result with getLegalFroms method)
+ * @property {string} response.result.lessee.phoneNumber - lessee phone number, i.e. '030 1234 1234'
+ * @property {string} response.result.lessee.street - lessee street, i.e. 'Fifth Avenue'
+ * @property {string} response.result.lessee.zipCode - lessee zip code, i.e. '50125'
+ * @property {string} response.result.object - designation of object of lease i.e. 'Fridge Samsung model XYZ'
+ * @property {string} response.result.paymentMethod - payment method i.e. 2 (you can compare the result with getPaymentMethods method)
+ * @property {string} response.result.productGroup - product group of object of lease i.e. 1
+ * @property {string} response.result.promotionId - promotionId (if conditions matched any promotion) i.e. 'xyz'
+ * @property {number} response.result.provision - commission, i.e. 4.5
+ * @property {number} response.result.purchasePrice - purchase price for object of lease, i.e. 5000
+ * @property {number} response.result.rate - monthly leasing rate i.e. 117.87
+ * @property {string} response.result.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered i.e. 'https://companyName.com/shop1'
+ * @property {string[]} response.result.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered i.e. ['emailToBeNotified@gmail.com']
+ * @property {string} response.result.receiverToken - a string, which can be used by a client to ensure that the notification concerns his application i.e. 'xyz123'
+ * @property {string} response.result.reference - application reference (helper for shop employees) i.e. '123abc'
+ * @property {number} response.result.residualValue - residual value i.e. 300 (0 if contract type different than 2)
+ * @property {number} response.result.residualValuePercent - residual value percent i.e. 3.0 (null if contract type different than 2)
+ * @property {boolean} response.result.saleAndLeaseBack - is application of type sale and lease back i.e. true
+ * @property {number} response.result.salesmanId - salesman id which created the application i.e. 12345
+ * @property {number} response.result.terminationTerm - when the lease is possible to terminate i.e. 30
+ */
+
+ /**
+ * @typedef {Object} ResponseGetLegalForms
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects like:
+ * {
+ *   id: 1,
+ *   text: 'GmbH'
+ * }
+ */
+
+ /**
+ * @typedef {Object} ResponseGetApplicationsStatus
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {string[]} response.result - array of strings with names of applications status
+ */
+
+ /**
+ * @typedef {Object} ResponseUploadDocuments
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {string} response.result - an approval message
+ */ 
+
+ /**
+ * @typedef {Object} ResponseGetSalutations
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array with objects like:
+ * {
+ *   id: 1,
+ *   text: 'Herr'
+ * }
+ */ 
+
+ /**
+ * @typedef {Object} ResponseLogout
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {null} response.result
+ */ 
