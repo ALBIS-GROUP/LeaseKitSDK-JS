@@ -263,7 +263,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string} values.lessee.manager.firstName - lessee's manager first name
    * @param {string} values.lessee.manager.lastName - lessee's manager last name
    * @param {string=} values.lessee.manager.phoneNumber - lessee's manager phone number (optional)
-   * @param {string} values.lessee.manager.salutation - lessee's manager salutation form (result of getSalutations() method)
+   * @param {number} values.lessee.manager.salutation - lessee's manager salutation form (result of getSalutations() method)
    * @param {string} values.lessee.manager.street - lessee's manager street
    * @param {string} values.lessee.manager.zipCode - lessee's manager zip code
    * @param {number} values.leaseTerm - lease term (returned from getRates() method)
