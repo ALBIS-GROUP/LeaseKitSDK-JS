@@ -599,6 +599,151 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   }
 
   /**
+   * saveFrameSubApplication(values, albisToken) saves a sub application of the indicated frame application
+   * 
+   * @param {Object} values - An object with application data
+   * @param {boolean=} values.contactByEmail - indicator that the leasing contract should be sent to the lessee by e-mail after approval. TRUE/FALSE, Default:FALSE (optional)
+   * @param {number} values.contractType - contract type (result of getContractTypes() method)
+   * @param {number=} values.downPayment - down payment (optional)
+   * @param {string=} values.iban - IBAN of account to be charged with contract instalments (may be entered with spaces) (optional)
+   * @param {number} values.frameApplicationId - a frame application id 
+   * @param {Object} values.lessee - lessee data
+   * @param {string} values.lessee.city - lessee city
+   * @param {string} values.lessee.email - lessee email
+   * @param {number} values.lessee.legalForm - lessee legal form
+   * @param {string} values.lessee.name - lessee name
+   * @param {string} values.lessee.phoneNumber - lessee phone number
+   * @param {string} values.lessee.street - lessee street
+   * @param {string} values.lessee.zipCode - lessee zip code
+   * @param {Object} values.lessee.manager - lessee's manager data
+   * @param {string} values.lessee.manager.birthDate - lessee's manager birth date (format required: "YYYY-MM-DD")
+   * @param {string} values.lessee.manager.city - lessee's manager city
+   * @param {string=} values.lessee.manager.faxNumber - lessee's manager phone number (optional)
+   * @param {string} values.lessee.manager.firstName - lessee's manager first name
+   * @param {string} values.lessee.manager.lastName - lessee's manager last name
+   * @param {string=} values.lessee.manager.phoneNumber - lessee's manager phone number (optional)
+   * @param {number} values.lessee.manager.salutation - lessee's manager salutation form (result of getSalutations() method)
+   * @param {string} values.lessee.manager.street - lessee's manager street
+   * @param {string} values.lessee.manager.zipCode - lessee's manager zip code
+   * @param {number} values.leaseTerm - lease term (returned from getRates() method)
+   * @param {string} values.object - name of the object (80 char max)
+   * @param {number} values.paymentMethod - payment method (result of getPaymentMethods() method)
+   * @param {number} values.productGroup - product group (is a part of "credentials". Can be assigned by Albis only)
+   * @param {string=} values.promotionId - lease term (returned from getRates() if conditions matched any promotion) (optional)
+   * @param {number} values.purchasePrice - purchase price (object value)
+   * @param {number} values.rate - rate (returned from getRates() method)
+   * @param {string=} values.reference - application reference (helper for shop employees) (optional)
+   * @param {string=} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
+   * @param {Array.<String>=} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
+   * @param {string=} values.receiverToken - a string, which can be used by a client to ensure that the notification concerns his application (optional)
+   * @param {number=} values.residualValuePercent - required if contract type equals 2 (optional)
+   * @param {number=} values.serviceFee - required if contract type equals 7 or 12 (optional)
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
+   *
+   * @returns {ResponseSaveFrameSubApplication} response - response object
+   *
+   * @example
+   *
+   * Albis.saveFrameSubApplication(
+   *  {
+   *    contactByEmail: true,
+   *    contractType: 1,
+   *    downPayment: 500,
+   *    finalPayment: 150,
+   *    iban: 'DE88100900001234567892',
+   *    frameApplicationId: 123456
+   *    lessee: {
+   *      name: 'Antonina',
+   *      street: 'Lichtenrade',
+   *      city: 'Berlin',
+   *      zipCode: '50000',
+   *      phoneNumber: '+48500000000',
+   *      email: 'abc@gmail.com',
+   *      legalForm: 1,
+   *      manager: {
+   *        salutation: 1,
+   *        firstName: 'Johanna',
+   *        lastName: 'Surname',
+   *        street: 'Piłsudskiego',
+   *        zipCode: '50000',
+   *        city: 'Hamburg',
+   *        birthDate: '1990-12-30'
+   *      },
+   *    },
+   *    leaseTerm: 12,
+   *    object: 'Fridge VW',
+   *    paymentMethod: 1,
+   *    productGroup: 1,
+   *    promotionId: 'xyz',
+   *    purchasePrice: 5000,
+   *    rate: 300,
+   *    rateWithInsurance: 323,
+   *    reference: 'abc123',
+   *    ssv: true,
+   *    receiverToken: '123abc',
+   *    receiverEndpoint: 'company.com/endpoint',
+   *    receiverFailEmails: ['abc@gmail.com', 'abc2@gmail.com']
+   * },
+   * {token: '12345'})
+   */
+
+   async saveFrameSubApplication(values, albisToken) {
+    const endpoint = getEndpointPath('frame-sub-application', this.apiStage, this.SDKendpoint);
+    let res = {}
+
+    if (values.object.length > 80) {
+      values = {...values, object: values.object.substring(0,77) + "..." }
+    }
+    try {
+      res = await axios.post(endpoint,
+        {
+          ...values, provision: this.provision,
+        }, 
+        {
+          headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+         }
+      })
+    } catch(e) {
+      throw errorObj(e)
+    }
+    return res.data
+  }
+
+  /**
+   * findFrameSubApplications(frameApplicationId, albisToken) finds all sub applications of the indicated frame application
+   * @param {number} frameApplicationId
+   * @param {boolean} showExternalStatus - indicates, if applicationStatusTxt with a description of received application status should be attached to the result set
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {ResponseFindFrameSubApplications} response - An object which contains an array in the result attribute of sub applications belonging to the frame application
+   *
+   * @example
+   * Albis.findFrameSubApplications(54321, { token: '12345' })
+   */
+
+   async findFrameSubApplications(frameApplicationId, showExternalStatus, albisToken) {
+    const endpoint = getEndpointPath('frame-sub-applications', this.apiStage, this.SDKendpoint);
+    let res = {}
+    try {
+      res = await axios.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+        params: {
+          applicationId: frameApplicationId,
+          showExternalStatus
+        },
+      });
+    } catch (e) {
+      throw errorObj(e)
+    }
+    return res.data
+  }
+
+  /**
    * logout(albisToken) logs the user out
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
@@ -812,6 +957,38 @@ export default Albis;
  *   text: 'Herr'
  * }
  */ 
+
+ /**
+ * @typedef {Object} ResponseSaveFrameSubApplication
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {number} response.result - a unique number of the sub application
+ * @property {string} response.receiverToken - receiver token (if used in input params), a string, which can be used by a client to ensure that the notification concerns his application
+  */
+
+ /**
+  * @typedef {Object} ResponseFindFrameSubApplications
+  * @property {string} response.id - json rpc lib id
+  * @property {string} response.jsonrpc - json rpc version number ("2.0")
+  * @property {Object[]} response.result - array with objects like:
+  * {
+  *   subApplication: 987654,
+      applicationReceptionDate: "2021-06-01",
+      applicationStatus: 123,
+      lastUpdate: "2021-05-01",
+      object: "Fridge",
+      purchasePrice: 30000,
+      leaseTerm: 36,
+      rate": 35.50,
+      contractType": 1,
+      terminationTerm: 12,
+      isInsurance: false,
+      hid400: 123456, - salesman id number
+      serviceFee: 0,
+      retailer: "EDEKABANK AG",
+      user: "Kris Henkel",
+      applicationStatusTxt: "Antrag genehmigt"}
+  */
 
  /**
  * @typedef {Object} ResponseLogout
