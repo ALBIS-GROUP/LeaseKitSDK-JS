@@ -79,17 +79,17 @@ class Albis {
    }
 
   /**
-   * ping(albisToken) checks the connection with Albis API and shop credentials
+   * albisPing(albisToken) checks the connection with Albis API and shop credentials
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {ResponsePing} response object
+   * @returns {ResponseAlbisPing} response object
    *
    * @example
-   * Albis.ping({ token: '1234' })
+   * Albis.albisPing({ token: '1234' })
    */
 
-  async ping(albisToken) {
+  async albisPing(albisToken) {
     const endpoint = getEndpointPath('ping', this.apiStage, this.SDKendpoint);
     let res = {}
     try {
@@ -106,17 +106,17 @@ class Albis {
   }
 
   /**
-  * echo(data, albisToken)
+  * albisEcho(data, albisToken)
   * @param {string=} data - random string (optional)
   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
   * 
-  * @returns {ResponseEcho} response object
+  * @returns {ResponseAlbisEcho} response object
   * 
   * @example
-  * Albis.echo("Hello World", { token: '1234' })
+  * Albis.albisEcho("Hello World", { token: '1234' })
   */
 
- async echo(data, albisToken) {
+ async albisEcho(data, albisToken) {
   const endpoint = getEndpointPath('echo', this.apiStage, this.SDKendpoint);
   let res = {}
   try {
@@ -136,19 +136,19 @@ class Albis {
 }
 
 /**
- * getDocuments(applicationId, albisToken) returns needed documents. Warning: this function needs sometimes (rare) even up to 2mins for response
+ * getContractDocuments(applicationId, albisToken) returns needed documents. Warning: this function needs sometimes (rare) even up to 2mins for response
  * @param {number} applicationId - application number
  * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
  * 
- * @returns {ResponseGetDocuments} response object
+ * @returns {ResponseGetContractDocuments} response object
  * 
  * @example 
  * 
- * Albis.getDocuments(123456, { token: 12345 })
+ * Albis.getContractDocuments(123456, { token: 12345 })
  */
 
-async getDocuments(applicationId, albisToken) {
-  const endpoint = getEndpointPath('documents', this.apiStage, this.SDKendpoint);
+async getContractDocuments(applicationId, albisToken) {
+  const endpoint = getEndpointPath('contract-documents', this.apiStage, this.SDKendpoint);
   let res = {}
   try {
     res = await axios.get(endpoint, {
@@ -502,6 +502,93 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   }
 
    /**
+   * getContractTypes(albisToken) get an array of all contract types available for the shop user (needed for lessee data)
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   * 
+   * @returns {ResponseGetContractTypes} response object
+   *
+   * @example
+   * Albis.getContractTypes({ token: '12345' })
+   */
+
+    async getContractTypes(albisToken) {
+      const endpoint = getEndpointPath('contract-types', this.apiStage, this.SDKendpoint);
+      let res = {}
+  
+      try {
+        res = await axios.get(endpoint, {
+          headers: { 
+            'content-type': 'application/json',
+            'Authorization': `Bearer ${albisToken.token}`,
+          },
+        });
+      } catch (e) {
+        throw errorObj(e)
+      }
+  
+      return res.data
+    }
+
+   /**
+   * getProductGroups(albisToken) get an array of all product groups available for the shop user (needed for lessee data)
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   * 
+   * @returns {ResponseGetProductGroups} response object
+   *
+   * @example
+   * Albis.getProductGroups({ token: '12345' })
+   */
+
+  async getProductGroups(albisToken) {
+    const endpoint = getEndpointPath('product-groups', this.apiStage, this.SDKendpoint);
+    let res = {}
+
+    try {
+      res = await axios.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch (e) {
+      throw errorObj(e)
+    }
+
+    return res.data
+  }
+
+  /**
+   * getPaymentMethods(albisToken) get an array of all payment methods available for the shop user (needed for lessee data)
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   * 
+   * @returns {ResponseGetPaymentMethods} response object
+   *
+   * @example
+   * Albis.getPaymentMethods({ token: '12345' })
+   */
+
+   async getPaymentMethods(albisToken) {
+    const endpoint = getEndpointPath('payment-methods', this.apiStage, this.SDKendpoint);
+    let res = {}
+
+    try {
+      res = await axios.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch (e) {
+      throw errorObj(e)
+    }
+
+    return res.data
+  }
+
+   /**
    * getApplicationsStatus(albisToken) get an array of all posible application status
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
@@ -531,7 +618,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   }
 
    /**
-   * uploadDocuments(applicationId, documents, albisToken) lets to upload application documents
+   * uploadContractDocuments(applicationId, documents, albisToken) lets to upload application documents
    * 
    * @param {number} id - application id
    * @param {Object[]} documents - array of objects
@@ -540,14 +627,14 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string} documents.doc - string created by file encoding using base64
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {ResponseUploadDocuments} response object
+   * @returns {ResponseUploadContractDocuments} response object
    *
    * @example
-   * Albis.uploadDocuments(12345, [{ art: 1, ext: "pdf", "doc": "string created by file encoding using base64" }], { token: '12345' })
+   * Albis.uploadContractDocuments(12345, [{ art: 1, ext: "pdf", "doc": "string created by file encoding using base64" }], { token: '12345' })
    */
 
-  async uploadDocuments(id, documents, albisToken) {
-    const endpoint = getEndpointPath('documents', this.apiStage, this.SDKendpoint);
+  async uploadContractDocuments(id, documents, albisToken) {
+    const endpoint = getEndpointPath('contract-documents', this.apiStage, this.SDKendpoint);
     let res = {}
 
     try {
@@ -787,21 +874,21 @@ export default Albis;
 
 
 /**
- * @typedef {Object} ResponsePing
+ * @typedef {Object} ResponseAlbisPing
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
  * @property {string} response.result - 'pong'
  */
 
 /**
- * @typedef {Object} ResponseEcho
+ * @typedef {Object} ResponseAlbisEcho
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
  * @property {string} response.result - data input string (or default "Test")
  */
 
  /**
- * @typedef {Object} ResponseGetDocuments
+ * @typedef {Object} ResponseGetContractDocuments
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
  * @property {string} response.result - base64 string (i.e. a PDF file)
@@ -934,6 +1021,46 @@ export default Albis;
  */
 
  /**
+ * @typedef {Object} ResponseGetContractTypes
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects like:
+ * {
+ *   id: 1,
+     description: "VA-Leasingvertrag",
+     abbreviation: "VA"
+ * }
+ */
+
+ /**
+ * @typedef {Object} ResponseGetProductGroups
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects like:
+ * {
+ *   id: 1,
+     maxPossibleTerm: 30,
+     maxPossibleTermAlbis: 36,
+     minPossibleTerm: 18,
+     minPossibleTermAlbis: 18,
+     description: "EDV (Hard- und Software)",
+     monthOfCancellation: 30,
+     position: 1
+ * }
+ */
+
+ /**
+ * @typedef {Object} ResponseGetPaymentMethods
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects like:
+ * {
+ *   id: 1,
+     description: "quartalsweise"
+ * }
+ */
+
+ /**
  * @typedef {Object} ResponseGetApplicationsStatus
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
@@ -941,7 +1068,7 @@ export default Albis;
  */
 
  /**
- * @typedef {Object} ResponseUploadDocuments
+ * @typedef {Object} ResponseUploadContractDocuments
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
  * @property {string} response.result - an approval message

@@ -93,11 +93,11 @@ export async function login(
 }
 
 function versionCheck (apiStage) {
-  const stage = apiStage;
+  if(!apiStage) return 
   const stageValidator = RegExp(/^v[1-9]+$|^staging$/);
-  const validateStage = stageValidator.test(stage);
+  const validateStage = stageValidator.test(apiStage);
   
-  const stageNumber = parseInt(stage.slice(1, stage.length), 10) || "staging";
+  const stageNumber = parseInt(apiStage.slice(1, apiStage.length), 10) || "staging";
 
   const versionNumber = parseInt(version, 10);
 
@@ -113,5 +113,8 @@ export function getEndpointPath(resource, apiStage, SDKendpoint, nodeEnv) {
   versionCheck(apiStage);
   if (resource === 'rate' && nodeEnv === 'test')
     return `http://localhost:3000/testModels/rates.json`;
+
+  if(!apiStage) return `${SDKendpoint}/${resource}`;
+
   return `${SDKendpoint}/${apiStage}/${resource}`;
 }
