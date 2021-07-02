@@ -79,17 +79,17 @@ class Albis {
    }
 
   /**
-   * ping(albisToken) checks the connection with Albis API and shop credentials
+   * albisPing(albisToken) checks the connection with Albis API and shop credentials
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {ResponsePing} response object
+   * @returns {ResponseAlbisPing} response object
    *
    * @example
-   * Albis.ping({ token: '1234' })
+   * Albis.albisPing({ token: '1234' })
    */
 
-  async ping(albisToken) {
+  async albisPing(albisToken) {
     const endpoint = getEndpointPath('ping', this.apiStage, this.SDKendpoint);
     let res = {}
     try {
@@ -106,17 +106,17 @@ class Albis {
   }
 
   /**
-  * echo(data, albisToken)
+  * albisEcho(data, albisToken)
   * @param {string=} data - random string (optional)
   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
   * 
-  * @returns {ResponseEcho} response object
+  * @returns {ResponseAlbisEcho} response object
   * 
   * @example
-  * Albis.echo("Hello World", { token: '1234' })
+  * Albis.albisEcho("Hello World", { token: '1234' })
   */
 
- async echo(data, albisToken) {
+ async albisEcho(data, albisToken) {
   const endpoint = getEndpointPath('echo', this.apiStage, this.SDKendpoint);
   let res = {}
   try {
@@ -136,19 +136,19 @@ class Albis {
 }
 
 /**
- * getDocuments(applicationId, albisToken) returns needed documents. Warning: this function needs sometimes (rare) even up to 2mins for response
+ * getContractDocuments(applicationId, albisToken) returns needed documents. Warning: this function needs sometimes (rare) even up to 2mins for response
  * @param {number} applicationId - application number
  * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
  * 
- * @returns {ResponseGetDocuments} response object
+ * @returns {ResponseGetContractDocuments} response object
  * 
  * @example 
  * 
- * Albis.getDocuments(123456, { token: 12345 })
+ * Albis.getContractDocuments(123456, { token: 12345 })
  */
 
-async getDocuments(applicationId, albisToken) {
-  const endpoint = getEndpointPath('documents', this.apiStage, this.SDKendpoint);
+async getContractDocuments(applicationId, albisToken) {
+  const endpoint = getEndpointPath('contract-documents', this.apiStage, this.SDKendpoint);
   let res = {}
   try {
     res = await axios.get(endpoint, {
@@ -263,7 +263,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string} values.lessee.manager.firstName - lessee's manager first name
    * @param {string} values.lessee.manager.lastName - lessee's manager last name
    * @param {string=} values.lessee.manager.phoneNumber - lessee's manager phone number (optional)
-   * @param {string} values.lessee.manager.salutation - lessee's manager salutation form (result of getSalutations() method)
+   * @param {number} values.lessee.manager.salutation - lessee's manager salutation form (result of getSalutations() method)
    * @param {string} values.lessee.manager.street - lessee's manager street
    * @param {string} values.lessee.manager.zipCode - lessee's manager zip code
    * @param {number} values.leaseTerm - lease term (returned from getRates() method)
@@ -502,6 +502,93 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   }
 
    /**
+   * getContractTypes(albisToken) get an array of all contract types available for the shop user (needed for lessee data)
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   * 
+   * @returns {ResponseGetContractTypes} response object
+   *
+   * @example
+   * Albis.getContractTypes({ token: '12345' })
+   */
+
+    async getContractTypes(albisToken) {
+      const endpoint = getEndpointPath('contract-types', this.apiStage, this.SDKendpoint);
+      let res = {}
+  
+      try {
+        res = await axios.get(endpoint, {
+          headers: { 
+            'content-type': 'application/json',
+            'Authorization': `Bearer ${albisToken.token}`,
+          },
+        });
+      } catch (e) {
+        throw errorObj(e)
+      }
+  
+      return res.data
+    }
+
+   /**
+   * getProductGroups(albisToken) get an array of all product groups available for the shop user (needed for lessee data)
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   * 
+   * @returns {ResponseGetProductGroups} response object
+   *
+   * @example
+   * Albis.getProductGroups({ token: '12345' })
+   */
+
+  async getProductGroups(albisToken) {
+    const endpoint = getEndpointPath('product-groups', this.apiStage, this.SDKendpoint);
+    let res = {}
+
+    try {
+      res = await axios.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch (e) {
+      throw errorObj(e)
+    }
+
+    return res.data
+  }
+
+  /**
+   * getPaymentMethods(albisToken) get an array of all payment methods available for the shop user (needed for lessee data)
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   * 
+   * @returns {ResponseGetPaymentMethods} response object
+   *
+   * @example
+   * Albis.getPaymentMethods({ token: '12345' })
+   */
+
+   async getPaymentMethods(albisToken) {
+    const endpoint = getEndpointPath('payment-methods', this.apiStage, this.SDKendpoint);
+    let res = {}
+
+    try {
+      res = await axios.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch (e) {
+      throw errorObj(e)
+    }
+
+    return res.data
+  }
+
+   /**
    * getApplicationsStatus(albisToken) get an array of all posible application status
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
@@ -531,7 +618,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   }
 
    /**
-   * uploadDocuments(applicationId, documents, albisToken) lets to upload application documents
+   * uploadContractDocuments(applicationId, documents, albisToken) lets to upload application documents
    * 
    * @param {number} id - application id
    * @param {Object[]} documents - array of objects
@@ -540,14 +627,14 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string} documents.doc - string created by file encoding using base64
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {ResponseUploadDocuments} response object
+   * @returns {ResponseUploadContractDocuments} response object
    *
    * @example
-   * Albis.uploadDocuments(12345, [{ art: 1, ext: "pdf", "doc": "string created by file encoding using base64" }], { token: '12345' })
+   * Albis.uploadContractDocuments(12345, [{ art: 1, ext: "pdf", "doc": "string created by file encoding using base64" }], { token: '12345' })
    */
 
-  async uploadDocuments(id, documents, albisToken) {
-    const endpoint = getEndpointPath('documents', this.apiStage, this.SDKendpoint);
+  async uploadContractDocuments(id, documents, albisToken) {
+    const endpoint = getEndpointPath('contract-documents', this.apiStage, this.SDKendpoint);
     let res = {}
 
     try {
@@ -599,6 +686,151 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   }
 
   /**
+   * saveFrameSubApplication(values, albisToken) saves a sub application of the indicated frame application
+   * 
+   * @param {Object} values - An object with application data
+   * @param {boolean=} values.contactByEmail - indicator that the leasing contract should be sent to the lessee by e-mail after approval. TRUE/FALSE, Default:FALSE (optional)
+   * @param {number} values.contractType - contract type (result of getContractTypes() method)
+   * @param {number=} values.downPayment - down payment (optional)
+   * @param {string=} values.iban - IBAN of account to be charged with contract instalments (may be entered with spaces) (optional)
+   * @param {number} values.frameApplicationId - a frame application id 
+   * @param {Object} values.lessee - lessee data
+   * @param {string} values.lessee.city - lessee city
+   * @param {string} values.lessee.email - lessee email
+   * @param {number} values.lessee.legalForm - lessee legal form
+   * @param {string} values.lessee.name - lessee name
+   * @param {string} values.lessee.phoneNumber - lessee phone number
+   * @param {string} values.lessee.street - lessee street
+   * @param {string} values.lessee.zipCode - lessee zip code
+   * @param {Object} values.lessee.manager - lessee's manager data
+   * @param {string} values.lessee.manager.birthDate - lessee's manager birth date (format required: "YYYY-MM-DD")
+   * @param {string} values.lessee.manager.city - lessee's manager city
+   * @param {string=} values.lessee.manager.faxNumber - lessee's manager phone number (optional)
+   * @param {string} values.lessee.manager.firstName - lessee's manager first name
+   * @param {string} values.lessee.manager.lastName - lessee's manager last name
+   * @param {string=} values.lessee.manager.phoneNumber - lessee's manager phone number (optional)
+   * @param {number} values.lessee.manager.salutation - lessee's manager salutation form (result of getSalutations() method)
+   * @param {string} values.lessee.manager.street - lessee's manager street
+   * @param {string} values.lessee.manager.zipCode - lessee's manager zip code
+   * @param {number} values.leaseTerm - lease term (returned from getRates() method)
+   * @param {string} values.object - name of the object (80 char max)
+   * @param {number} values.paymentMethod - payment method (result of getPaymentMethods() method)
+   * @param {number} values.productGroup - product group (is a part of "credentials". Can be assigned by Albis only)
+   * @param {string=} values.promotionId - lease term (returned from getRates() if conditions matched any promotion) (optional)
+   * @param {number} values.purchasePrice - purchase price (object value)
+   * @param {number} values.rate - rate (returned from getRates() method)
+   * @param {string=} values.reference - application reference (helper for shop employees) (optional)
+   * @param {string=} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
+   * @param {Array.<String>=} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
+   * @param {string=} values.receiverToken - a string, which can be used by a client to ensure that the notification concerns his application (optional)
+   * @param {number=} values.residualValuePercent - required if contract type equals 2 (optional)
+   * @param {number=} values.serviceFee - required if contract type equals 7 or 12 (optional)
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
+   *
+   * @returns {ResponseSaveFrameSubApplication} response - response object
+   *
+   * @example
+   *
+   * Albis.saveFrameSubApplication(
+   *  {
+   *    contactByEmail: true,
+   *    contractType: 1,
+   *    downPayment: 500,
+   *    finalPayment: 150,
+   *    iban: 'DE88100900001234567892',
+   *    frameApplicationId: 123456
+   *    lessee: {
+   *      name: 'Antonina',
+   *      street: 'Lichtenrade',
+   *      city: 'Berlin',
+   *      zipCode: '50000',
+   *      phoneNumber: '+48500000000',
+   *      email: 'abc@gmail.com',
+   *      legalForm: 1,
+   *      manager: {
+   *        salutation: 1,
+   *        firstName: 'Johanna',
+   *        lastName: 'Surname',
+   *        street: 'Piłsudskiego',
+   *        zipCode: '50000',
+   *        city: 'Hamburg',
+   *        birthDate: '1990-12-30'
+   *      },
+   *    },
+   *    leaseTerm: 12,
+   *    object: 'Fridge VW',
+   *    paymentMethod: 1,
+   *    productGroup: 1,
+   *    promotionId: 'xyz',
+   *    purchasePrice: 5000,
+   *    rate: 300,
+   *    rateWithInsurance: 323,
+   *    reference: 'abc123',
+   *    ssv: true,
+   *    receiverToken: '123abc',
+   *    receiverEndpoint: 'company.com/endpoint',
+   *    receiverFailEmails: ['abc@gmail.com', 'abc2@gmail.com']
+   * },
+   * {token: '12345'})
+   */
+
+   async saveFrameSubApplication(values, albisToken) {
+    const endpoint = getEndpointPath('frame-sub-application', this.apiStage, this.SDKendpoint);
+    let res = {}
+
+    if (values.object.length > 80) {
+      values = {...values, object: values.object.substring(0,77) + "..." }
+    }
+    try {
+      res = await axios.post(endpoint,
+        {
+          ...values, provision: this.provision,
+        }, 
+        {
+          headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+         }
+      })
+    } catch(e) {
+      throw errorObj(e)
+    }
+    return res.data
+  }
+
+  /**
+   * findFrameSubApplications(frameApplicationId, albisToken) finds all sub applications of the indicated frame application
+   * @param {number} frameApplicationId
+   * @param {boolean} showExternalStatus - indicates, if applicationStatusTxt with a description of received application status should be attached to the result set
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {ResponseFindFrameSubApplications} response - An object which contains an array in the result attribute of sub applications belonging to the frame application
+   *
+   * @example
+   * Albis.findFrameSubApplications(54321, { token: '12345' })
+   */
+
+   async findFrameSubApplications(frameApplicationId, showExternalStatus, albisToken) {
+    const endpoint = getEndpointPath('frame-sub-applications', this.apiStage, this.SDKendpoint);
+    let res = {}
+    try {
+      res = await axios.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+        params: {
+          applicationId: frameApplicationId,
+          showExternalStatus
+        },
+      });
+    } catch (e) {
+      throw errorObj(e)
+    }
+    return res.data
+  }
+
+  /**
    * logout(albisToken) logs the user out
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
@@ -642,21 +874,21 @@ export default Albis;
 
 
 /**
- * @typedef {Object} ResponsePing
+ * @typedef {Object} ResponseAlbisPing
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
  * @property {string} response.result - 'pong'
  */
 
 /**
- * @typedef {Object} ResponseEcho
+ * @typedef {Object} ResponseAlbisEcho
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
  * @property {string} response.result - data input string (or default "Test")
  */
 
  /**
- * @typedef {Object} ResponseGetDocuments
+ * @typedef {Object} ResponseGetContractDocuments
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
  * @property {string} response.result - base64 string (i.e. a PDF file)
@@ -789,6 +1021,46 @@ export default Albis;
  */
 
  /**
+ * @typedef {Object} ResponseGetContractTypes
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects like:
+ * {
+ *   id: 1,
+     description: "VA-Leasingvertrag",
+     abbreviation: "VA"
+ * }
+ */
+
+ /**
+ * @typedef {Object} ResponseGetProductGroups
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects like:
+ * {
+ *   id: 1,
+     maxPossibleTerm: 30,
+     maxPossibleTermAlbis: 36,
+     minPossibleTerm: 18,
+     minPossibleTermAlbis: 18,
+     description: "EDV (Hard- und Software)",
+     monthOfCancellation: 30,
+     position: 1
+ * }
+ */
+
+ /**
+ * @typedef {Object} ResponseGetPaymentMethods
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects like:
+ * {
+ *   id: 1,
+     description: "quartalsweise"
+ * }
+ */
+
+ /**
  * @typedef {Object} ResponseGetApplicationsStatus
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
@@ -796,7 +1068,7 @@ export default Albis;
  */
 
  /**
- * @typedef {Object} ResponseUploadDocuments
+ * @typedef {Object} ResponseUploadContractDocuments
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
  * @property {string} response.result - an approval message
@@ -812,6 +1084,38 @@ export default Albis;
  *   text: 'Herr'
  * }
  */ 
+
+ /**
+ * @typedef {Object} ResponseSaveFrameSubApplication
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {number} response.result - a unique number of the sub application
+ * @property {string} response.receiverToken - receiver token (if used in input params), a string, which can be used by a client to ensure that the notification concerns his application
+  */
+
+ /**
+  * @typedef {Object} ResponseFindFrameSubApplications
+  * @property {string} response.id - json rpc lib id
+  * @property {string} response.jsonrpc - json rpc version number ("2.0")
+  * @property {Object[]} response.result - array with objects like:
+  * {
+  *   subApplication: 987654,
+      applicationReceptionDate: "2021-06-01",
+      applicationStatus: 123,
+      lastUpdate: "2021-05-01",
+      object: "Fridge",
+      purchasePrice: 30000,
+      leaseTerm: 36,
+      rate": 35.50,
+      contractType": 1,
+      terminationTerm: 12,
+      isInsurance: false,
+      hid400: 123456, - salesman id number
+      serviceFee: 0,
+      retailer: "EDEKABANK AG",
+      user: "Kris Henkel",
+      applicationStatusTxt: "Antrag genehmigt"}
+  */
 
  /**
  * @typedef {Object} ResponseLogout
