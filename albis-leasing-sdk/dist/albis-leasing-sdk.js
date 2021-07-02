@@ -103,7 +103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /*! exports provided: name, version, dependencies, description, publishConfig, repository, main, scripts, author, license, devDependencies, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"@albis-group/albis-leasing-sdk\",\"version\":\"1.0.3\",\"dependencies\":{\"axios\":\"^0.21.0\",\"lodash\":\"^4.17.20\"},\"description\":\"SDK for integrating the ALBIS leasing API as payment method in your e-commerce solution.\",\"publishConfig\":{\"registry\":\"https://npm.pkg.github.com/\"},\"repository\":{\"type\":\"git\",\"url\":\"https://github.com/ALBIS-GROUP/LeaseKitSDK-JS.git\",\"directory\":\"albis-leasing-sdk/@albis-group/albis-leasing-sdk\"},\"main\":\"dist/albis-leasing-sdk.js\",\"scripts\":{\"test\":\"echo \\\"Error: no test specified\\\" && exit 1\",\"build\":\"webpack --config webpack.config.js\"},\"author\":\"Infopark AG\",\"license\":\"ISC\",\"devDependencies\":{\"babel-plugin-transform-class-properties\":\"^6.24.1\",\"babel-plugin-transform-object-rest-spread\":\"^6.26.0\",\"babel-preset-env\":\"^1.7.0\",\"babel-preset-es2015\":\"^6.24.1\",\"babel-preset-react\":\"^6.24.1\",\"webpack\":\"^4.43.0\",\"webpack-cli\":\"^3.3.12\"}}");
+module.exports = JSON.parse("{\"name\":\"@albis-group/albis-leasing-sdk\",\"version\":\"1.1.0\",\"dependencies\":{\"axios\":\"^0.21.0\",\"lodash\":\"^4.17.20\"},\"description\":\"SDK for integrating the ALBIS leasing API as payment method in your e-commerce solution.\",\"publishConfig\":{\"registry\":\"https://npm.pkg.github.com/\"},\"repository\":{\"type\":\"git\",\"url\":\"https://github.com/ALBIS-GROUP/LeaseKitSDK-JS.git\",\"directory\":\"albis-leasing-sdk/@albis-group/albis-leasing-sdk\"},\"main\":\"dist/albis-leasing-sdk.js\",\"scripts\":{\"test\":\"echo \\\"Error: no test specified\\\" && exit 1\",\"build\":\"webpack --config webpack.config.js\"},\"author\":\"Infopark AG\",\"license\":\"ISC\",\"devDependencies\":{\"babel-plugin-transform-class-properties\":\"^6.24.1\",\"babel-plugin-transform-object-rest-spread\":\"^6.26.0\",\"babel-preset-env\":\"^1.7.0\",\"babel-preset-es2015\":\"^6.24.1\",\"babel-preset-react\":\"^6.24.1\",\"webpack\":\"^4.43.0\",\"webpack-cli\":\"^3.3.12\"}}");
 
 /***/ }),
 
@@ -221,11 +221,11 @@ async function login(
 }
 
 function versionCheck (apiStage) {
-  const stage = apiStage;
+  if(!apiStage) return 
   const stageValidator = RegExp(/^v[1-9]+$|^staging$/);
-  const validateStage = stageValidator.test(stage);
+  const validateStage = stageValidator.test(apiStage);
   
-  const stageNumber = parseInt(stage.slice(1, stage.length), 10) || "staging";
+  const stageNumber = parseInt(apiStage.slice(1, apiStage.length), 10) || "staging";
 
   const versionNumber = parseInt(_package_json__WEBPACK_IMPORTED_MODULE_2__["version"], 10);
 
@@ -241,6 +241,9 @@ function getEndpointPath(resource, apiStage, SDKendpoint, nodeEnv) {
   versionCheck(apiStage);
   if (resource === 'rate' && nodeEnv === 'test')
     return `http://localhost:3000/testModels/rates.json`;
+
+  if(!apiStage) return `${SDKendpoint}/${resource}`;
+
   return `${SDKendpoint}/${apiStage}/${resource}`;
 }
 
@@ -342,17 +345,17 @@ class Albis {
    }
 
   /**
-   * ping(albisToken) checks the connection with Albis API and shop credentials
+   * albisPing(albisToken) checks the connection with Albis API and shop credentials
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {ResponsePing} response object
+   * @returns {ResponseAlbisPing} response object
    *
    * @example
-   * Albis.ping({ token: '1234' })
+   * Albis.albisPing({ token: '1234' })
    */
 
-  async ping(albisToken) {
+  async albisPing(albisToken) {
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('ping', this.apiStage, this.SDKendpoint);
     let res = {}
     try {
@@ -369,17 +372,17 @@ class Albis {
   }
 
   /**
-  * echo(data, albisToken)
+  * albisEcho(data, albisToken)
   * @param {string=} data - random string (optional)
   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
   * 
-  * @returns {ResponseEcho} response object
+  * @returns {ResponseAlbisEcho} response object
   * 
   * @example
-  * Albis.echo("Hello World", { token: '1234' })
+  * Albis.albisEcho("Hello World", { token: '1234' })
   */
 
- async echo(data, albisToken) {
+ async albisEcho(data, albisToken) {
   const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('echo', this.apiStage, this.SDKendpoint);
   let res = {}
   try {
@@ -399,19 +402,19 @@ class Albis {
 }
 
 /**
- * getDocuments(applicationId, albisToken) returns needed documents. Warning: this function needs sometimes (rare) even up to 2mins for response
+ * getContractDocuments(applicationId, albisToken) returns needed documents. Warning: this function needs sometimes (rare) even up to 2mins for response
  * @param {number} applicationId - application number
  * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
  * 
- * @returns {ResponseGetDocuments} response object
+ * @returns {ResponseGetContractDocuments} response object
  * 
  * @example 
  * 
- * Albis.getDocuments(123456, { token: 12345 })
+ * Albis.getContractDocuments(123456, { token: 12345 })
  */
 
-async getDocuments(applicationId, albisToken) {
-  const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('documents', this.apiStage, this.SDKendpoint);
+async getContractDocuments(applicationId, albisToken) {
+  const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('contract-documents', this.apiStage, this.SDKendpoint);
   let res = {}
   try {
     res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
@@ -765,6 +768,93 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   }
 
    /**
+   * getContractTypes(albisToken) get an array of all contract types available for the shop user (needed for lessee data)
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   * 
+   * @returns {ResponseGetContractTypes} response object
+   *
+   * @example
+   * Albis.getContractTypes({ token: '12345' })
+   */
+
+    async getContractTypes(albisToken) {
+      const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('contract-types', this.apiStage, this.SDKendpoint);
+      let res = {}
+  
+      try {
+        res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+          headers: { 
+            'content-type': 'application/json',
+            'Authorization': `Bearer ${albisToken.token}`,
+          },
+        });
+      } catch (e) {
+        throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+      }
+  
+      return res.data
+    }
+
+   /**
+   * getProductGroups(albisToken) get an array of all product groups available for the shop user (needed for lessee data)
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   * 
+   * @returns {ResponseGetProductGroups} response object
+   *
+   * @example
+   * Albis.getProductGroups({ token: '12345' })
+   */
+
+  async getProductGroups(albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('product-groups', this.apiStage, this.SDKendpoint);
+    let res = {}
+
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch (e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
+
+    return res.data
+  }
+
+  /**
+   * getPaymentMethods(albisToken) get an array of all payment methods available for the shop user (needed for lessee data)
+   * 
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   * 
+   * @returns {ResponseGetPaymentMethods} response object
+   *
+   * @example
+   * Albis.getPaymentMethods({ token: '12345' })
+   */
+
+   async getPaymentMethods(albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('payment-methods', this.apiStage, this.SDKendpoint);
+    let res = {}
+
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+      });
+    } catch (e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
+
+    return res.data
+  }
+
+   /**
    * getApplicationsStatus(albisToken) get an array of all posible application status
    * 
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
@@ -794,7 +884,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   }
 
    /**
-   * uploadDocuments(applicationId, documents, albisToken) lets to upload application documents
+   * uploadContractDocuments(applicationId, documents, albisToken) lets to upload application documents
    * 
    * @param {number} id - application id
    * @param {Object[]} documents - array of objects
@@ -803,14 +893,14 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string} documents.doc - string created by file encoding using base64
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
-   * @returns {ResponseUploadDocuments} response object
+   * @returns {ResponseUploadContractDocuments} response object
    *
    * @example
-   * Albis.uploadDocuments(12345, [{ art: 1, ext: "pdf", "doc": "string created by file encoding using base64" }], { token: '12345' })
+   * Albis.uploadContractDocuments(12345, [{ art: 1, ext: "pdf", "doc": "string created by file encoding using base64" }], { token: '12345' })
    */
 
-  async uploadDocuments(id, documents, albisToken) {
-    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('documents', this.apiStage, this.SDKendpoint);
+  async uploadContractDocuments(id, documents, albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('contract-documents', this.apiStage, this.SDKendpoint);
     let res = {}
 
     try {
@@ -1050,21 +1140,21 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 
 
 /**
- * @typedef {Object} ResponsePing
+ * @typedef {Object} ResponseAlbisPing
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
  * @property {string} response.result - 'pong'
  */
 
 /**
- * @typedef {Object} ResponseEcho
+ * @typedef {Object} ResponseAlbisEcho
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
  * @property {string} response.result - data input string (or default "Test")
  */
 
  /**
- * @typedef {Object} ResponseGetDocuments
+ * @typedef {Object} ResponseGetContractDocuments
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
  * @property {string} response.result - base64 string (i.e. a PDF file)
@@ -1197,6 +1287,46 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
  */
 
  /**
+ * @typedef {Object} ResponseGetContractTypes
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects like:
+ * {
+ *   id: 1,
+     description: "VA-Leasingvertrag",
+     abbreviation: "VA"
+ * }
+ */
+
+ /**
+ * @typedef {Object} ResponseGetProductGroups
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects like:
+ * {
+ *   id: 1,
+     maxPossibleTerm: 30,
+     maxPossibleTermAlbis: 36,
+     minPossibleTerm: 18,
+     minPossibleTermAlbis: 18,
+     description: "EDV (Hard- und Software)",
+     monthOfCancellation: 30,
+     position: 1
+ * }
+ */
+
+ /**
+ * @typedef {Object} ResponseGetPaymentMethods
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects like:
+ * {
+ *   id: 1,
+     description: "quartalsweise"
+ * }
+ */
+
+ /**
  * @typedef {Object} ResponseGetApplicationsStatus
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
@@ -1204,7 +1334,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
  */
 
  /**
- * @typedef {Object} ResponseUploadDocuments
+ * @typedef {Object} ResponseUploadContractDocuments
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
  * @property {string} response.result - an approval message
