@@ -23,7 +23,7 @@ class Albis {
    * @param {string} settings.realm - shop owner connection name
    * @param {number} settings.provision - provision - defines how much commission, retailer wants to receives for each deal. Possible values min: 0, max: 5. Default 0. Value in half percentage i.e. 1.5 not 1.65
    * @param {string} settings.SDKendpoint - SDK endpoint
-   * @param {boolean} settings.apiStage - defines proper API Gateway endpoints stage (API version) for requests 
+   * @param {boolean=} settings.apiStage - defines proper API Gateway endpoints stage (API version) for requests (optional)
    *
    * @example
    *
