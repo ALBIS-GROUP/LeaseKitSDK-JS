@@ -467,7 +467,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 }
 
   /**
-   * getRates(values, albisToken) retrieves proposed rates. Returned object is needed for proceed getApplication(albisToken)
+   * getRates(values, albisToken) retrieves proposed rates. Returned object is needed for proceed saveApplication or updateApplication
    *
    * @param {Object} values - An object with data for providing rate offers
    * @param {number} values.purchasePrice - Total net value of the cart [EUR]
@@ -475,6 +475,14 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {number=} values.downPayment - Net value of down payment [EUR]. Default 0 (optional)
    * @param {number} values.contractType - Contract type
    * @param {number} values.paymentMethod - Payment options
+   * @param {number=} values.residualValuePercent - Residual value percent (mandatory if contract type equals 11 (TA))
+   * @param {number=} values.serviceFee - service fee (mandatory if contract type equals 7 or 12)
+   * @param {number=} values.cntbw - amount of black-white pages. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.costbw - cost of black-white pages per page. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.cntclr - amount of colour pages. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.costclr - cost of colour pages per page. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.cntscan - amount of scanned pages. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.costscan - cost of scanned pages per page. Used if service/printers contract type (7 or 12)
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
    * @returns {ResponseGetRates} response object
@@ -487,6 +495,55 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   async getRates(values, albisToken) {
     let res = {};
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('rate', this.apiStage, this.SDKendpoint);
+
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+        params: {
+          ...values,
+          provision: this.provision,
+        },
+      });
+    } catch (e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
+
+    return res.data;
+  }
+
+  /**
+   * getFrameRates(values, albisToken) retrieves proposed rates for frame application. Returned object is needed for proceed saveApplication or updateApplication
+   *
+   * @param {Object} values - An object with data for providing rate offers
+   * @param {number} values.purchasePrice - Total net value of the cart [EUR]
+   * @param {number} values.productGroup - Product group of chosen products
+   * @param {number=} values.downPayment - Net value of down payment [EUR]. Default 0 (optional)
+   * @param {number} values.contractType - Contract type
+   * @param {number} values.paymentMethod - Payment options
+   * @param {number=} values.residualValueSum - Residual value sum (mandatory if contract type equals 11 (TA))
+   * @param {number=} values.residualValuePercent - Residual value percent (mandatory if contract type equals 11 (TA))
+   * @param {number=} values.serviceFee - service fee (mandatory if contract type equals 7 or 12)
+   * @param {number=} values.cntbw - amount of black-white pages. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.costbw - cost of black-white pages per page. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.cntclr - amount of colour pages. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.costclr - cost of colour pages per page. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.cntscan - amount of scanned pages. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.costscan - cost of scanned pages per page. Used if service/printers contract type (7 or 12)
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {ResponseGetFrameRates} response object
+   *
+   * @example
+   *
+   * Albis.getFrameRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 1 }, { token: '12345' })
+  */
+
+    async getFrameRates(values, albisToken) {
+    let res = {};
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('frame-rates', this.apiStage, this.SDKendpoint);
 
     try {
       res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
@@ -543,7 +600,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string=} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
    * @param {Array.<String>=} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
    * @param {string=} values.receiverToken - a string, which can be used by a client to ensure that the notification concerns his application (optional)
-   * @param {number=} values.residualValuePercent - required if contract type equals 2 (optional)
+   * @param {number=} values.residualValuePercent - required if contract type equals 11 (optional)
    * @param {number=} values.serviceFee - required if contract type equals 7 or 12 (optional)
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
@@ -646,7 +703,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string} values.receiverToken - a string, which can be used by a client to ensure that the notification concerns his application
    * @param {number} values.rate - rate (returned from getRates() method)
    * @param {string} values.reference - application reference (helper for shop employees)
-   * @param {number} values.residualValuePercent - required if contract type equals 2
+   * @param {number} values.residualValuePercent - required if contract type equals 11
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
    * @returns {ResponseUpdateApplication} response object
@@ -730,6 +787,37 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
         },
         params: {
           applicationId: id,
+        },
+      });
+    } catch (e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
+    return res.data
+  }
+
+  /**
+   * cancelApplication(id,  albisToken) set application status to "canceled"
+   * @param {number} id
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {ResponseCancelApplication} response - An object with application data
+   *
+   * @example
+   * Albis.cancelApplication(54321, { token: '12345' })
+   */
+
+   async cancelApplication(id, cancelationReason, albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('application', this.apiStage, this.SDKendpoint);
+    let res = {}
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+        params: {
+          applicationId: id,
+          cancelationReason
         },
       });
     } catch (e) {
@@ -1019,7 +1107,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string=} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
    * @param {Array.<String>=} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
    * @param {string=} values.receiverToken - a string, which can be used by a client to ensure that the notification concerns his application (optional)
-   * @param {number=} values.residualValuePercent - required if contract type equals 2 (optional)
+   * @param {number=} values.residualValuePercent - required if contract type equals 11 (optional)
    * @param {number=} values.serviceFee - required if contract type equals 7 or 12 (optional)
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
@@ -1224,6 +1312,21 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
  */
 
  /**
+ * @typedef {Object} ResponseGetFrameRates
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects i.e.
+ *  {
+ *    leaseTerm: 18,
+ *    rate: 188.8,
+ *    rateWithInsurance: 195.7,
+ *    finalPayment: 1073.11,
+ *    total: 6982.2,
+ *    totalRate: 182.95
+ *  }
+ */
+
+ /**
  * @typedef {Object} ResponseSaveApplication
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
@@ -1303,6 +1406,13 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
  * @property {boolean} response.result.saleAndLeaseBack - is application of type sale and lease back i.e. true
  * @property {number} response.result.salesmanId - salesman id which created the application i.e. 12345
  * @property {number} response.result.terminationTerm - when the lease is possible to terminate i.e. 30
+ */
+
+ /**
+ * @typedef {Object} ResponseCancelApplication
+ * @property {null} response.result - null
+ * @property {string} response.jsonrpc - "2.0"
+ * @property {number} response.id - json rpc lib id
  */
 
  /**
