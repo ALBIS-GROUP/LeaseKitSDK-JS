@@ -1218,6 +1218,7 @@ export default Albis;
       leaseTerm: 36,
       rate": 35.50,
       contractType": 1,
+      contractTypeTxt: "VA-Leasingvertrag",
       terminationTerm: 12,
       isInsurance: false,
       hid400: 123456, - salesman id number
