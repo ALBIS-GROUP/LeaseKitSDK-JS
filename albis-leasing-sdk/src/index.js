@@ -686,6 +686,36 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   }
 
   /**
+   * findFrameApplication(frameApplicationId, albisToken) finds frame application - returns its data
+   * @param {number} frameApplicationId
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {ResponseFindFrameApplication} response - An object which contains a frame application data
+   *
+   * @example
+   * Albis.findFrameApplication(54321, { token: '12345' })
+   */
+
+   async findFrameApplication(frameApplicationId, albisToken) {
+    const endpoint = getEndpointPath('frame-application', this.apiStage, this.SDKendpoint);
+    let res = {}
+    try {
+      res = await axios.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+        params: {
+          applicationId: frameApplicationId,
+        },
+      });
+    } catch (e) {
+      throw errorObj(e)
+    }
+    return res.data
+  }
+
+  /**
    * saveFrameSubApplication(values, albisToken) saves a sub application of the indicated frame application
    * 
    * @param {Object} values - An object with application data
@@ -1084,6 +1114,33 @@ export default Albis;
  *   text: 'Herr'
  * }
  */ 
+
+/**
+ * @typedef {Object} ResponseFindFrameApplication
+ * @property {string} response.jsonrpc - "2.0"
+ * @property {string} response.id - json rpc lib id
+ * @property {Object} response.result - object with application data
+ * @property {number} response.result.applicationId - application id i.e. 54321
+ * @property {number} response.result.framePurchasePriceSum - a sum of all purchase aldready made under frame application
+ * @property {number} response.result.frameRestSum - remaining purchase value under frame application
+ * @property {Object[]} response.result.contractTypes - a list of contract types, which could be used. Array with objects, i.e.
+   * {
+   *    contractType: 1,
+   *    contractTypeDesc: 'VA-Leasingvertrag',
+   * }
+ * @property {number} response.result.lessee - object with lessee data
+ * @property {string} response.result.lessee.salutation - lessee salutation i.e. "Herr"
+ * @property {string} response.result.lessee.title - lessee title i.e. "POSTDOC"
+ * @property {string} response.result.lessee.firstName - lessee first name i.e. "Marion"
+ * @property {string} response.result.lessee.lastName - lessee last name i.e. "Smith"
+ * @property {string} response.result.lessee.street - lessee street, i.e. 'Fifth Avenue'
+ * @property {string} response.result.lessee.zipCode - lessee zip code, i.e. '50125'
+ * @property {string} response.result.lessee.city - lessee city i.e. 'New York'
+ * @property {string} response.result.lessee.phoneNumber - lessee phone number, i.e. '030 1234 1234'
+ * @property {string} response.result.lessee.mobileNumber - lessee mobile number, i.e. '+49 543 123 123'
+ * @property {string} response.result.lessee.email - lessee email i.e. 'johndoe@gmail.com'
+ * @property {number} response.result.lessee.birthDate - lessee birth date i.e. 1990-03-03 00:00:00
+ */
 
  /**
  * @typedef {Object} ResponseSaveFrameSubApplication
