@@ -1307,7 +1307,9 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
  *    leaseTerm: 18,
  *    rate: 188.8,
  *    rateWithInsurance: 195.7,
- *    total: 3522.6
+ *    total: 3522.6,
+ *    totalRate: 185.92,
+ *    costPerPage: 0.062
  *  }
  */
 
@@ -1320,6 +1322,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
  *    leaseTerm: 18,
  *    rate: 188.8,
  *    rateWithInsurance: 195.7,
+ *    costPerPage: 0.067,
  *    finalPayment: 1073.11,
  *    total: 6982.2,
  *    totalRate: 182.95

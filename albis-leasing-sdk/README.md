@@ -802,7 +802,7 @@ Albis.logout({ token: '12345' })
 | --- | --- | --- |
 | response.id | <code>string</code> | json rpc lib id |
 | response.jsonrpc | <code>string</code> | json rpc version number ("2.0") |
-| response.result | <code>Array.&lt;Object&gt;</code> | array of objects i.e.  {    leaseTerm: 18,    rate: 188.8,    rateWithInsurance: 195.7,    total: 3522.6  } |
+| response.result | <code>Array.&lt;Object&gt;</code> | array of objects i.e.  {    leaseTerm: 18,    rate: 188.8,    rateWithInsurance: 195.7,    total: 3522.6,    totalRate: 185.92,    costPerPage: 0.062  } |
 
 <a name="ResponseGetFrameRates"></a>
 
@@ -814,7 +814,7 @@ Albis.logout({ token: '12345' })
 | --- | --- | --- |
 | response.id | <code>string</code> | json rpc lib id |
 | response.jsonrpc | <code>string</code> | json rpc version number ("2.0") |
-| response.result | <code>Array.&lt;Object&gt;</code> | array of objects i.e.  {    leaseTerm: 18,    rate: 188.8,    rateWithInsurance: 195.7,    finalPayment: 1073.11,    total: 6982.2,    totalRate: 182.95  } |
+| response.result | <code>Array.&lt;Object&gt;</code> | array of objects i.e.  {    leaseTerm: 18,    rate: 188.8,    rateWithInsurance: 195.7,    costPerPage: 0.067,    finalPayment: 1073.11,    total: 6982.2,    totalRate: 182.95  } |
 
 <a name="ResponseSaveApplication"></a>
 
