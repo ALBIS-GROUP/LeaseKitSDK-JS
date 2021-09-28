@@ -530,14 +530,15 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   }
 
   /**
-   * cancelApplication(id,  albisToken) set application status to "canceled"
+   * cancelApplication(id,  cancelationReason, albisToken) set application status to "canceled"
    * @param {number} id
+   * @param {number} cancelationReason - id of cancelation reason
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
    * @returns {ResponseCancelApplication} response - An object with application data
    *
    * @example
-   * Albis.cancelApplication(54321, { token: '12345' })
+   * Albis.cancelApplication(54321, 3, { token: '12345' })
    */
 
    async cancelApplication(id, cancelationReason, albisToken) {

@@ -74,7 +74,7 @@ An Albis class
     * [.saveApplication(values, albisToken)](#Albis+saveApplication) ⇒ [<code>ResponseSaveApplication</code>](#ResponseSaveApplication)
     * [.updateApplication(values, albisToken)](#Albis+updateApplication) ⇒ [<code>ResponseUpdateApplication</code>](#ResponseUpdateApplication)
     * [.findApplication(id, albisToken)](#Albis+findApplication) ⇒ [<code>ResponseFindApplication</code>](#ResponseFindApplication)
-    * [.cancelApplication(id, albisToken)](#Albis+cancelApplication) ⇒ [<code>ResponseCancelApplication</code>](#ResponseCancelApplication)
+    * [.cancelApplication(id, cancelationReason, albisToken)](#Albis+cancelApplication) ⇒ [<code>ResponseCancelApplication</code>](#ResponseCancelApplication)
     * [.getLegalForms(albisToken)](#Albis+getLegalForms) ⇒ [<code>ResponseGetLegalForms</code>](#ResponseGetLegalForms)
     * [.getContractTypes(albisToken)](#Albis+getContractTypes) ⇒ [<code>ResponseGetContractTypes</code>](#ResponseGetContractTypes)
     * [.getProductGroups(albisToken)](#Albis+getProductGroups) ⇒ [<code>ResponseGetProductGroups</code>](#ResponseGetProductGroups)
@@ -441,8 +441,8 @@ Albis.findApplication(54321, { token: '12345' })
 ```
 <a name="Albis+cancelApplication"></a>
 
-### albis.cancelApplication(id, albisToken) ⇒ [<code>ResponseCancelApplication</code>](#ResponseCancelApplication)
-cancelApplication(id,  albisToken) set application status to "canceled"
+### albis.cancelApplication(id, cancelationReason, albisToken) ⇒ [<code>ResponseCancelApplication</code>](#ResponseCancelApplication)
+cancelApplication(id,  cancelationReason, albisToken) set application status to "canceled"
 
 **Kind**: instance method of [<code>Albis</code>](#Albis)  
 **Returns**: [<code>ResponseCancelApplication</code>](#ResponseCancelApplication) - response - An object with application data  
@@ -450,11 +450,12 @@ cancelApplication(id,  albisToken) set application status to "canceled"
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>number</code> |  |
+| cancelationReason | <code>number</code> | id of cancelation reason |
 | albisToken | <code>Object</code> | object with Albis token, which lets to communicate with Albis API |
 
 **Example**  
 ```js
-Albis.cancelApplication(54321, { token: '12345' })
+Albis.cancelApplication(54321, 3, { token: '12345' })
 ```
 <a name="Albis+getLegalForms"></a>
 
