@@ -286,10 +286,10 @@ saveApplication(values, albisToken) saves an application
 | values.lessee.manager | <code>Object</code> | lessee's manager data |
 | values.lessee.manager.birthDate | <code>string</code> | lessee's manager birth date (format required: "YYYY-MM-DD") |
 | values.lessee.manager.city | <code>string</code> | lessee's manager city |
-| [values.lessee.manager.faxNumber] | <code>string</code> | lessee's manager phone number (optional) |
+| [values.lessee.manager.faxNumber] | <code>string</code> | lessee's manager fax number (optional) |
 | values.lessee.manager.firstName | <code>string</code> | lessee's manager first name |
 | values.lessee.manager.lastName | <code>string</code> | lessee's manager last name |
-| [values.lessee.manager.phoneNumber] | <code>string</code> | lessee's manager phone number (optional) |
+| values.lessee.manager.phoneNumber | <code>string</code> | lessee's manager phone number |
 | values.lessee.manager.salutation | <code>number</code> | lessee's manager salutation form (result of getSalutations() method) |
 | values.lessee.manager.street | <code>string</code> | lessee's manager street |
 | values.lessee.manager.zipCode | <code>string</code> | lessee's manager zip code |
@@ -332,7 +332,8 @@ Albis.saveApplication(
        street: 'Piłsudskiego',
        zipCode: '50000',
        city: 'Hamburg',
-       birthDate: '1990-12-30'
+       birthDate: '1990-12-30',
+       phoneNumber: '+48500000000',
      },
    },
    leaseTerm: 12,
@@ -618,10 +619,10 @@ saveFrameSubApplication(values, albisToken) saves a sub application of the indic
 | values.lessee.manager | <code>Object</code> | lessee's manager data |
 | values.lessee.manager.birthDate | <code>string</code> | lessee's manager birth date (format required: "YYYY-MM-DD") |
 | values.lessee.manager.city | <code>string</code> | lessee's manager city |
-| [values.lessee.manager.faxNumber] | <code>string</code> | lessee's manager phone number (optional) |
+| [values.lessee.manager.faxNumber] | <code>string</code> | lessee's manager fax number (optional) |
 | values.lessee.manager.firstName | <code>string</code> | lessee's manager first name |
 | values.lessee.manager.lastName | <code>string</code> | lessee's manager last name |
-| [values.lessee.manager.phoneNumber] | <code>string</code> | lessee's manager phone number (optional) |
+| values.lessee.manager.phoneNumber | <code>string</code> | lessee's manager phone number |
 | values.lessee.manager.salutation | <code>number</code> | lessee's manager salutation form (result of getSalutations() method) |
 | values.lessee.manager.street | <code>string</code> | lessee's manager street |
 | values.lessee.manager.zipCode | <code>string</code> | lessee's manager zip code |
@@ -665,7 +666,8 @@ Albis.saveFrameSubApplication(
        street: 'Piłsudskiego',
        zipCode: '50000',
        city: 'Hamburg',
-       birthDate: '1990-12-30'
+       birthDate: '1990-12-30',
+       phoneNumber: '+48500000000',
      },
    },
    leaseTerm: 12,
