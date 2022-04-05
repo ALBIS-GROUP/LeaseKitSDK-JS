@@ -316,10 +316,10 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {Object} values.lessee.manager - lessee's manager data
    * @param {string} values.lessee.manager.birthDate - lessee's manager birth date (format required: "YYYY-MM-DD")
    * @param {string} values.lessee.manager.city - lessee's manager city
-   * @param {string=} values.lessee.manager.faxNumber - lessee's manager phone number (optional)
+   * @param {string=} values.lessee.manager.faxNumber - lessee's manager fax number (optional)
    * @param {string} values.lessee.manager.firstName - lessee's manager first name
    * @param {string} values.lessee.manager.lastName - lessee's manager last name
-   * @param {string=} values.lessee.manager.phoneNumber - lessee's manager phone number (optional)
+   * @param {string} values.lessee.manager.phoneNumber - lessee's manager phone number
    * @param {number} values.lessee.manager.salutation - lessee's manager salutation form (result of getSalutations() method)
    * @param {string} values.lessee.manager.street - lessee's manager street
    * @param {string} values.lessee.manager.zipCode - lessee's manager zip code
@@ -364,7 +364,8 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    *        street: 'Piłsudskiego',
    *        zipCode: '50000',
    *        city: 'Hamburg',
-   *        birthDate: '1990-12-30'
+   *        birthDate: '1990-12-30',
+   *        phoneNumber: '+48500000000',
    *      },
    *    },
    *    leaseTerm: 12,
@@ -824,10 +825,10 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {Object} values.lessee.manager - lessee's manager data
    * @param {string} values.lessee.manager.birthDate - lessee's manager birth date (format required: "YYYY-MM-DD")
    * @param {string} values.lessee.manager.city - lessee's manager city
-   * @param {string=} values.lessee.manager.faxNumber - lessee's manager phone number (optional)
+   * @param {string=} values.lessee.manager.faxNumber - lessee's manager fax number (optional)
    * @param {string} values.lessee.manager.firstName - lessee's manager first name
    * @param {string} values.lessee.manager.lastName - lessee's manager last name
-   * @param {string=} values.lessee.manager.phoneNumber - lessee's manager phone number (optional)
+   * @param {string} values.lessee.manager.phoneNumber - lessee's manager phone number
    * @param {number} values.lessee.manager.salutation - lessee's manager salutation form (result of getSalutations() method)
    * @param {string} values.lessee.manager.street - lessee's manager street
    * @param {string} values.lessee.manager.zipCode - lessee's manager zip code
@@ -873,7 +874,8 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    *        street: 'Piłsudskiego',
    *        zipCode: '50000',
    *        city: 'Hamburg',
-   *        birthDate: '1990-12-30'
+   *        birthDate: '1990-12-30',
+   *        phoneNumber: '+48500000000',
    *      },
    *    },
    *    leaseTerm: 12,
