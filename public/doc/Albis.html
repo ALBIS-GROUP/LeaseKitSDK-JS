@@ -120,6 +120,8 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -145,6 +147,14 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -167,6 +177,14 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -191,6 +209,14 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -213,6 +239,14 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -237,6 +271,14 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -259,6 +301,14 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -283,6 +333,14 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -306,10 +364,20 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">defines proper API Gateway endpoints stage (API version) for requests</td>
+            <td class="description last">defines proper API Gateway endpoints stage (API version) for requests (optional)</td>
         </tr>
 
     
@@ -428,7 +496,588 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
-    <h4 class="name" id="changePassword"><span class="type-signature">(async) </span>changePassword<span class="signature">(albisNewPassword<span class="signature-attributes">opt</span>, auth0NewPassword<span class="signature-attributes">opt</span>, albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="albisEcho"><span class="type-signature">(async) </span>albisEcho<span class="signature">(data<span class="signature-attributes">opt</span>, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseAlbisEcho">ResponseAlbisEcho</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    albisEcho(data, albisToken)
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">random string (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line119">line 119</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    response object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#ResponseAlbisEcho">ResponseAlbisEcho</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Albis.albisEcho("Hello World", { token: '1234' })</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="albisPing"><span class="type-signature">(async) </span>albisPing<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseAlbisPing">ResponseAlbisPing</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    albisPing(albisToken) checks the connection with Albis API and shop credentials
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    response object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#ResponseAlbisPing">ResponseAlbisPing</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Albis.albisPing({ token: '1234' })</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="cancelApplication"><span class="type-signature">(async) </span>cancelApplication<span class="signature">(id, cancelationReason, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseCancelApplication">ResponseCancelApplication</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    cancelApplication(id,  cancelationReason, albisToken) set application status to "canceled"
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cancelationReason</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">id of cancelation reason</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line545">line 545</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    response - An object with application data
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#ResponseCancelApplication">ResponseCancelApplication</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Albis.cancelApplication(54321, 3, { token: '12345' })</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="changePassword"><span class="type-signature">(async) </span>changePassword<span class="signature">(albisNewPassword<span class="signature-attributes">opt</span>, auth0NewPassword<span class="signature-attributes">opt</span>, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseChangePassword">ResponseChangePassword</a>}</span></h4>
     
 
     
@@ -568,502 +1217,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>response.albisPassChangeStatus.id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">json rpc lib id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.albisPassChangeStatus.jsonrpc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">json rpc version number ("2.0")</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.albisPassChangeStatus.result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">null</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.created_at</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">date when the user has been created</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.email</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">user's email (same as login)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.email_verified</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">is email verified</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.identities</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">object with description of user connection</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">user login name (same as email)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.nickname</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">user nickname name (same as email without the domain ending)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.picture</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">user picture URL (png)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.updated_at</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">date of the last update</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.user_id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">auth0 user id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.last_password_reset</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">date of the last password reset</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.last_ip</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">ip used for the last connection</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.last_login</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">date of the last login</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.auth0PassChangeStatus.logins_count</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">number of total logins of this user</td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -1101,7 +1254,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line212">line 212</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line182">line 182</a>
     </li></ul></dd>
     
 
@@ -1130,7 +1283,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
         
 <div class="param-desc">
-    response
+    response object
 </div>
 
 
@@ -1141,7 +1294,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ResponseChangePassword">ResponseChangePassword</a></span>
 
 
     </dd>
@@ -1164,307 +1317,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
-    <h4 class="name" id="echo"><span class="type-signature">(async) </span>echo<span class="signature">(data<span class="signature-attributes">opt</span>, albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    echo(data, albisToken)
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">random string (optional)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>albisToken</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">json rpc lib id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.jsonrpc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">json rpc version number ("2.0")</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">data input string (or default "Test")</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line130">line 130</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    response
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>Albis.echo("Hello World", { token: '1234' })</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="findApplication"><span class="type-signature">(async) </span>findApplication<span class="signature">(id, albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="findApplication"><span class="type-signature">(async) </span>findApplication<span class="signature">(id, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseFindApplication">ResponseFindApplication</a>}</span></h4>
     
 
     
@@ -1551,1356 +1404,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>response.jsonrpc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">"2.0"</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc lib id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">object with application data
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>applicationId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">application id i.e. 54321</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>applicationStatus</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">application status number i.e. 1150 (you can compare the result with getApplicationsStatus method)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>applicationStatusDesc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">application status description i.e. 'in Bearbeitung' (you can compare the result with getApplicationsStatus method)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>applicationReceptionDate</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">when application data were received i.e. '2020-12-21 09:04:11'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>bankName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">bank name, which will cover the transation i.e. 'Berliner Volksbank'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>bankIdentifierCode</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">bank identifier code i.e. 'BEVODEBBXYZ'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>contractDocuments</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Object></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">list of missing or incorrect contract documents. Array with objects, i.e.
-{
-   errorNumber: 1,
-   errorText: 'Id document is needed to proceed the application',
-   value: 'some more information about the document error',
-   documentReceptionDate: '2021-02-20',
-   documentType: 'id'
-}</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>contractType</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">contract type i.e. 1 (you can compare the result with getContractTypes method)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>decisionDocuments</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">list of missing documents for the decision i.e. ['id']</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>downPayment</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">down payment id i.e. 500</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>finalPayment</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">possible final payment if the term is shortened. This field is only available to be filled if the contract is cancellable id i.e. 2831.08</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>iban</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">IBAN of account to be charged with contract instalments i.e. 'DE88100900001234567892'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>insurance</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">is insurance i.e. true</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isContactByEmail</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">indicator that the leasing contract should be sent to the lessee by e-mail after approval i.e. true</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isLesseeEmailContact</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">did lessee agreed to receive an email i.e. true</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>leaseTerm</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">term of lease in months i.e. 54</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lessee</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">object with lessee data
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>city</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee city i.e. 'New York'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>email</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee email i.e. 'johndoe@gmail.com'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fax</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee fax i.e. '0123 123 123'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>manager</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee manager data
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>birthDate</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee manager birth date, i.e. '1960-12-24' (format YYYY-MM-DD)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>city</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee manager city, i.e. 'New York'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>firstName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee manager first name, i.e. 'Susane'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fullName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee manager full name, i.e. 'Susane Cooper'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lastName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee manager last name, i.e. 'Cooper'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>salutation</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee manager salutation, i.e. 2 (you can compare the result with getSalutations method)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>salutationDesc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee manager salutation description, i.e. 'Frau' (you can compare the result with getSalutations method)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>street</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee manager street, i.e. 'Fifth Avenue'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>zipCode</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee manager zip code, i.e. '50123'</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mobileNumber</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee mobile number, i.e. '+49 543 123 123'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee name, i.e. 'John Doe'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>legalForm</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee legal form, i.e. 1 (you can compare the result with getLegalFroms method)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>phoneNumber</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee phone number, i.e. '030 1234 1234'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>street</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee street, i.e. 'Fifth Avenue'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>zipCode</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">lessee zip code, i.e. '50125'</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>object</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">designation of object of lease i.e. 'Fridge Samsung model XYZ'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>paymentMethod</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">payment method i.e. 2 (you can compare the result with getPaymentMethods method)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>productGroup</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">product group of object of lease i.e. 1</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>promotionId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">promotionId (if conditions matched any promotion) i.e. 'xyz'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>provision</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">commission, i.e. 4.5</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>purchasePrice</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">purchase price for object of lease, i.e. 5000</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>rate</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">monthly leasing rate i.e. 117.87</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>receiverEndpoint</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">endpoint address where requests about application/documentation updates should be delivered i.e. 'https://companyName.com/shop1'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>receiverFailEmails</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">array of string emails where info about connection with reveiver endpoint should be delivered i.e. ['emailToBeNotified@gmail.com']</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>receiverToken</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">a string, which can be used by a client to ensure that the notification concerns his application i.e. 'xyz123'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>reference</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">application reference (helper for shop employees) i.e. '123abc'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>residualValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">residual value i.e. 300 (0 if contract type different than 2)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>residualValuePercent</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">residual value percent i.e. 3.0 (null if contract type different than 2)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>saleAndLeaseBack</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">is application of type sale and lease back i.e. true</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>salesmanId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">salesman id which created the application i.e. 12345</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>terminationTerm</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">when the lease is possible to terminate i.e. 30</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -2938,7 +1441,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line565">line 565</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line514">line 514</a>
     </li></ul></dd>
     
 
@@ -2978,7 +1481,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ResponseFindApplication">ResponseFindApplication</a></span>
 
 
     </dd>
@@ -3001,7 +1504,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
-    <h4 class="name" id="getAlbisToken"><span class="type-signature">(async) </span>getAlbisToken<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="findFrameApplication"><span class="type-signature">(async) </span>findFrameApplication<span class="signature">(frameApplicationId, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseFindFrameApplication">ResponseFindFrameApplication</a>}</span></h4>
     
 
     
@@ -3009,7 +1512,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
 
 <div class="description">
-    getAlbisToken() returns albisToken needed to call other Albis functions
+    findFrameApplication(frameApplicationId, albisToken) finds frame application - returns its data
 </div>
 
 
@@ -3045,76 +1548,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
         <tr>
             
-                <td class="name"><code>albisToken.token</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">token used for user authorisation</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>albisToken.scope</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">shows users access</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>albisToken.token_type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">token type</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>albisToken.expires_in_Auth0</code></td>
+                <td class="name"><code>frameApplicationId</code></td>
             
 
             <td class="type">
@@ -3130,20 +1564,20 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">how long the token will be valid (number of seconds)</td>
+            <td class="description last"></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>albisToken.expires</code></td>
+                <td class="name"><code>albisToken</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Object</span>
 
 
             
@@ -3153,7 +1587,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">how long the token will be valid (Unix time stamp)</td>
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
         </tr>
 
     
@@ -3194,7 +1628,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line68">line 68</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line789">line 789</a>
     </li></ul></dd>
     
 
@@ -3223,7 +1657,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
         
 <div class="param-desc">
-    albisToken
+    response - An object which contains a frame application data
 </div>
 
 
@@ -3234,7 +1668,332 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     </dt>
     <dd>
         
+<span class="param-type"><a href="global.html#ResponseFindFrameApplication">ResponseFindFrameApplication</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Albis.findFrameApplication(54321, { token: '12345' })</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="findFrameSubApplications"><span class="type-signature">(async) </span>findFrameSubApplications<span class="signature">(frameApplicationId, showExternalStatus, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseFindFrameSubApplications">ResponseFindFrameSubApplications</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    findFrameSubApplications(frameApplicationId, albisToken) finds all sub applications of the indicated frame application
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>frameApplicationId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>showExternalStatus</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">indicates, if applicationStatusTxt with a description of received application status should be attached to the result set</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line934">line 934</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    response - An object which contains an array in the result attribute of sub applications belonging to the frame application
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#ResponseFindFrameSubApplications">ResponseFindFrameSubApplications</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Albis.findFrameSubApplications(54321, { token: '12345' })</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getAlbisToken"><span class="type-signature">(async) </span>getAlbisToken<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseGetAlbisToken">ResponseGetAlbisToken</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    getAlbisToken() returns albisToken needed to call other Albis functions
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line63">line 63</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    response object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#ResponseGetAlbisToken">ResponseGetAlbisToken</a></span>
 
 
     </dd>
@@ -3257,7 +2016,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
-    <h4 class="name" id="getApplicationsStatus"><span class="type-signature">(async) </span>getApplicationsStatus<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="getApplicationsStatus"><span class="type-signature">(async) </span>getApplicationsStatus<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseGetApplicationsStatus">ResponseGetApplicationsStatus</a>}</span></h4>
     
 
     
@@ -3321,75 +2080,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>response.id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc lib id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.jsonrpc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc version number ("2.0")</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">array of strings with names of applications status</td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -3427,7 +2117,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line634">line 634</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line692">line 692</a>
     </li></ul></dd>
     
 
@@ -3467,7 +2157,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ResponseGetApplicationsStatus">ResponseGetApplicationsStatus</a></span>
 
 
     </dd>
@@ -3490,7 +2180,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
-    <h4 class="name" id="getDocuments"><span class="type-signature">(async) </span>getDocuments<span class="signature">(applicationId, albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="getContractDocuments"><span class="type-signature">(async) </span>getContractDocuments<span class="signature">(applicationId, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseGetContractDocuments">ResponseGetContractDocuments</a>}</span></h4>
     
 
     
@@ -3498,7 +2188,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
 
 <div class="description">
-    getDocuments(applicationId, albisToken) returns needed documents. Warning: this function needs sometimes (rare) even up to 2mins for response
+    getContractDocuments(applicationId, albisToken) returns needed documents. Warning: this function needs sometimes (rare) even up to 2mins for response
 </div>
 
 
@@ -3577,75 +2267,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>response.id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc lib id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.jsonrpc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc version number ("2.0")</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">base64 string (i.e. a PDF file)</td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -3683,7 +2304,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line164">line 164</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line150">line 150</a>
     </li></ul></dd>
     
 
@@ -3712,7 +2333,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
         
 <div class="param-desc">
-    response
+    response object
 </div>
 
 
@@ -3723,7 +2344,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ResponseGetContractDocuments">ResponseGetContractDocuments</a></span>
 
 
     </dd>
@@ -3736,7 +2357,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Albis.getDocuments(123456, { token: 12345 })</code></pre>
+    <pre class="prettyprint"><code>Albis.getContractDocuments(123456, { token: 12345 })</code></pre>
 
 
 
@@ -3746,7 +2367,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
-    <h4 class="name" id="getLegalForms"><span class="type-signature">(async) </span>getLegalForms<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="getContractTypes"><span class="type-signature">(async) </span>getContractTypes<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseGetContractTypes">ResponseGetContractTypes</a>}</span></h4>
     
 
     
@@ -3754,7 +2375,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
 
 <div class="description">
-    getLegalForms(albisToken) get a map of all legal forms (needed for lessee data)
+    getContractTypes(albisToken) get an array of all contract types available for the shop user (needed for lessee data)
 </div>
 
 
@@ -3810,79 +2431,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>response.id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc lib id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.jsonrpc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc version number ("2.0")</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Object></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">array of objects like:
-{
-  id: 1,
-  text: 'GmbH'
-}</td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -3920,7 +2468,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line602">line 602</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line605">line 605</a>
     </li></ul></dd>
     
 
@@ -3949,7 +2497,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
         
 <div class="param-desc">
-    response
+    response object
 </div>
 
 
@@ -3960,7 +2508,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ResponseGetContractTypes">ResponseGetContractTypes</a></span>
 
 
     </dd>
@@ -3973,7 +2521,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Albis.getLegalForms({ token: '12345' })</code></pre>
+    <pre class="prettyprint"><code>Albis.getContractTypes({ token: '12345' })</code></pre>
 
 
 
@@ -3983,7 +2531,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
-    <h4 class="name" id="getRates"><span class="type-signature">(async) </span>getRates<span class="signature">(values, albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="getFrameRates"><span class="type-signature">(async) </span>getFrameRates<span class="signature">(values, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseGetFrameRates">ResponseGetFrameRates</a>}</span></h4>
     
 
     
@@ -3991,7 +2539,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
 
 <div class="description">
-    getRates(values, albisToken) retrieves proposed rates. Returned object is needed for proceed getApplication(albisToken)
+    getFrameRates(values, albisToken) retrieves proposed rates for frame application. Returned object is needed for proceed saveApplication or updateApplication
 </div>
 
 
@@ -4225,6 +2773,303 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>residualValueSum</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Residual value sum (mandatory if contract type equals 11 (TA))</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>residualValuePercent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Residual value percent (mandatory if contract type equals 11 (TA))</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>serviceFee</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">service fee (mandatory if contract type equals 7 or 12)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cntbw</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">amount of black-white pages. Used if service/printers contract type (7 or 12)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>costbw</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">cost of black-white pages per page. Used if service/printers contract type (7 or 12)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cntclr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">amount of colour pages. Used if service/printers contract type (7 or 12)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>costclr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">cost of colour pages per page. Used if service/printers contract type (7 or 12)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cntscan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">amount of scanned pages. Used if service/printers contract type (7 or 12)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>costscan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">cost of scanned pages per page. Used if service/printers contract type (7 or 12)</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -4252,81 +3097,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             
 
             <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc lib id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.jsonrpc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc version number ("2.0")</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Object></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">array of objects i.e.
-{
- leaseTerm: 18,
- rate: 188.8,
- rateWithInsurance: 195.7,
- total: 3522.6
-}</td>
         </tr>
 
     
@@ -4367,7 +3137,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line260">line 260</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line278">line 278</a>
     </li></ul></dd>
     
 
@@ -4396,7 +3166,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
         
 <div class="param-desc">
-    response
+    response object
 </div>
 
 
@@ -4407,7 +3177,1135 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     </dt>
     <dd>
         
+<span class="param-type"><a href="global.html#ResponseGetFrameRates">ResponseGetFrameRates</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Albis.getFrameRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 1 }, { token: '12345' })</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getLegalForms"><span class="type-signature">(async) </span>getLegalForms<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseGetLegalForms">ResponseGetLegalForms</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    getLegalForms(albisToken) get a map of all legal forms (needed for lessee data)
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line576">line 576</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    response object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#ResponseGetLegalForms">ResponseGetLegalForms</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Albis.getLegalForms({ token: '12345' })</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getPaymentMethods"><span class="type-signature">(async) </span>getPaymentMethods<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseGetPaymentMethods">ResponseGetPaymentMethods</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    getPaymentMethods(albisToken) get an array of all payment methods available for the shop user (needed for lessee data)
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line663">line 663</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    response object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#ResponseGetPaymentMethods">ResponseGetPaymentMethods</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Albis.getPaymentMethods({ token: '12345' })</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getProductGroups"><span class="type-signature">(async) </span>getProductGroups<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseGetProductGroups">ResponseGetProductGroups</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    getProductGroups(albisToken) get an array of all product groups available for the shop user (needed for lessee data)
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line634">line 634</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    response object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#ResponseGetProductGroups">ResponseGetProductGroups</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Albis.getProductGroups({ token: '12345' })</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getRates"><span class="type-signature">(async) </span>getRates<span class="signature">(values, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseGetRates">ResponseGetRates</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    getRates(values, albisToken) retrieves proposed rates. Returned object is needed for proceed saveApplication or updateApplication
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>values</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An object with data for providing rate offers
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>purchasePrice</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Total net value of the cart [EUR]</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>productGroup</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Product group of chosen products</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>downPayment</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Net value of down payment [EUR]. Default 0 (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contractType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Contract type</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>paymentMethod</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Payment options</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>residualValuePercent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Residual value percent (mandatory if contract type equals 11 (TA))</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>serviceFee</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">service fee (mandatory if contract type equals 7 or 12)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cntbw</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">amount of black-white pages. Used if service/printers contract type (7 or 12)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>costbw</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">cost of black-white pages per page. Used if service/printers contract type (7 or 12)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cntclr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">amount of colour pages. Used if service/printers contract type (7 or 12)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>costclr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">cost of colour pages per page. Used if service/printers contract type (7 or 12)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cntscan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">amount of scanned pages. Used if service/printers contract type (7 or 12)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>costscan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">cost of scanned pages per page. Used if service/printers contract type (7 or 12)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line229">line 229</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    response object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#ResponseGetRates">ResponseGetRates</a></span>
 
 
     </dd>
@@ -4430,7 +4328,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
-    <h4 class="name" id="getSalutations"><span class="type-signature">(async) </span>getSalutations<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="getSalutations"><span class="type-signature">(async) </span>getSalutations<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseGetSalutations">ResponseGetSalutations</a>}</span></h4>
     
 
     
@@ -4494,79 +4392,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>response.id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc lib id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.jsonrpc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc version number ("2.0")</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Object></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">array with objects like:
-{
-  id: 1,
-  text: 'Herr'
-}</td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -4604,7 +4429,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line712">line 712</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line760">line 760</a>
     </li></ul></dd>
     
 
@@ -4633,7 +4458,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
         
 <div class="param-desc">
-    response
+    response object
 </div>
 
 
@@ -4644,7 +4469,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ResponseGetSalutations">ResponseGetSalutations</a></span>
 
 
     </dd>
@@ -4667,7 +4492,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
-    <h4 class="name" id="logout"><span class="type-signature">(async) </span>logout<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="logout"><span class="type-signature">(async) </span>logout<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseLogout">ResponseLogout</a>}</span></h4>
     
 
     
@@ -4731,75 +4556,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>response.id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc lib id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.jsonrpc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc version number ("2.0")</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">null</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -4837,7 +4593,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line744">line 744</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line965">line 965</a>
     </li></ul></dd>
     
 
@@ -4866,7 +4622,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
         
 <div class="param-desc">
-    response
+    response object
 </div>
 
 
@@ -4877,7 +4633,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ResponseLogout">ResponseLogout</a></span>
 
 
     </dd>
@@ -4900,240 +4656,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
-    <h4 class="name" id="ping"><span class="type-signature">(async) </span>ping<span class="signature">(albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    ping(albisToken) checks the connection with Albis API and shop credentials
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>albisToken</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">object with Albis token, which lets to communicate with Albis API</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc lib id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.jsonrpc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc version number ("2.0")</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">'pong'</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line100">line 100</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    response
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>Albis.ping({ token: '1234' })</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="saveApplication"><span class="type-signature">(async) </span>saveApplication<span class="signature">(values, albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="saveApplication"><span class="type-signature">(async) </span>saveApplication<span class="signature">(values, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseSaveApplication">ResponseSaveApplication</a>}</span></h4>
     
 
     
@@ -5694,7 +5217,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">lessee's manager phone number (optional)</td>
+            <td class="description last">lessee's manager fax number (optional)</td>
         </tr>
 
     
@@ -5778,8 +5301,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
                 
 
@@ -5789,7 +5310,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">lessee's manager phone number (optional)</td>
+            <td class="description last">lessee's manager phone number</td>
         </tr>
 
     
@@ -5802,7 +5323,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
             
@@ -6280,7 +5801,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">required if contract type equals 2 (optional)</td>
+            <td class="description last">required if contract type equals 11 (optional)</td>
         </tr>
 
     
@@ -6347,10 +5868,446 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
         </tr>
 
     
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line388">line 388</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    response - response object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#ResponseSaveApplication">ResponseSaveApplication</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Albis.saveApplication(
+ {
+   contactByEmail: true,
+   contractType: 1,
+   downPayment: 500,
+   finalPayment: 150,
+   iban: 'DE88100900001234567892',
+   lessee: {
+     name: 'Antonina',
+     street: 'Lichtenrade',
+     city: 'Berlin',
+     zipCode: '50000',
+     phoneNumber: '+48500000000',
+     email: 'abc@gmail.com',
+     legalForm: 1,
+     manager: {
+       salutation: 1,
+       firstName: 'Johanna',
+       lastName: 'Surname',
+       street: 'Piłsudskiego',
+       zipCode: '50000',
+       city: 'Hamburg',
+       birthDate: '1990-12-30',
+       phoneNumber: '+48500000000',
+     },
+   },
+   leaseTerm: 12,
+   object: 'Fridge VW',
+   paymentMethod: 1,
+   productGroup: 1,
+   promotionId: 'xyz',
+   purchasePrice: 5000,
+   rate: 300,
+   rateWithInsurance: 323,
+   reference: 'abc123',
+   ssv: true,
+   receiverToken: '123abc',
+   receiverEndpoint: 'company.com/endpoint',
+   receiverFailEmails: ['abc@gmail.com', 'abc2@gmail.com']
+},
+{token: '12345'})</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="saveFrameSubApplication"><span class="type-signature">(async) </span>saveFrameSubApplication<span class="signature">(values, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseSaveFrameSubApplication">ResponseSaveFrameSubApplication</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    saveFrameSubApplication(values, albisToken) saves a sub application of the indicated frame application
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
 
         <tr>
             
-                <td class="name"><code>response.id</code></td>
+                <td class="name"><code>values</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An object with application data
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>contactByEmail</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">indicator that the leasing contract should be sent to the lessee by e-mail after approval. TRUE/FALSE, Default:FALSE (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contractType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">contract type (result of getContractTypes() method)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>downPayment</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">down payment (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iban</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">IBAN of account to be charged with contract instalments (may be entered with spaces) (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>frameApplicationId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">a frame application id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lessee</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">lessee data
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>city</code></td>
             
 
             <td class="type">
@@ -6366,14 +6323,14 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">json rpc lib id</td>
+            <td class="description last">lessee city</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>response.jsonrpc</code></td>
+                <td class="name"><code>email</code></td>
             
 
             <td class="type">
@@ -6389,14 +6346,14 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">json rpc version number ("2.0")</td>
+            <td class="description last">lessee email</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>response.result</code></td>
+                <td class="name"><code>legalForm</code></td>
             
 
             <td class="type">
@@ -6412,14 +6369,14 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">a unique number of the application</td>
+            <td class="description last">lessee legal form</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>response.receiverToken</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
@@ -6435,7 +6392,862 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">receiver token (if used in input params), a string, which can be used by a client to ensure that the notification concerns his application</td>
+            <td class="description last">lessee name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phoneNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee phone number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>street</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee street</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>zipCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee zip code</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>manager</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">lessee's manager data
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>birthDate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">lessee's manager birth date (format required: "YYYY-MM-DD")</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>city</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">lessee's manager city</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>faxNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">lessee's manager fax number (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>firstName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">lessee's manager first name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lastName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">lessee's manager last name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phoneNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">lessee's manager phone number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>salutation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">lessee's manager salutation form (result of getSalutations() method)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>street</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">lessee's manager street</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>zipCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">lessee's manager zip code</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>leaseTerm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">lease term (returned from getRates() method)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">name of the object (80 char max)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>paymentMethod</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">payment method (result of getPaymentMethods() method)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>productGroup</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">product group (is a part of "credentials". Can be assigned by Albis only)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>promotionId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">lease term (returned from getRates() if conditions matched any promotion) (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>purchasePrice</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">purchase price (object value)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">rate (returned from getRates() method)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>reference</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">application reference (helper for shop employees) (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>receiverEndpoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">endpoint address where requests about application/documentation updates should be delivered (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>receiverFailEmails</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">array of string emails where info about connection with reveiver endpoint should be delivered (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>receiverToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">a string, which can be used by a client to ensure that the notification concerns his application (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>residualValuePercent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">required if contract type equals 11 (optional)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>serviceFee</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">required if contract type equals 7 or 12 (optional)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>albisToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)</td>
         </tr>
 
     
@@ -6476,7 +7288,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line373">line 373</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line898">line 898</a>
     </li></ul></dd>
     
 
@@ -6516,7 +7328,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ResponseSaveFrameSubApplication">ResponseSaveFrameSubApplication</a></span>
 
 
     </dd>
@@ -6529,13 +7341,14 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Albis.saveApplication(
+    <pre class="prettyprint"><code>Albis.saveFrameSubApplication(
  {
    contactByEmail: true,
    contractType: 1,
    downPayment: 500,
    finalPayment: 150,
    iban: 'DE88100900001234567892',
+   frameApplicationId: 123456
    lessee: {
      name: 'Antonina',
      street: 'Lichtenrade',
@@ -6551,7 +7364,8 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
        street: 'Piłsudskiego',
        zipCode: '50000',
        city: 'Hamburg',
-       birthDate: '1990-12-30'
+       birthDate: '1990-12-30',
+       phoneNumber: '+48500000000',
      },
    },
    leaseTerm: 12,
@@ -6578,7 +7392,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
-    <h4 class="name" id="updateApplication"><span class="type-signature">(async) </span>updateApplication<span class="signature">(values, albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="updateApplication"><span class="type-signature">(async) </span>updateApplication<span class="signature">(values, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseUpdateApplication">ResponseUpdateApplication</a>}</span></h4>
     
 
     
@@ -7281,7 +8095,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
             
 
-            <td class="description last">required if contract type equals 2</td>
+            <td class="description last">required if contract type equals 11</td>
         </tr>
 
     
@@ -7312,98 +8126,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
             
 
             <td class="description last">object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">null</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">null</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.jsonrpc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">"2.0"</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc lib id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.receiverToken</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">receiver token (if used in input params), a string, which can be used by a client to ensure that the notification concerns his application</td>
         </tr>
 
     
@@ -7444,7 +8166,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line468">line 468</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line479">line 479</a>
     </li></ul></dd>
     
 
@@ -7473,7 +8195,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
         
 <div class="param-desc">
-    response - response object
+    response object
 </div>
 
 
@@ -7484,7 +8206,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ResponseUpdateApplication">ResponseUpdateApplication</a></span>
 
 
     </dd>
@@ -7535,7 +8257,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
 
     
-    <h4 class="name" id="uploadDocuments"><span class="type-signature">(async) </span>uploadDocuments<span class="signature">(id, documents, albisToken)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="uploadContractDocuments"><span class="type-signature">(async) </span>uploadContractDocuments<span class="signature">(id, documents, albisToken)</span><span class="type-signature"> &rarr; {<a href="global.html#ResponseUploadContractDocuments">ResponseUploadContractDocuments</a>}</span></h4>
     
 
     
@@ -7543,7 +8265,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
 
 <div class="description">
-    uploadDocuments(applicationId, documents, albisToken) lets to upload application documents
+    uploadContractDocuments(applicationId, documents, albisToken) lets to upload application documents
 </div>
 
 
@@ -7740,75 +8462,6 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>response.id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc lib id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.jsonrpc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">json rpc version number ("2.0")</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>response.result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">an approval message</td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -7846,7 +8499,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line671">line 671</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line726">line 726</a>
     </li></ul></dd>
     
 
@@ -7875,7 +8528,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
         
 <div class="param-desc">
-    response
+    response object
 </div>
 
 
@@ -7886,7 +8539,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ResponseUploadContractDocuments">ResponseUploadContractDocuments</a></span>
 
 
     </dd>
@@ -7899,7 +8552,7 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Albis.uploadDocuments(12345, [{ art: 1, ext: "pdf", "doc": "string created by file encoding using base64" }], { token: '12345' })</code></pre>
+    <pre class="prettyprint"><code>Albis.uploadContractDocuments(12345, [{ art: 1, ext: "pdf", "doc": "string created by file encoding using base64" }], { token: '12345' })</code></pre>
 
 
 
@@ -7919,13 +8572,13 @@ Note: due to security reasons, keep all sensitive data (i.e. APIid, APIsecret, u
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Albis.html">Albis</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Albis.html">Albis</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Wed Mar 31 2021 10:03:37 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Mon Apr 04 2022 15:39:05 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

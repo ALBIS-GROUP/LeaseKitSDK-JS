@@ -289,7 +289,7 @@ class Albis {
    * @param {string} settings.realm - shop owner connection name
    * @param {number} settings.provision - provision - defines how much commission, retailer wants to receives for each deal. Possible values min: 0, max: 5. Default 0. Value in half percentage i.e. 1.5 not 1.65
    * @param {string} settings.SDKendpoint - SDK endpoint
-   * @param {boolean} settings.apiStage - defines proper API Gateway endpoints stage (API version) for requests 
+   * @param {boolean=} settings.apiStage - defines proper API Gateway endpoints stage (API version) for requests (optional)
    *
    * @example
    *
@@ -467,7 +467,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
 }
 
   /**
-   * getRates(values, albisToken) retrieves proposed rates. Returned object is needed for proceed getApplication(albisToken)
+   * getRates(values, albisToken) retrieves proposed rates. Returned object is needed for proceed saveApplication or updateApplication
    *
    * @param {Object} values - An object with data for providing rate offers
    * @param {number} values.purchasePrice - Total net value of the cart [EUR]
@@ -475,6 +475,14 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {number=} values.downPayment - Net value of down payment [EUR]. Default 0 (optional)
    * @param {number} values.contractType - Contract type
    * @param {number} values.paymentMethod - Payment options
+   * @param {number=} values.residualValuePercent - Residual value percent (mandatory if contract type equals 11 (TA))
+   * @param {number=} values.serviceFee - service fee (mandatory if contract type equals 7 or 12)
+   * @param {number=} values.cntbw - amount of black-white pages. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.costbw - cost of black-white pages per page. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.cntclr - amount of colour pages. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.costclr - cost of colour pages per page. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.cntscan - amount of scanned pages. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.costscan - cost of scanned pages per page. Used if service/printers contract type (7 or 12)
    * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
    *
    * @returns {ResponseGetRates} response object
@@ -487,6 +495,55 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   async getRates(values, albisToken) {
     let res = {};
     const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('rate', this.apiStage, this.SDKendpoint);
+
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+        params: {
+          ...values,
+          provision: this.provision,
+        },
+      });
+    } catch (e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
+
+    return res.data;
+  }
+
+  /**
+   * getFrameRates(values, albisToken) retrieves proposed rates for frame application. Returned object is needed for proceed saveApplication or updateApplication
+   *
+   * @param {Object} values - An object with data for providing rate offers
+   * @param {number} values.purchasePrice - Total net value of the cart [EUR]
+   * @param {number} values.productGroup - Product group of chosen products
+   * @param {number=} values.downPayment - Net value of down payment [EUR]. Default 0 (optional)
+   * @param {number} values.contractType - Contract type
+   * @param {number} values.paymentMethod - Payment options
+   * @param {number=} values.residualValueSum - Residual value sum (mandatory if contract type equals 11 (TA))
+   * @param {number=} values.residualValuePercent - Residual value percent (mandatory if contract type equals 11 (TA))
+   * @param {number=} values.serviceFee - service fee (mandatory if contract type equals 7 or 12)
+   * @param {number=} values.cntbw - amount of black-white pages. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.costbw - cost of black-white pages per page. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.cntclr - amount of colour pages. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.costclr - cost of colour pages per page. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.cntscan - amount of scanned pages. Used if service/printers contract type (7 or 12)
+   * @param {number=} values.costscan - cost of scanned pages per page. Used if service/printers contract type (7 or 12)
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {ResponseGetFrameRates} response object
+   *
+   * @example
+   *
+   * Albis.getFrameRates({ purchasePrice: 5000, productGroup: 1, downPayment: 500, contractType: 1, paymentMethod: 1 }, { token: '12345' })
+  */
+
+    async getFrameRates(values, albisToken) {
+    let res = {};
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('frame-rates', this.apiStage, this.SDKendpoint);
 
     try {
       res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
@@ -525,10 +582,10 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {Object} values.lessee.manager - lessee's manager data
    * @param {string} values.lessee.manager.birthDate - lessee's manager birth date (format required: "YYYY-MM-DD")
    * @param {string} values.lessee.manager.city - lessee's manager city
-   * @param {string=} values.lessee.manager.faxNumber - lessee's manager phone number (optional)
+   * @param {string=} values.lessee.manager.faxNumber - lessee's manager fax number (optional)
    * @param {string} values.lessee.manager.firstName - lessee's manager first name
    * @param {string} values.lessee.manager.lastName - lessee's manager last name
-   * @param {string=} values.lessee.manager.phoneNumber - lessee's manager phone number (optional)
+   * @param {string} values.lessee.manager.phoneNumber - lessee's manager phone number
    * @param {number} values.lessee.manager.salutation - lessee's manager salutation form (result of getSalutations() method)
    * @param {string} values.lessee.manager.street - lessee's manager street
    * @param {string} values.lessee.manager.zipCode - lessee's manager zip code
@@ -543,7 +600,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string=} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
    * @param {Array.<String>=} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
    * @param {string=} values.receiverToken - a string, which can be used by a client to ensure that the notification concerns his application (optional)
-   * @param {number=} values.residualValuePercent - required if contract type equals 2 (optional)
+   * @param {number=} values.residualValuePercent - required if contract type equals 11 (optional)
    * @param {number=} values.serviceFee - required if contract type equals 7 or 12 (optional)
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
@@ -573,7 +630,8 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    *        street: 'Piłsudskiego',
    *        zipCode: '50000',
    *        city: 'Hamburg',
-   *        birthDate: '1990-12-30'
+   *        birthDate: '1990-12-30',
+   *        phoneNumber: '+48500000000',
    *      },
    *    },
    *    leaseTerm: 12,
@@ -646,7 +704,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string} values.receiverToken - a string, which can be used by a client to ensure that the notification concerns his application
    * @param {number} values.rate - rate (returned from getRates() method)
    * @param {string} values.reference - application reference (helper for shop employees)
-   * @param {number} values.residualValuePercent - required if contract type equals 2
+   * @param {number} values.residualValuePercent - required if contract type equals 11
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
    * @returns {ResponseUpdateApplication} response object
@@ -730,6 +788,38 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
         },
         params: {
           applicationId: id,
+        },
+      });
+    } catch (e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
+    return res.data
+  }
+
+  /**
+   * cancelApplication(id,  cancelationReason, albisToken) set application status to "canceled"
+   * @param {number} id
+   * @param {number} cancelationReason - id of cancelation reason
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {ResponseCancelApplication} response - An object with application data
+   *
+   * @example
+   * Albis.cancelApplication(54321, 3, { token: '12345' })
+   */
+
+   async cancelApplication(id, cancelationReason, albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('application', this.apiStage, this.SDKendpoint);
+    let res = {}
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+        params: {
+          applicationId: id,
+          cancelationReason
         },
       });
     } catch (e) {
@@ -952,6 +1042,36 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
   }
 
   /**
+   * findFrameApplication(frameApplicationId, albisToken) finds frame application - returns its data
+   * @param {number} frameApplicationId
+   * @param {Object} albisToken - object with Albis token, which lets to communicate with Albis API
+   *
+   * @returns {ResponseFindFrameApplication} response - An object which contains a frame application data
+   *
+   * @example
+   * Albis.findFrameApplication(54321, { token: '12345' })
+   */
+
+   async findFrameApplication(frameApplicationId, albisToken) {
+    const endpoint = Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["getEndpointPath"])('frame-application', this.apiStage, this.SDKendpoint);
+    let res = {}
+    try {
+      res = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(endpoint, {
+        headers: { 
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${albisToken.token}`,
+        },
+        params: {
+          applicationId: frameApplicationId,
+        },
+      });
+    } catch (e) {
+      throw Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["errorObj"])(e)
+    }
+    return res.data
+  }
+
+  /**
    * saveFrameSubApplication(values, albisToken) saves a sub application of the indicated frame application
    * 
    * @param {Object} values - An object with application data
@@ -971,10 +1091,10 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {Object} values.lessee.manager - lessee's manager data
    * @param {string} values.lessee.manager.birthDate - lessee's manager birth date (format required: "YYYY-MM-DD")
    * @param {string} values.lessee.manager.city - lessee's manager city
-   * @param {string=} values.lessee.manager.faxNumber - lessee's manager phone number (optional)
+   * @param {string=} values.lessee.manager.faxNumber - lessee's manager fax number (optional)
    * @param {string} values.lessee.manager.firstName - lessee's manager first name
    * @param {string} values.lessee.manager.lastName - lessee's manager last name
-   * @param {string=} values.lessee.manager.phoneNumber - lessee's manager phone number (optional)
+   * @param {string} values.lessee.manager.phoneNumber - lessee's manager phone number
    * @param {number} values.lessee.manager.salutation - lessee's manager salutation form (result of getSalutations() method)
    * @param {string} values.lessee.manager.street - lessee's manager street
    * @param {string} values.lessee.manager.zipCode - lessee's manager zip code
@@ -989,7 +1109,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    * @param {string=} values.receiverEndpoint - endpoint address where requests about application/documentation updates should be delivered (optional)
    * @param {Array.<String>=} values.receiverFailEmails - array of string emails where info about connection with reveiver endpoint should be delivered (optional)
    * @param {string=} values.receiverToken - a string, which can be used by a client to ensure that the notification concerns his application (optional)
-   * @param {number=} values.residualValuePercent - required if contract type equals 2 (optional)
+   * @param {number=} values.residualValuePercent - required if contract type equals 11 (optional)
    * @param {number=} values.serviceFee - required if contract type equals 7 or 12 (optional)
    * @param {Object} albisToken - object with Albis token, which lets to communicate with SDK API (returned from getAlbisToken() method)
    *
@@ -1020,7 +1140,8 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
    *        street: 'Piłsudskiego',
    *        zipCode: '50000',
    *        city: 'Hamburg',
-   *        birthDate: '1990-12-30'
+   *        birthDate: '1990-12-30',
+   *        phoneNumber: '+48500000000',
    *      },
    *    },
    *    leaseTerm: 12,
@@ -1189,7 +1310,25 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
  *    leaseTerm: 18,
  *    rate: 188.8,
  *    rateWithInsurance: 195.7,
- *    total: 3522.6
+ *    total: 3522.6,
+ *    totalRate: 185.92,
+ *    costPerPage: 0.062
+ *  }
+ */
+
+ /**
+ * @typedef {Object} ResponseGetFrameRates
+ * @property {string} response.id - json rpc lib id
+ * @property {string} response.jsonrpc - json rpc version number ("2.0")
+ * @property {Object[]} response.result - array of objects i.e.
+ *  {
+ *    leaseTerm: 18,
+ *    rate: 188.8,
+ *    rateWithInsurance: 195.7,
+ *    costPerPage: 0.067,
+ *    finalPayment: 1073.11,
+ *    total: 6982.2,
+ *    totalRate: 182.95
  *  }
  */
 
@@ -1276,6 +1415,13 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
  */
 
  /**
+ * @typedef {Object} ResponseCancelApplication
+ * @property {null} response.result - null
+ * @property {string} response.jsonrpc - "2.0"
+ * @property {number} response.id - json rpc lib id
+ */
+
+ /**
  * @typedef {Object} ResponseGetLegalForms
  * @property {string} response.id - json rpc lib id
  * @property {string} response.jsonrpc - json rpc version number ("2.0")
@@ -1351,6 +1497,33 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
  * }
  */ 
 
+/**
+ * @typedef {Object} ResponseFindFrameApplication
+ * @property {string} response.jsonrpc - "2.0"
+ * @property {string} response.id - json rpc lib id
+ * @property {Object} response.result - object with application data
+ * @property {number} response.result.applicationId - application id i.e. 54321
+ * @property {number} response.result.framePurchasePriceSum - a sum of all purchase aldready made under frame application
+ * @property {number} response.result.frameRestSum - remaining purchase value under frame application
+ * @property {Object[]} response.result.contractTypes - a list of contract types, which could be used. Array with objects, i.e.
+   * {
+   *    contractType: 1,
+   *    contractTypeDesc: 'VA-Leasingvertrag',
+   * }
+ * @property {number} response.result.lessee - object with lessee data
+ * @property {string} response.result.lessee.salutation - lessee salutation i.e. "Herr"
+ * @property {string} response.result.lessee.title - lessee title i.e. "POSTDOC"
+ * @property {string} response.result.lessee.firstName - lessee first name i.e. "Marion"
+ * @property {string} response.result.lessee.lastName - lessee last name i.e. "Smith"
+ * @property {string} response.result.lessee.street - lessee street, i.e. 'Fifth Avenue'
+ * @property {string} response.result.lessee.zipCode - lessee zip code, i.e. '50125'
+ * @property {string} response.result.lessee.city - lessee city i.e. 'New York'
+ * @property {string} response.result.lessee.phoneNumber - lessee phone number, i.e. '030 1234 1234'
+ * @property {string} response.result.lessee.mobileNumber - lessee mobile number, i.e. '+49 543 123 123'
+ * @property {string} response.result.lessee.email - lessee email i.e. 'johndoe@gmail.com'
+ * @property {number} response.result.lessee.birthDate - lessee birth date i.e. 1990-03-03 00:00:00
+ */
+
  /**
  * @typedef {Object} ResponseSaveFrameSubApplication
  * @property {string} response.id - json rpc lib id
@@ -1374,6 +1547,7 @@ async changePassword(albisNewPassword, auth0NewPassword, albisToken) {
       leaseTerm: 36,
       rate": 35.50,
       contractType": 1,
+      contractTypeTxt: "VA-Leasingvertrag",
       terminationTerm: 12,
       isInsurance: false,
       hid400: 123456, - salesman id number
