@@ -1,3 +1,3 @@
-https://albis-group.github.io/Documentation/docs/apisdk.html (html doc file)
+Documentation for LeaseKit JS package
 
-https://albis-group.github.io/Documentation/docs/apisdk.txt (swagger doc file)
+https://albis-group.github.io/Documentation/docs/JS-SDK/intro 
