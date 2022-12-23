@@ -85,7 +85,7 @@
 		"handlebars": "^4.7.7",
 		"html-webpack-plugin": "^5.5.0",
 		"husky": "^8.0.2",
-		"jsonwebtoken": "^8.5.1",
+		"jsonwebtoken": "^9.0.0",
 		"lint-staged": "^13.0.3",
 		"lodash": "^4.17.21",
 		"lru-cache": "^7.14.1",
